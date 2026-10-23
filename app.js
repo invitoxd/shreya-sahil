@@ -1,340 +1,489 @@
 
-(() => {
-  const $ = (selector, root = document) => root.querySelector(selector);
-  const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
+document.addEventListener("DOMContentLoaded", () => {
+  // ==========================================
+  // 1. ENVELOPE OPENING
+  // ==========================================
 
-  const opening = $("#openingScreen");
-  const main = $("#mainContent");
-  const scene = $("#envelopeScene");
-  const openButton = $("#openInvitation");
+  const envelopeScreen = document.getElementById("envelopeScreen");
+  const opening = document.querySelector(".opening");
+  const openInvitation = document.getElementById("openInvitation");
+  const waxSeal = document.getElementById("waxSeal");
 
-  // Floating white petals on the opening screen.
-  const petalLayer = $("#petalLayer");
+  let envelopeOpened = false;
 
-  for (let i = 0; i < 17; i++) {
-    const petal = document.createElement("span");
-    petal.className = "petal";
-    petal.style.left = `${Math.random() * 100}%`;
-    petal.style.setProperty("--size", `${7 + Math.random() * 9}px`);
-    petal.style.setProperty("--duration", `${10 + Math.random() * 12}s`);
-    petal.style.setProperty("--delay", `${-Math.random() * 20}s`);
-    petalLayer.appendChild(petal);
+  function openEnvelope() {
+    if (envelopeOpened || !opening) return;
+
+    envelopeOpened = true;
+    opening.classList.add("is-opening");
+
+    // Reveal the invitation card after the envelope opens.
+    window.setTimeout(() => {
+      opening.classList.add("show-reveal");
+    }, 900);
   }
 
-  // Open the envelope, then reveal the website.
-  openButton.addEventListener("click", () => {
-    if (openButton.disabled) return;
+  if (envelopeScreen) {
+    envelopeScreen.addEventListener("click", openEnvelope);
+    envelopeScreen.addEventListener("keydown", (event) => {
+      if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault();
+        openEnvelope();
+      }
+    });
+  }
 
-    openButton.disabled = true;
-    scene.classList.add("opening");
-    openButton.textContent = "WITH LOVE, SHREYA & SAHIL";
+  if (waxSeal) {
+    waxSeal.addEventListener("click", (event) => {
+      event.stopPropagation();
+      openEnvelope();
+    });
+  }
 
-    window.setTimeout(() => {
-      scene.classList.add("opened");
-    }, 850);
+  if (openInvitation) {
+    openInvitation.addEventListener("click", () => {
+      if (!opening) return;
 
-    window.setTimeout(() => {
-      opening.classList.add("is-closing");
-      main.classList.add("is-visible");
-      main.setAttribute("aria-hidden", "false");
-      document.body.classList.remove("locked");
+      opening.classList.add("is-finished");
+      document.body.classList.remove("is-locked");
 
       window.setTimeout(() => {
-        opening.hidden = true;
-      }, 1200);
-    }, 2100);
-  });
+        const home = document.getElementById("home");
+        if (home) {
+          home.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+      }, 250);
+    });
+  }
 
-  // Scratch-to-reveal date cards.
-  function setupScratch(canvas) {
-    const card = canvas.parentElement;
-    const ctx = canvas.getContext("2d", { willReadFrequently: true });
-    let scratching = false;
-    let revealed = false;
+  // ==========================================
+  // 2. WEDDING COUNTDOWN
+  // ==========================================
 
-    function paintCover() {
-      const rect = card.getBoundingClientRect();
-      if (!rect.width || !rect.height) return;
+  const weddingDate = new Date("2027-01-30T00:00:00+05:30");
 
-      const dpr = Math.max(1, window.devicePixelRatio || 1);
-      canvas.width = Math.round(rect.width * dpr);
-      canvas.height = Math.round(rect.height * dpr);
-      canvas.style.width = `${rect.width}px`;
-      canvas.style.height = `${rect.height}px`;
+  const countdownElements = {
+    days: document.getElementById("days"),
+    hours: document.getElementById("hours"),
+    minutes: document.getElementById("minutes"),
+    seconds: document.getElementById("seconds"),
+  };
 
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  function updateCountdown() {
+    const now = Date.now();
+    const difference = weddingDate.getTime() - now;
 
-      const gradient = ctx.createLinearGradient(0, 0, rect.width, rect.height);
-      gradient.addColorStop(0, "#dce6ee");
-      gradient.addColorStop(0.5, "#c5d4e0");
-      gradient.addColorStop(1, "#e5edf3");
-
-      ctx.globalCompositeOperation = "source-over";
-      ctx.fillStyle = gradient;
-      ctx.fillRect(0, 0, rect.width, rect.height);
-
-      ctx.fillStyle = "rgba(255,255,255,.75)";
-      ctx.font = "10px DM Sans, sans-serif";
-      ctx.textAlign = "center";
-      ctx.fillText("SCRATCH TO REVEAL", rect.width / 2, rect.height / 2 + 4);
-
-      ctx.globalCompositeOperation = "destination-out";
-      revealed = false;
-      canvas.classList.remove("revealed");
+    if (difference <= 0) {
+      Object.values(countdownElements).forEach((element) => {
+        if (element) element.textContent = "00";
+      });
+      return;
     }
 
-    function reveal() {
-      revealed = true;
-      canvas.classList.add("revealed");
+    const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+    const hours = Math.floor(
+      (difference / (1000 * 60 * 60)) % 24
+    );
+    const minutes = Math.floor(
+      (difference / (1000 * 60)) % 60
+    );
+    const seconds = Math.floor((difference / 1000) % 60);
+
+    if (countdownElements.days) {
+      countdownElements.days.textContent = String(days).padStart(2, "0");
+    }
+
+    if (countdownElements.hours) {
+      countdownElements.hours.textContent = String(hours).padStart(2, "0");
+    }
+
+    if (countdownElements.minutes) {
+      countdownElements.minutes.textContent = String(minutes).padStart(2, "0");
+    }
+
+    if (countdownElements.seconds) {
+      countdownElements.seconds.textContent = String(seconds).padStart(2, "0");
+    }
+  }
+
+  updateCountdown();
+  window.setInterval(updateCountdown, 1000);
+
+  // ==========================================
+  // 3. SCRATCH-TO-REVEAL DATE CARDS
+  // ==========================================
+
+  document.querySelectorAll(".scratch-card").forEach((card) => {
+    const canvas = card.querySelector(".scratch-canvas");
+    if (!canvas) return;
+
+    const context = canvas.getContext("2d");
+    if (!context) return;
+
+    let isScratching = false;
+    let scratchedAway = false;
+
+    function setupCanvas() {
+      const rect = card.getBoundingClientRect();
+      const width = Math.max(1, Math.round(rect.width));
+      const height = Math.max(1, Math.round(rect.height));
+
+      if (!width || !height) return;
+
+      const pixelRatio = Math.min(window.devicePixelRatio || 1, 2);
+
+      canvas.width = Math.round(width * pixelRatio);
+      canvas.height = Math.round(height * pixelRatio);
+      canvas.style.width = `${width}px`;
+      canvas.style.height = `${height}px`;
+
+      context.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
+      context.globalCompositeOperation = "source-over";
+
+      const gradient = context.createLinearGradient(0, 0, width, height);
+      gradient.addColorStop(0, "#a8bbc9");
+      gradient.addColorStop(0.5, "#718da4");
+      gradient.addColorStop(1, "#d3dce2");
+
+      context.fillStyle = gradient;
+      context.fillRect(0, 0, width, height);
+
+      // A subtle decorative texture.
+      context.fillStyle = "rgba(255,255,255,0.13)";
+
+      for (let i = 0; i < 70; i++) {
+        const x = Math.random() * width;
+        const y = Math.random() * height;
+        context.beginPath();
+        context.arc(x, y, Math.random() * 1.5 + 0.3, 0, Math.PI * 2);
+        context.fill();
+      }
+
+      context.globalCompositeOperation = "destination-out";
+      scratchedAway = false;
+      card.classList.remove("is-revealed");
+    }
+
+    function getPosition(event) {
+      const rect = canvas.getBoundingClientRect();
+
+      let clientX;
+      let clientY;
+
+      if (event.touches && event.touches.length) {
+        clientX = event.touches[0].clientX;
+        clientY = event.touches[0].clientY;
+      } else {
+        clientX = event.clientX;
+        clientY = event.clientY;
+      }
+
+      return {
+        x: clientX - rect.left,
+        y: clientY - rect.top,
+      };
     }
 
     function scratch(event) {
-      if (!scratching || revealed) return;
+      if (!isScratching || scratchedAway) return;
 
-      const rect = canvas.getBoundingClientRect();
-      const x = event.clientX - rect.left;
-      const y = event.clientY - rect.top;
+      const position = getPosition(event);
 
-      ctx.beginPath();
-      ctx.arc(x, y, 17, 0, Math.PI * 2);
-      ctx.fill();
+      context.beginPath();
+      context.arc(position.x, position.y, 23, 0, Math.PI * 2);
+      context.fill();
 
-      try {
-        const pixels = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
-        let clear = 0;
-        const total = Math.max(1, Math.floor(pixels.length / 4 / 100));
+      // Reveal the card once enough of the surface has been scratched.
+      const pixels = context.getImageData(
+        0,
+        0,
+        canvas.width,
+        canvas.height
+      ).data;
 
-        for (let i = 3; i < pixels.length; i += 400) {
-          if (pixels[i] < 30) clear++;
-        }
+      let transparentPixels = 0;
+      let totalPixels = 0;
+      const sampleStep = 32;
 
-        if (clear / total > 0.48) reveal();
-      } catch (_) {
-        // Scratching still works if pixel inspection is unavailable.
+      for (let i = 3; i < pixels.length; i += sampleStep * 4) {
+        totalPixels++;
+        if (pixels[i] < 80) transparentPixels++;
+      }
+
+      if (totalPixels && transparentPixels / totalPixels > 0.42) {
+        revealScratchCard();
       }
     }
 
-    canvas.addEventListener("pointerdown", event => {
-      scratching = true;
+    function revealScratchCard() {
+      scratchedAway = true;
+      isScratching = false;
+      card.classList.add("is-revealed");
+      canvas.style.transition = "opacity 450ms ease";
+      canvas.style.opacity = "0";
+      canvas.style.pointerEvents = "none";
+    }
+
+    canvas.addEventListener("pointerdown", (event) => {
+      if (scratchedAway) return;
+      isScratching = true;
       canvas.setPointerCapture?.(event.pointerId);
       scratch(event);
     });
 
     canvas.addEventListener("pointermove", scratch);
 
-    ["pointerup", "pointercancel", "pointerleave"].forEach(name => {
-      canvas.addEventListener(name, () => scratching = false);
+    canvas.addEventListener("pointerup", () => {
+      isScratching = false;
     });
 
-    const resizeObserver = new ResizeObserver(() => {
-      if (!revealed) paintCover();
+    canvas.addEventListener("pointercancel", () => {
+      isScratching = false;
     });
 
-    resizeObserver.observe(card);
-    paintCover();
-
-    return { reveal, reset: paintCover };
-  }
-
-  const scratchers = $$(".scratch-canvas").map(setupScratch);
-
-  $("#revealDate").addEventListener("click", () => {
-    scratchers.forEach(item => item.reveal());
+    setupCanvas();
   });
 
-  // Countdown to 30 January 2027, using India Standard Time.
-  const weddingDate = new Date("2027-01-30T00:00:00+05:30").getTime();
+  // ==========================================
+  // 4. WARDROBE STUDIO EVENT TABS
+  // ==========================================
 
-  function updateCountdown() {
-    let remaining = Math.max(0, weddingDate - Date.now());
+  const eventTabs = document.querySelectorAll("[data-event]");
+  const outfitNote = document.getElementById("outfitNote");
+  const saveLook = document.getElementById("saveLook");
 
-    const days = Math.floor(remaining / 86400000);
-    remaining %= 86400000;
+  let activeEvent = "haldi";
 
-    const hours = Math.floor(remaining / 3600000);
-    remaining %= 3600000;
-
-    const minutes = Math.floor(remaining / 60000);
-    remaining %= 60000;
-
-    const seconds = Math.floor(remaining / 1000);
-
-    $("#days").textContent = String(days).padStart(2, "0");
-    $("#hours").textContent = String(hours).padStart(2, "0");
-    $("#minutes").textContent = String(minutes).padStart(2, "0");
-    $("#seconds").textContent = String(seconds).padStart(2, "0");
-  }
-
-  updateCountdown();
-  window.setInterval(updateCountdown, 1000);
-
-  // Wardrobe event tabs.
-  const wardrobe = {
+  const outfitSuggestions = {
     haldi: {
-      day: "SATURDAY · 30 JANUARY",
-      title: "Haldi",
-      meta: "1:00 PM onwards · Coconut Grove",
-      style: "Beachside festive chic",
-      description: "Think breezy fabrics, relaxed silhouettes and a little sunshine. Choose something comfortable for an outdoor celebration.",
-      colors: [
-        ["#e8d5a5", "Soft gold"],
-        ["#f5ead9", "Ivory"],
-        ["#c4d5df", "Sea mist"],
-        ["#c8b4a4", "Sand"]
-      ]
+      title: "Haldi — Beachside Festive Chic",
+      ideas: [
+        "A breezy co-ord set or a flowing festive outfit",
+        "Comfortable sandals suitable for the lawn",
+        "Lightweight jewellery and sunglasses",
+        "An outfit that feels easy in Goa's warm weather",
+      ],
     },
     cocktail: {
-      day: "SATURDAY · 30 JANUARY",
-      title: "Cocktail",
-      meta: "6:30 PM onwards · Varca Ballroom",
-      style: "Black tie glamour",
-      description: "Polished eveningwear, elegant tailoring and refined accessories. A little shimmer is welcome.",
-      colors: [
-        ["#20242b", "Midnight"],
-        ["#7b8795", "Slate"],
-        ["#c8b7a1", "Champagne"],
-        ["#d9dce1", "Silver"]
-      ]
+      title: "Cocktail — Black Tie Glamour",
+      ideas: [
+        "A formal gown, elegant dress, or tailored evening outfit",
+        "Dress shoes or comfortable formal heels",
+        "Statement earrings or understated evening jewellery",
+        "A light wrap for the journey back to your room",
+      ],
     },
     chooda: {
-      day: "SUNDAY · 31 JANUARY",
       title: "Chooda Ceremony",
-      meta: "10:00 AM onwards · Lawns",
-      style: "Traditional festive",
-      description: "Celebrate the morning in traditional festive attire, light layers and comfortable footwear for the lawns.",
-      colors: [
-        ["#d9a3ad", "Rose"],
-        ["#f0dfc4", "Cream"],
-        ["#b9c8b6", "Sage"],
-        ["#d6b45e", "Gold"]
-      ]
+      ideas: [
+        "A graceful Indian festive outfit",
+        "Comfortable footwear for the morning ceremony",
+        "Light jewellery and a small essentials pouch",
+      ],
     },
     wedding: {
-      day: "SUNDAY · 31 JANUARY",
-      title: "Wedding & Pheras",
-      meta: "2:00 PM onwards · Beach venue",
-      style: "Ivory & gold",
-      description: "Soft ivory, warm gold and graceful silhouettes for a beautiful seaside ceremony. Consider the beach setting when choosing footwear.",
-      colors: [
-        ["#f2eadb", "Ivory"],
-        ["#d6bd82", "Gold"],
-        ["#d8dfe4", "Pearl"],
-        ["#aebfcb", "Blue-grey"]
-      ]
+      title: "Wedding — Ivory & Gold",
+      ideas: [
+        "An elegant ivory, gold, or wedding-appropriate festive outfit",
+        "Dressy footwear suitable for the beach venue",
+        "Jewellery that works comfortably throughout the ceremony",
+        "Consider the beach setting when choosing your footwear",
+      ],
     },
     afterparty: {
-      day: "SUNDAY · 31 JANUARY",
-      title: "Afterparty",
-      meta: "7:00 PM onwards · Varca Ballroom",
-      style: "Bollywood after-dark glam",
-      description: "Go bold with party-ready silhouettes, statement details and comfortable dancing shoes.",
-      colors: [
-        ["#24232d", "Midnight"],
-        ["#8a657b", "Berry"],
-        ["#bda3bf", "Mauve"],
-        ["#c8b06c", "Antique gold"]
-      ]
-    }
+      title: "Afterparty — Bollywood After-Dark Glam",
+      ideas: [
+        "A glamorous party outfit you can dance in",
+        "Comfortable party shoes",
+        "A small bag for your phone and essentials",
+        "Optional statement accessories for the evening",
+      ],
+    },
   };
 
-  const notes = $("#outfitNotes");
-  const noteKey = "shreyaSahilOutfitNotes";
-  let activeWardrobe = "haldi";
+  function showOutfit(eventName) {
+    activeEvent = eventName;
 
-  function loadNotes(key) {
-    try {
-      return JSON.parse(localStorage.getItem(noteKey) || "{}")[key] || "";
-    } catch (_) {
-      return "";
-    }
-  }
-
-  function saveNotes(key, value) {
-    try {
-      const all = JSON.parse(localStorage.getItem(noteKey) || "{}");
-      all[key] = value;
-      localStorage.setItem(noteKey, JSON.stringify(all));
-      $("#saveStatus").textContent = "Saved on this device.";
-    } catch (_) {
-      $("#saveStatus").textContent = "Notes will stay here while this page is open.";
-    }
-  }
-
-  function showWardrobe(key) {
-    activeWardrobe = key;
-    const item = wardrobe[key];
-
-    $("#wardrobeDay").textContent = item.day;
-    $("#wardrobeTitle").textContent = item.title;
-    $("#wardrobeMeta").textContent = item.meta;
-    $("#wardrobeStyle").textContent = item.style;
-    $("#wardrobeDescription").textContent = item.description;
-
-    $("#wardrobeSwatches").replaceChildren(
-      ...item.colors.map(([color, label]) => {
-        const swatch = document.createElement("span");
-        swatch.style.setProperty("--swatch", color);
-        swatch.textContent = label;
-        return swatch;
-      })
-    );
-
-    notes.value = loadNotes(key);
-
-    $$(".wardrobe-tab").forEach(tab => {
-      const selected = tab.dataset.event === key;
+    eventTabs.forEach((tab) => {
+      const selected = tab.dataset.event === eventName;
       tab.classList.toggle("active", selected);
-      tab.setAttribute("aria-selected", String(selected));
+      tab.setAttribute("aria-pressed", String(selected));
+    });
+
+    const suggestion = outfitSuggestions[eventName];
+
+    const outfitTitle = document.getElementById("outfitTitle");
+    const outfitIdeas = document.getElementById("outfitIdeas");
+
+    if (suggestion && outfitTitle) {
+      outfitTitle.textContent = suggestion.title;
+    }
+
+    if (suggestion && outfitIdeas) {
+      outfitIdeas.replaceChildren();
+
+      suggestion.ideas.forEach((idea) => {
+        const item = document.createElement("li");
+        item.textContent = idea;
+        outfitIdeas.appendChild(item);
+      });
+    }
+
+    if (outfitNote) {
+      try {
+        outfitNote.value =
+          localStorage.getItem(`shreyaSahilNote_${eventName}`) || "";
+      } catch (error) {
+        outfitNote.value = "";
+      }
+    }
+
+    if (saveLook) {
+      saveLook.textContent = "Save my notes";
+    }
+  }
+
+  eventTabs.forEach((tab) => {
+    tab.addEventListener("click", () => {
+      showOutfit(tab.dataset.event);
+    });
+  });
+
+  if (saveLook && outfitNote) {
+    saveLook.addEventListener("click", () => {
+      try {
+        localStorage.setItem(
+          `shreyaSahilNote_${activeEvent}`,
+          outfitNote.value
+        );
+        saveLook.textContent = "Notes saved ✓";
+      } catch (error) {
+        saveLook.textContent = "Unable to save on this device";
+      }
     });
   }
 
-  $$(".wardrobe-tab").forEach(tab => {
-    tab.addEventListener("click", () => showWardrobe(tab.dataset.event));
-  });
+  if (eventTabs.length) {
+    const initiallyActive =
+      document.querySelector("[data-event].active") || eventTabs[0];
+    showOutfit(initiallyActive.dataset.event);
+  }
 
-  notes.addEventListener("input", () => {
-    saveNotes(activeWardrobe, notes.value);
-  });
+  // ==========================================
+  // 5. PACKING CHECKLIST
+  // ==========================================
 
-  showWardrobe("haldi");
+  const packingItems = document.querySelectorAll("[data-pack]");
+  const packingPercent = document.getElementById("packingPercent");
+  const packingProgress = document.getElementById("packingProgress");
+  const resetChecklist = document.getElementById("resetChecklist");
 
-  // Packing checklist with locally saved progress.
-  const packingKey = "shreyaSahilPacking";
-  let savedPacking = {};
+  const packingStorageKey = "shreyaSahilPackingChecklist";
 
-  try {
-    savedPacking = JSON.parse(localStorage.getItem(packingKey) || "{}");
-  } catch (_) {}
-
-  const checks = $$('#packingList input[type="checkbox"]');
-
-  function updatePacking(save = true) {
-    const done = checks.filter(check => check.checked).length;
-
-    $("#packingCount").textContent = `${done} of ${checks.length}`;
-    $("#packingBar").style.width = `${done / checks.length * 100}%`;
-
-    if (save) {
-      try {
-        localStorage.setItem(
-          packingKey,
-          JSON.stringify(
-            Object.fromEntries(checks.map(check => [check.value, check.checked]))
-          )
-        );
-      } catch (_) {}
+  function readPackingState() {
+    try {
+      return JSON.parse(localStorage.getItem(packingStorageKey) || "{}");
+    } catch (error) {
+      return {};
     }
   }
 
-  checks.forEach(check => {
-    check.checked = Boolean(savedPacking[check.value]);
-    check.addEventListener("change", () => updatePacking());
+  function updatePackingProgress() {
+    const checkedCount = [...packingItems].filter(
+      (item) => item.checked
+    ).length;
+
+    const percentage = packingItems.length
+      ? Math.round((checkedCount / packingItems.length) * 100)
+      : 0;
+
+    if (packingPercent) {
+      packingPercent.textContent = `${percentage}%`;
+    }
+
+    if (packingProgress) {
+      packingProgress.style.width = `${percentage}%`;
+      packingProgress.setAttribute("aria-valuenow", String(percentage));
+    }
+  }
+
+  function savePackingState() {
+    const state = {};
+
+    packingItems.forEach((item, index) => {
+      state[item.value || item.dataset.pack || String(index)] = item.checked;
+    });
+
+    try {
+      localStorage.setItem(packingStorageKey, JSON.stringify(state));
+    } catch (error) {
+      // The checklist will still work until the page is refreshed.
+    }
+
+    updatePackingProgress();
+  }
+
+  const savedPackingState = readPackingState();
+
+  packingItems.forEach((item, index) => {
+    const key = item.value || item.dataset.pack || String(index);
+
+    if (Object.prototype.hasOwnProperty.call(savedPackingState, key)) {
+      item.checked = Boolean(savedPackingState[key]);
+    }
+
+    item.addEventListener("change", savePackingState);
   });
 
-  updatePacking(false);
+  updatePackingProgress();
 
-  $("#resetPacking").addEventListener("click", () => {
-    checks.forEach(check => check.checked = false);
-    updatePacking();
-  });
-})();
+  if (resetChecklist) {
+    resetChecklist.addEventListener("click", () => {
+      packingItems.forEach((item) => {
+        item.checked = false;
+      });
+
+      savePackingState();
+    });
+  }
+
+  // ==========================================
+  // 6. OPTIONAL BACKGROUND MUSIC
+  // ==========================================
+
+  const music = document.getElementById("backgroundMusic");
+  const musicToggle = document.getElementById("musicToggle");
+
+  if (music && musicToggle) {
+    musicToggle.addEventListener("click", async () => {
+      if (music.paused) {
+        try {
+          await music.play();
+          musicToggle.textContent = "Pause music";
+          musicToggle.setAttribute("aria-pressed", "true");
+        } catch (error) {
+          musicToggle.textContent = "Tap to play music";
+        }
+      } else {
+        music.pause();
+        musicToggle.textContent = "Play music";
+        musicToggle.setAttribute("aria-pressed", "false");
+      }
+    });
+
+    music.addEventListener("ended", () => {
+      musicToggle.textContent = "Play music";
+      musicToggle.setAttribute("aria-pressed", "false");
+    });
+  }
+
+  // ==========================================
+  // 7. CURRENT YEAR (IF USED IN FOOTER)
+  // ==========================================
+
+  const currentYear = document.getElementById("currentYear");
+
+  if (currentYear) {
+    currentYear.textContent = new Date().getFullYear();
+  }
+});
