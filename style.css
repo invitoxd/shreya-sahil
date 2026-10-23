@@ -1,17 +1,13 @@
-/* Base Styles & Custom Fonts */
+/* Base Layout & Color Palette */
 body {
     font-family: 'Montserrat', sans-serif;
-    background-color: #f4f8fc;
+    background-color: #f2f7fc;
     color: #0f1e2e;
     overflow-x: hidden;
 }
 
-.font-script { 
-    font-family: 'Alex Brush', cursive; 
-}
-
-.font-script-alt { 
-    font-family: 'Pinyon Script', cursive; 
+.font-script-dec { 
+    font-family: 'Cinzel Decorative', serif; 
 }
 
 .font-serif { 
@@ -22,7 +18,35 @@ body {
     font-family: 'Cormorant Garamond', serif; 
 }
 
-/* Floating Petal Animation */
+.font-playfair { 
+    font-family: 'Playfair Display', serif; 
+}
+
+/* Gradient Text for Cool-Toned Names */
+.cool-gradient-text {
+    background: linear-gradient(135deg, #ffffff 0%, #d8e6f5 50%, #b0cded 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.cool-gradient-text-dark {
+    background: linear-gradient(135deg, #0f1e2e 0%, #1e3a5f 50%, #31588a 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* Hero Background Motion Physics */
+@keyframes heroMotion {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+.animate-hero-motion {
+    animation: heroMotion 20s ease-in-out infinite alternate;
+}
+
+/* Floating Petals & Light Dust */
 @keyframes floatPetals {
     0% { 
         transform: translateY(-10vh) translateX(0) rotate(0deg); 
@@ -48,9 +72,9 @@ body {
     pointer-events: none;
 }
 
-/* Envelope Animation Dynamics */
+/* Envelope Interactive Mechanics */
 #envelope-screen {
-    transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .envelope-open .flap {
