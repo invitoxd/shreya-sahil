@@ -4,346 +4,299 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#dce6ee">
-  <title>Shreya & Sahil | Goa Wedding</title>
+  <meta name="theme-color" content="#eaf2fa">
+  <meta name="description" content="A wedding invitation celebrating Shreya and Sahil, 30–31 January 2027, at Caravela Beach Resort, Goa.">
+  <title>Shreya & Sahil | Our Wedding</title>
+  <link rel="stylesheet" href="style.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
-<body class="sealed">
+<body class="locked">
 
-<!-- FULL-SCREEN ENVELOPE OPENING -->
-<section class="opening" id="opening">
-  <button class="envelope-screen" id="envelopeScreen" aria-label="Open wedding invitation">
-    <div class="paper-grain"></div>
-    <div class="envelope-back"></div>
+  <!-- ENVELOPE OPENING -->
+  <section class="opening" id="opening">
+    <div class="envelope-screen" id="envelopeScreen">
+      <div class="opening-photo"></div>
+      <div class="opening-shade"></div>
+      <div class="petals" aria-hidden="true">
+        <span>✿</span><span>❀</span><span>✧</span>
+        <span>✿</span><span>❀</span><span>✧</span>
+      </div>
 
-    <!-- Invitation card that slides out -->
-    <div class="invitation-card" id="invitationCard">
-      <p class="card-monogram">S <span>&</span> S</p>
-      <p class="card-small">TOGETHER WITH THEIR FAMILIES</p>
-      <p class="card-intro">Joyfully invite you to celebrate the wedding of</p>
-      <h1>Shreya <span>&</span> Sahil</h1>
-      <div class="card-divider"></div>
-      <p class="card-date">30 — 31 JANUARY 2027</p>
-      <p class="card-place">Caravela Beach Resort · Goa</p>
-      <p class="card-footer">A little invitation, a lifetime of memories.</p>
-    </div>
+      <div class="opening-heading">
+        <p class="eyebrow">A WEDDING INVITATION</p>
+        <h1>Shreya <span>&</span> Sahil</h1>
+        <p class="opening-date">30 — 31 JANUARY 2027 · GOA</p>
+      </div>
 
-    <!-- Envelope folds -->
-    <div class="envelope-flap"></div>
-    <div class="envelope-front-left"></div>
-    <div class="envelope-front-right"></div>
-    <div class="envelope-front-bottom"></div>
-
-    <button class="wax-seal" id="waxSeal" aria-label="Open the invitation">
-      <span>♥</span>
-    </button>
-    <p class="envelope-prompt" id="envelopePrompt">TAP THE SEAL TO OPEN</p>
-  </button>
-
-  <!-- Revealed Goa invitation -->
-  <div class="revealed-invitation" id="revealedInvitation">
-    <div class="reveal-photo"></div>
-    <div class="reveal-shade"></div>
-    <div class="petals" aria-hidden="true">
-      <span>✧</span><span>✦</span><span>✧</span>
-      <span>✦</span><span>✧</span><span>✦</span>
-      <span>✧</span><span>✦</span>
-    </div>
-    <div class="revealed-copy">
-      <p class="reveal-eyebrow">TOGETHER WITH THEIR FAMILIES</p>
-      <p class="reveal-intro">You are cordially invited to celebrate the wedding of</p>
-      <h2>Shreya <span>&</span> Sahil</h2>
-      <p class="reveal-date">30 — 31 JANUARY 2027 · GOA</p>
-      <p class="reveal-venue">Caravela Beach Resort</p>
-      <button class="open-button" id="openInvitation">
-        EXPLORE THE INVITATION ↓
+      <button class="envelope-button" id="openEnvelope"
+        aria-label="Open the wedding invitation">
+        <span class="envelope-back"></span>
+        <span class="envelope-letter">
+          <span class="letter-names">S <span>&</span> S</span>
+          <span class="letter-caption">Together with our families</span>
+          <span class="letter-caption">invite you to celebrate</span>
+        </span>
+        <span class="envelope-flap"></span>
+        <span class="envelope-front"></span>
+        <span class="wax-seal">S<span>&</span>S</span>
       </button>
-      <p class="reveal-footer">A little invitation, a lifetime of memories.</p>
+
+      <p class="tap-note">Tap the seal to open your invitation</p>
     </div>
-  </div>
-</section>
 
-<!-- NAVIGATION -->
-<header class="site-header">
-  <a class="brand" href="#home">S <i>&</i> S</a>
-  <nav>
-    <a href="#the-date">THE DATE</a>
-    <a href="#celebrations">CELEBRATIONS</a>
-    <a href="#wardrobe">WARDROBE</a>
-    <a href="#venue">VENUE GUIDE</a>
-  </nav>
-  <a class="header-date" href="#rsvp">RSVP ↗</a>
-</header>
+    <div class="opening-reveal" id="openingReveal">
+      <p class="eyebrow">WITH LOVE, WE INVITE YOU</p>
+      <h2>Two hearts.<br>One beautiful beginning.</h2>
+      <p>Join us by the sea as we begin our forever.</p>
+      <button class="primary-button" id="enterInvitation">Enter the invitation <span>↗</span></button>
+    </div>
+  </section>
 
-<main>
-  <!-- WEDDING INTRODUCTION -->
-  <section class="hero" id="home">
-    <div class="hero-photo"></div>
-    <div class="hero-overlay"></div>
-    <div class="hero-content">
-      <p class="eyebrow">TWO HEARTS · ONE BEAUTIFUL BEGINNING</p>
-      <p class="blessing">With love and joy,</p>
-      <h1>Shreya <span>&</span> Sahil</h1>
-      <p class="hero-tagline">A destination wedding in Goa</p>
-      <div class="hero-date">
-        <span>30 JANUARY 2027</span><i>✦</i><span>31 JANUARY 2027</span>
+  <!-- MAIN INVITATION -->
+  <main id="mainContent" class="main-content">
+
+    <header class="site-header">
+      <a href="#home" class="monogram">S <span>&</span> S</a>
+      <nav aria-label="Main navigation">
+        <a href="#invitation">Invitation</a>
+        <a href="#celebrations">Celebrations</a>
+        <a href="#wardrobe">Wardrobe</a>
+        <a href="#venue">Venue</a>
+        <a href="#rsvp">RSVP</a>
+      </nav>
+    </header>
+
+    <!-- INVITATION -->
+    <section class="hero section" id="home">
+      <div class="hero-orbit orbit-one"></div>
+      <div class="hero-orbit orbit-two"></div>
+      <p class="eyebrow">THE WEDDING OF</p>
+      <h1>Shreya <span class="ampersand">&</span><br>Sahil</h1>
+      <div class="fine-line"></div>
+      <p class="hero-message">With our families by our side,<br>we invite you to celebrate our love.</p>
+      <p class="hero-date">30 — 31 JANUARY 2027</p>
+      <p class="hero-place">Caravela Beach Resort · Goa</p>
+      <a href="#invitation" class="text-link">Read our invitation ↓</a>
+    </section>
+
+    <section class="invitation section" id="invitation">
+      <div class="section-label">01 / THE INVITATION</div>
+      <div class="invitation-card">
+        <p class="eyebrow">TO OUR FAVOURITE PEOPLE</p>
+        <h2>Some moments become<br>memories. Some become forever.</h2>
+        <p class="body-copy">
+          With full hearts and immense joy, we invite you to be part of
+          the beginning of our forever. Join us for two days of love,
+          laughter, celebrations and unforgettable memories by the sea.
+        </p>
+        <p class="signature">With love, Shreya & Sahil</p>
+        <div class="invitation-bottom">CARAVELA BEACH RESORT · GOA</div>
       </div>
-      <p class="hero-location">CARAVELA BEACH RESORT · GOA, INDIA</p>
-      <a class="text-link" href="#the-date">SCROLL TO EXPLORE ↓</a>
-    </div>
-  </section>
+    </section>
 
-  <!-- SCRATCH TO REVEAL -->
-  <section class="scratch-section" id="the-date">
-    <p class="eyebrow">A LITTLE SURPRISE</p>
-    <h2>Scratch to reveal <em>the date</em></h2>
-    <p class="scratch-instruction">Gently use your finger to reveal our special day.</p>
-    <div class="scratch-cards">
-      <div class="scratch-card">
-        <span class="scratch-reveal">30 JANUARY</span>
-        <canvas class="scratch-canvas" aria-label="Scratch to reveal January 30"></canvas>
+    <!-- SCRATCH DATE -->
+    <section class="date-section section" id="dateReveal">
+      <div class="section-label">02 / SAVE THE DATE</div>
+      <p class="eyebrow">A LITTLE SURPRISE</p>
+      <h2>Our forever begins on…</h2>
+      <p class="muted-copy">Scratch the card below to reveal our wedding date.</p>
+      <div class="scratch-card" id="scratchCard">
+        <div class="scratch-under">
+          <span class="eyebrow">THE WEDDING DAY</span>
+          <strong>31</strong>
+          <span>JANUARY 2027</span>
+          <span class="scratch-location">GOA, INDIA</span>
+        </div>
+        <canvas id="scratchCanvas" aria-label="Scratch to reveal the wedding date"></canvas>
       </div>
-      <div class="scratch-card">
-        <span class="scratch-reveal">2027 · GOA</span>
-        <canvas class="scratch-canvas" aria-label="Scratch to reveal 2027 Goa"></canvas>
+      <p class="scratch-hint" id="scratchHint">Use your finger or mouse to scratch away the silver-blue layer.</p>
+    </section>
+
+    <!-- COUNTDOWN -->
+    <section class="countdown-section section">
+      <div class="section-label">03 / COUNTING DOWN</div>
+      <p class="eyebrow">UNTIL WE SAY “I DO”</p>
+      <h2>Every second brings us closer.</h2>
+      <div class="countdown" id="countdown">
+        <div class="countdown-unit"><strong id="days">000</strong><span>DAYS</span></div>
+        <div class="countdown-unit"><strong id="hours">00</strong><span>HOURS</span></div>
+        <div class="countdown-unit"><strong id="minutes">00</strong><span>MINUTES</span></div>
+        <div class="countdown-unit"><strong id="seconds">00</strong><span>SECONDS</span></div>
       </div>
-    </div>
-  </section>
+      <p class="muted-copy">31 January 2027 · 2:00 PM onwards</p>
+    </section>
 
-  <!-- INVITATION -->
-  <section class="invitation paper-section" id="invitation">
-    <span class="ornament">✧</span>
-    <p class="eyebrow">THE BEGINNING OF OUR FOREVER</p>
-    <h2>A little love,<br><em>a lifetime together.</em></h2>
-    <p class="intro-copy">
-      Together with our families, we would love for you to join us
-      for two days of love, laughter, sunshine and celebration.
-    </p>
-    <div class="couple-names">
-      <div><h3>Shreya</h3><p>THE BRIDE</p></div>
-      <span class="ampersand">&</span>
-      <div><h3>Sahil</h3><p>THE GROOM</p></div>
-    </div>
-    <div class="date-plaque">
-      <span>PLEASE SAVE THE DATES</span>
-      <strong>30 <i>—</i> 31</strong>
-      <b>JANUARY 2027</b>
-      <small>CARAVELA BEACH RESORT · GOA, INDIA</small>
-    </div>
-  </section>
+    <!-- ITINERARY -->
+    <section class="celebrations section" id="celebrations">
+      <div class="section-label">04 / THE CELEBRATIONS</div>
+      <p class="eyebrow">TWO DAYS OF LOVE & LAUGHTER</p>
+      <h2>Our wedding itinerary</h2>
+      <p class="muted-copy">Come for the celebrations. Stay for the memories.</p>
 
-  <!-- COUNTDOWN -->
-  <section class="countdown-section">
-    <p class="eyebrow">THE COUNTDOWN TO FOREVER</p>
-    <h2>See you in the sunshine.</h2>
-    <div class="countdown">
-      <div><strong id="days">000</strong><span>DAYS</span></div>
-      <i>:</i>
-      <div><strong id="hours">00</strong><span>HOURS</span></div>
-      <i>:</i>
-      <div><strong id="minutes">00</strong><span>MINUTES</span></div>
-      <i>:</i>
-      <div><strong id="seconds">00</strong><span>SECONDS</span></div>
-    </div>
-  </section>
+      <div class="day-heading">
+        <span>DAY ONE</span>
+        <h3>Saturday, 30 January 2027</h3>
+      </div>
 
-  <!-- EVENT ITINERARY -->
-  <section class="celebrations paper-section" id="celebrations">
-    <p class="eyebrow">TWO DAYS · A THOUSAND MEMORIES</p>
-    <h2>The wedding <em>weekend</em></h2>
-    <p class="section-intro">Come for the celebrations, stay for the memories.</p>
-
-    <div class="day-heading">
-      <span>DAY ONE</span>
-      <h3>Saturday, 30 January 2027</h3>
-    </div>
-
-    <div class="event-grid">
       <article class="event-card">
-        <span class="event-number">01</span>
-        <p class="eyebrow">SUNSHINE & SUNDOWN</p>
-        <h4>Haldi</h4>
-        <p class="event-time">1 PM onwards</p>
-        <div class="event-rule"></div>
-        <p class="event-place">Coconut Grove</p>
-        <p>A bright, breezy celebration filled with sunshine and laughter.</p>
-        <div class="dress-code">
-          <span>DRESS CODE</span>
-          <strong>Beachside Festive Chic</strong>
+        <div class="event-time">01:00 PM<br><span>ONWARDS</span></div>
+        <div class="event-detail">
+          <p class="event-type">THE SUNSHINE CELEBRATION</p>
+          <h3>Haldi</h3>
+          <p class="event-venue">Coconut Grove</p>
+          <p>A joyful afternoon of sunshine, laughter and haldi-filled memories.</p>
+          <div class="dress-note"><span>ATTIRE</span> Beachside Festive Chic</div>
         </div>
       </article>
 
       <article class="event-card">
-        <span class="event-number">02</span>
-        <p class="eyebrow">AN EVENING OF GLAMOUR</p>
-        <h4>Cocktail</h4>
-        <p class="event-time">6:30 PM onwards</p>
-        <div class="event-rule"></div>
-        <p class="event-place">Varca Ballroom</p>
-        <p>Raise a glass, hit the dance floor and make it a night to remember.</p>
-        <div class="dress-code">
-          <span>DRESS CODE</span>
-          <strong>Black Tie Glamour</strong>
+        <div class="event-time">06:30 PM<br><span>ONWARDS</span></div>
+        <div class="event-detail">
+          <p class="event-type">AN EVENING OF GLAMOUR</p>
+          <h3>Cocktail</h3>
+          <p class="event-venue">Varca Ballroom</p>
+          <p>Raise a glass to love, great company and a night to remember.</p>
+          <div class="dress-note"><span>ATTIRE</span> Black Tie Glamour</div>
         </div>
       </article>
-    </div>
 
-    <div class="day-heading second-day">
-      <span>DAY TWO</span>
-      <h3>Sunday, 31 January 2027</h3>
-    </div>
-
-    <div class="event-grid">
-      <article class="event-card">
-        <span class="event-number">03</span>
-        <h4>Chooda Ceremony</h4>
-        <p class="event-time">10 AM onwards</p>
-        <div class="event-rule"></div>
-        <p class="event-place">Lawns</p>
-        <p>A heartfelt morning ceremony surrounded by family and blessings.</p>
-        <div class="dress-code"><span>ATTIRE</span><strong>Traditional Festive</strong></div>
-      </article>
-
-      <article class="event-card">
-        <span class="event-number">04</span>
-        <h4>Sehrabandi</h4>
-        <p class="event-time">11 AM onwards</p>
-        <div class="event-rule"></div>
-        <p class="event-place">Lawns</p>
-        <p>Join the family for this special pre-baraat tradition.</p>
-        <div class="dress-code"><span>ATTIRE</span><strong>Traditional Festive</strong></div>
-      </article>
-
-      <article class="event-card">
-        <span class="event-number">05</span>
-        <h4>Baraat</h4>
-        <p class="event-time">12 PM onwards</p>
-        <div class="event-rule"></div>
-        <p class="event-place">Resort grounds</p>
-        <p>Bring your best moves and your loudest cheers for the baraat.</p>
-        <div class="dress-code"><span>ATTIRE</span><strong>Wedding Festive</strong></div>
-      </article>
-
-      <article class="event-card">
-        <span class="event-number">06</span>
-        <h4>Wedding & Pheras</h4>
-        <p class="event-time">2 PM onwards</p>
-        <div class="event-rule"></div>
-        <p class="event-place">Beach venue</p>
-        <p>Witness the promises, rituals and beginning of forever.</p>
-        <div class="dress-code"><span>DRESS CODE</span><strong>Ivory & Gold</strong></div>
-      </article>
-
-      <article class="event-card">
-        <span class="event-number">07</span>
-        <h4>Afterparty</h4>
-        <p class="event-time">7 PM onwards</p>
-        <div class="event-rule"></div>
-        <p class="event-place">Varca Ballroom</p>
-        <p>One more night of music, dancing and unforgettable memories.</p>
-        <div class="dress-code"><span>DRESS CODE</span><strong>Bollywood After-Dark Glam</strong></div>
-      </article>
-    </div>
-    <p class="schedule-note">Please check with the hosts for any last-minute updates to timings or venues.</p>
-  </section>
-
-  <!-- WARDROBE PLANNER: NO COLOUR PALETTE -->
-  <section class="wardrobe-section" id="wardrobe">
-    <div class="wardrobe-heading">
-      <p class="eyebrow">YOUR WEDDING WEEKEND</p>
-      <h2>The <em>Wardrobe Studio</em></h2>
-      <p>Plan your looks, save your outfit ideas and keep track of your packing.</p>
-    </div>
-
-    <div class="wardrobe-app">
-      <div class="wardrobe-tabs" role="tablist" aria-label="Choose an event">
-        <button class="wardrobe-tab active" data-event="haldi" role="tab" aria-selected="true">01 <span>Haldi</span></button>
-        <button class="wardrobe-tab" data-event="cocktail" role="tab" aria-selected="false">02 <span>Cocktail</span></button>
-        <button class="wardrobe-tab" data-event="chooda" role="tab" aria-selected="false">03 <span>Chooda</span></button>
-        <button class="wardrobe-tab" data-event="sehrabandi" role="tab" aria-selected="false">04 <span>Sehrabandi</span></button>
-        <button class="wardrobe-tab" data-event="baraat" role="tab" aria-selected="false">05 <span>Baraat</span></button>
-        <button class="wardrobe-tab" data-event="pheras" role="tab" aria-selected="false">06 <span>Pheras</span></button>
-        <button class="wardrobe-tab" data-event="afterparty" role="tab" aria-selected="false">07 <span>Afterparty</span></button>
+      <div class="day-heading second-day">
+        <span>DAY TWO</span>
+        <h3>Sunday, 31 January 2027</h3>
       </div>
 
-      <div class="wardrobe-content">
-        <div class="wardrobe-copy">
-          <p class="eyebrow" id="wardrobeDay">DAY ONE · 1 PM ONWARDS</p>
-          <h3 id="wardrobeTitle">Haldi</h3>
-          <p class="code-label">THE DRESS CODE</p>
-          <h4 id="wardrobeCode">Beachside Festive Chic</h4>
-          <p id="wardrobeDescription">Choose a comfortable look suitable for a sunny celebration in Goa.</p>
-          <div class="outfit-ideas" id="outfitIdeas">
-            <span>Flowy co-ord set</span>
-            <span>Lightweight kurta set</span>
-            <span>Indo-Western separates</span>
-          </div>
-          <label class="outfit-label" for="outfitNote">MY OUTFIT NOTES</label>
-          <textarea id="outfitNote" rows="3" placeholder="Write down your outfit, accessories or anything you need…"></textarea>
-          <button class="save-look" id="saveLook">SAVE THIS LOOK ＋</button>
-          <p class="save-status" id="saveStatus" aria-live="polite"></p>
+      <article class="event-card">
+        <div class="event-time">10:00 AM<br><span>ONWARDS</span></div>
+        <div class="event-detail">
+          <p class="event-type">A FAMILY TRADITION</p>
+          <h3>Chooda Ceremony</h3>
+          <p class="event-venue">Lawns</p>
+          <p>A beautiful morning of blessings, family and meaningful traditions.</p>
+        </div>
+      </article>
+
+      <article class="event-card">
+        <div class="event-time">11:00 AM</div>
+        <div class="event-detail">
+          <p class="event-type">THE GROOM'S ARRIVAL</p>
+          <h3>Sehrabandi</h3>
+          <p class="event-venue">Lawns</p>
+          <p>Join the family as the groom gets ready for his big moment.</p>
+        </div>
+      </article>
+
+      <article class="event-card">
+        <div class="event-time">12:00 PM</div>
+        <div class="event-detail">
+          <p class="event-type">LET THE CELEBRATION BEGIN</p>
+          <h3>Baraat</h3>
+          <p>Music, dancing and all the excitement as the baraat makes its way forward.</p>
+        </div>
+      </article>
+
+      <article class="event-card">
+        <div class="event-time">02:00 PM<br><span>ONWARDS</span></div>
+        <div class="event-detail">
+          <p class="event-type">THE MOMENT WE'VE BEEN WAITING FOR</p>
+          <h3>Wedding & Pheras</h3>
+          <p class="event-venue">Beach Venue</p>
+          <p>By the sea, surrounded by our favourite people, we begin our forever.</p>
+          <div class="dress-note"><span>ATTIRE</span> Ivory & Gold</div>
+        </div>
+      </article>
+
+      <article class="event-card">
+        <div class="event-time">07:00 PM<br><span>ONWARDS</span></div>
+        <div class="event-detail">
+          <p class="event-type">ONE LAST NIGHT TO REMEMBER</p>
+          <h3>Afterparty</h3>
+          <p class="event-venue">Varca Ballroom</p>
+          <p>Let's turn up the music and dance the night away.</p>
+          <div class="dress-note"><span>ATTIRE</span> Bollywood After-Dark Glam</div>
+        </div>
+      </article>
+    </section>
+
+    <!-- WARDROBE PLANNER -->
+    <section class="wardrobe section" id="wardrobe">
+      <div class="section-label">05 / YOUR WARDROBE PLANNER</div>
+      <p class="eyebrow">PACK YOUR FAVOURITE LOOKS</p>
+      <h2>Dress for every celebration.</h2>
+      <p class="muted-copy">Plan your outfits your way. No fixed colour palette — just what makes you feel wonderful.</p>
+
+      <div class="wardrobe-layout">
+        <div class="wardrobe-tabs" role="tablist" aria-label="Choose an event">
+          <button class="wardrobe-tab active" data-event="haldi" role="tab" aria-selected="true">Haldi</button>
+          <button class="wardrobe-tab" data-event="cocktail" role="tab" aria-selected="false">Cocktail</button>
+          <button class="wardrobe-tab" data-event="chooda" role="tab" aria-selected="false">Chooda</button>
+          <button class="wardrobe-tab" data-event="sehrabandi" role="tab" aria-selected="false">Sehrabandi</button>
+          <button class="wardrobe-tab" data-event="baraat" role="tab" aria-selected="false">Baraat</button>
+          <button class="wardrobe-tab" data-event="wedding" role="tab" aria-selected="false">Wedding</button>
+          <button class="wardrobe-tab" data-event="afterparty" role="tab" aria-selected="false">Afterparty</button>
+        </div>
+
+        <div class="wardrobe-editor">
+          <p class="eyebrow" id="wardrobeEventLabel">DAY 1 · 30 JANUARY</p>
+          <h3 id="wardrobeEventTitle">Haldi</h3>
+          <p id="wardrobeEventTime" class="muted-copy">1 PM onwards · Coconut Grove</p>
+          <label for="outfitNotes">Your outfit & styling notes</label>
+          <textarea id="outfitNotes" rows="5" placeholder="Outfit, footwear, jewellery, accessories, makeup…"></textarea>
+          <button id="saveOutfit" class="primary-button">Save outfit notes</button>
+          <p id="saveOutfitStatus" class="save-status" aria-live="polite"></p>
         </div>
       </div>
 
-      <div class="packing-panel">
-        <div class="packing-header">
-          <div>
-            <p class="eyebrow">THE LITTLE THINGS</p>
-            <h3>Your packing checklist</h3>
-          </div>
-          <div class="progress-ring"><strong id="packingPercent">0%</strong><span>PACKED</span></div>
+      <div class="packing-section">
+        <div>
+          <p class="eyebrow">DON'T FORGET</p>
+          <h3>Your packing checklist</h3>
+          <p class="muted-copy">Tick things off as you pack. Your checklist stays saved on this device.</p>
         </div>
-        <div class="progress-track"><span id="packingProgress"></span></div>
-        <div class="packing-list">
-          <label><input type="checkbox" data-pack="outfits"><span>Outfits for all events</span></label>
-          <label><input type="checkbox" data-pack="shoes"><span>Comfortable shoes</span></label>
-          <label><input type="checkbox" data-pack="accessories"><span>Jewellery and accessories</span></label>
-          <label><input type="checkbox" data-pack="beauty"><span>Beauty and grooming essentials</span></label>
-          <label><input type="checkbox" data-pack="sun"><span>Sunglasses and sun protection</span></label>
-          <label><input type="checkbox" data-pack="resort"><span>Resort and beach essentials</span></label>
-          <label><input type="checkbox" data-pack="chargers"><span>Phone charger and power bank</span></label>
-          <label><input type="checkbox" data-pack="documents"><span>ID and travel documents</span></label>
+        <div class="packing-add">
+          <label class="sr-only" for="packingInput">Add a packing item</label>
+          <input id="packingInput" type="text" placeholder="Add an item, e.g. sunglasses">
+          <button id="addPackingItem" class="secondary-button">Add item +</button>
         </div>
-        <button class="reset-checklist" id="resetChecklist">RESET CHECKLIST</button>
+        <div class="packing-list" id="packingList"></div>
+        <button id="clearPacking" class="text-button">Clear checklist</button>
       </div>
-    </div>
-    <p class="wardrobe-footnote">Your outfit notes and checklist are saved in this browser on this device.</p>
-  </section>
+    </section>
 
-  <!-- VENUE GUIDE -->
-  <section class="venue-section" id="venue">
-    <div class="venue-image"></div>
-    <div class="venue-copy">
-      <p class="eyebrow">EVENT VENUE GUIDE</p>
-      <h2>Meet us in <em>Goa</em></h2>
-      <h3>Caravela Beach Resort</h3>
-      <p>Varca Beach, Goa, India</p>
-      <div class="venue-line"></div>
-      <p class="venue-description">Your guide to the venues for our wedding celebrations.</p>
-      <a class="primary-button" href="https://www.google.com/maps/search/?api=1&query=Caravela+Beach+Resort+Varca+Goa" target="_blank" rel="noopener noreferrer">OPEN VENUE MAP ↗</a>
-      <p class="venue-note">Haldi: Coconut Grove · Cocktail: Varca Ballroom · Chooda and Sehrabandi: Lawns · Pheras: Beach venue · Afterparty: Varca Ballroom</p>
-    </div>
-  </section>
+    <!-- VENUE -->
+    <section class="venue section" id="venue">
+      <div class="section-label">06 / THE DESTINATION</div>
+      <p class="eyebrow">MEET US BY THE SEA</p>
+      <h2>A little Goa, a lot of love.</h2>
+      <div class="venue-card">
+        <p class="eyebrow">OUR WEDDING VENUE</p>
+        <h3>Caravela Beach Resort</h3>
+        <p>Varca Beach, Goa, India</p>
+        <p class="venue-description">Join us for a seaside celebration filled with love, family and unforgettable memories.</p>
+        <a class="primary-button link-button" href="https://www.google.com/maps/search/?api=1&query=Caravela+Beach+Resort+Goa" target="_blank" rel="noopener noreferrer">Find the venue ↗</a>
+      </div>
+      <p class="venue-footnote">Please refer to your event itinerary for the location of each celebration within the resort.</p>
+    </section>
 
-  <!-- RSVP -->
-  <section class="rsvp-section" id="rsvp">
-    <p class="eyebrow">WE HOPE YOU CAN JOIN US</p>
-    <h2>Save your place <em>with us.</em></h2>
-    <p>We can't wait to celebrate this special weekend with you.</p>
-    <a class="primary-button" href="https://wa.me/919217799674" target="_blank" rel="noopener noreferrer">RSVP ON WHATSAPP ↗</a>
-    <p>+91 92177 99674</p>
-  </section>
-</main>
+    <!-- RSVP -->
+    <section class="rsvp section" id="rsvp">
+      <div class="section-label">07 / RSVP</div>
+      <p class="eyebrow">YOUR PRESENCE IS OUR PRESENT</p>
+      <h2>Will you celebrate with us?</h2>
+      <p class="body-copy">We cannot wait to share these special moments with you. Please get in touch to confirm your attendance.</p>
+      <a class="primary-button link-button" href="https://wa.me/919217799674?text=Hello%2C%20I%20would%20like%20to%20RSVP%20for%20Shreya%20%26%20Sahil%27s%20wedding." target="_blank" rel="noopener noreferrer">RSVP on WhatsApp ↗</a>
+      <p class="rsvp-number">+91 92177 99674</p>
+      <p class="signature final-signature">With love, Shreya & Sahil</p>
+    </section>
 
-<footer>
-  <span>S <i>&</i> S</span>
-  <p>MADE WITH LOVE FOR SHREYA & SAHIL</p>
-  <a href="#home">BACK TO TOP ↑</a>
-</footer>
+    <footer class="site-footer">
+      <div class="footer-monogram">S <span>&</span> S</div>
+      <p>MADE WITH LOVE · GOA · JANUARY 2027</p>
+      <a href="#home">Back to the beginning ↑</a>
+    </footer>
 
-<script src="app.js"></script>
+  </main>
+  <script src="app.js"></script>
 </body>
 </html>
