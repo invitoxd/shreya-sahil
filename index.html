@@ -9,7 +9,7 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Cinzel:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Montserrat:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Cinzel:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
     
     <!-- Tailwind Theme Configuration -->
     <script>
@@ -46,7 +46,6 @@
     </script>
 
     <style>
-        /* Base Layout & Color Palette */
         body {
             font-family: 'Montserrat', sans-serif;
             background-color: #f2f7fc;
@@ -70,22 +69,20 @@
             font-family: 'Playfair Display', serif; 
         }
 
-        /* Gradient Text for Cool-Toned Names */
-        .cool-gradient-text-dark {
-            background: linear-gradient(135deg, #0f1e2e 0%, #1e3a5f 50%, #31588a 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        /* Hero Background Motion Physics */
+        /* Cinematic Video-like Motion Effect */
         @keyframes heroMotion {
             0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
+            50% { transform: scale(1.06); }
             100% { transform: scale(1); }
         }
 
         .animate-hero-motion {
-            animation: heroMotion 20s ease-in-out infinite alternate;
+            animation: heroMotion 18s ease-in-out infinite alternate;
+        }
+
+        /* Text Legibility Glow Backdrop */
+        .text-glow {
+            text-shadow: 0 1px 12px rgba(255, 255, 255, 0.95), 0 1px 4px rgba(255, 255, 255, 0.9);
         }
 
         /* Floating Petals */
@@ -114,7 +111,7 @@
             pointer-events: none;
         }
 
-        /* Envelope Interactive Mechanics */
+        /* Envelope Mechanics */
         #envelope-screen {
             transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1);
         }
@@ -134,7 +131,6 @@
             transform-origin: top;
         }
 
-        /* Scratch Card Canvas */
         #scratch-canvas {
             touch-action: none;
             cursor: crosshair;
@@ -149,14 +145,14 @@
     </audio>
 
     <!-- Audio Control Button -->
-    <button id="audio-toggle" onclick="toggleAudio()" class="fixed bottom-6 right-6 z-50 w-12 h-12 bg-white/80 hover:bg-white text-navy rounded-full flex items-center justify-center shadow-2xl backdrop-blur-md transition-all duration-300 border border-navy/10" aria-label="Toggle Music">
+    <button id="audio-toggle" onclick="toggleAudio()" class="fixed bottom-6 right-6 z-50 w-12 h-12 bg-white/90 hover:bg-white text-navy rounded-full flex items-center justify-center shadow-2xl backdrop-blur-md transition-all duration-300 border border-navy/10" aria-label="Toggle Music">
         <svg id="audio-icon-play" class="w-5 h-5 ml-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
         <svg id="audio-icon-pause" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 9v6m4-6v6m7-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
     </button>
 
     <!-- OPENING ENVELOPE SCREEN -->
     <div id="envelope-screen" class="fixed inset-0 z-50 flex items-center justify-center overflow-hidden bg-navy">
-        <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('goa-opening.png.png');"></div>
+        <div class="absolute inset-0 bg-cover bg-center animate-hero-motion" style="background-image: url('goa-opening.png.png');"></div>
         <div class="absolute inset-0 bg-navy/60 backdrop-blur-[2px]"></div>
 
         <div id="petals-container" class="absolute inset-0 overflow-hidden pointer-events-none"></div>
@@ -164,7 +160,7 @@
         <div class="relative z-10 w-full max-w-md px-6 flex flex-col items-center">
             
             <div class="text-center mb-8">
-                <p class="font-serif text-xs md:text-sm tracking-[0.35em] text-powder uppercase mb-3 font-medium">A Wedding Invitation</p>
+                <p class="font-serif text-xs md:text-sm tracking-[0.35em] text-powder uppercase mb-3 font-medium text-glow">A Wedding Invitation</p>
                 <h1 class="font-script-dec text-4xl md:text-5xl text-white font-bold tracking-wider drop-shadow-lg">Shreya & Sahil</h1>
                 <p class="font-editorial italic text-lg md:text-xl text-powder-light tracking-widest mt-2">30 – 31 January 2027 · Goa</p>
             </div>
@@ -189,40 +185,41 @@
     <main id="main-invitation" class="opacity-0 pointer-events-none transition-opacity duration-1000 min-h-screen bg-powder-light text-navy relative overflow-x-hidden">
 
         <!-- Header / Category Navigation -->
-        <header class="fixed top-0 left-0 w-full z-40 bg-white/85 backdrop-blur-md border-b border-navy/10 px-6 py-4 flex items-center justify-between shadow-sm">
+        <header class="fixed top-0 left-0 w-full z-40 bg-white/90 backdrop-blur-md border-b border-navy/10 px-6 py-4 flex items-center justify-between shadow-sm">
             <span class="font-serif font-bold text-lg tracking-widest text-navy">S & S</span>
-            <nav class="flex items-center space-x-4 md:space-x-8 font-serif text-[10px] md:text-[11px] tracking-[0.2em] text-navy-muted uppercase font-medium">
-                <a href="#hero" class="hover:text-navy transition">The Date</a>
-                <a href="#itinerary" class="hover:text-navy transition">Celebrations</a>
-                <a href="#venue" class="hover:text-navy transition">Venue Guide</a>
-                <a href="#rsvp" class="hover:text-navy transition border-b border-navy text-navy pb-0.5 font-bold">RSVP</a>
+            <nav class="flex items-center space-x-4 md:space-x-8 font-serif text-[10px] md:text-[11px] tracking-[0.2em] text-navy uppercase font-semibold">
+                <a href="#hero" class="hover:text-navy-muted transition">The Date</a>
+                <a href="#itinerary" class="hover:text-navy-muted transition">Celebrations</a>
+                <a href="#venue" class="hover:text-navy-muted transition">Venue Guide</a>
+                <a href="#rsvp" class="hover:text-navy-muted transition border-b border-navy pb-0.5">RSVP</a>
             </nav>
         </header>
 
-        <!-- Slide 1: Full Background Video-like Motion Hero -->
+        <!-- Slide 1: Full Background Video-like Motion Hero with High-Contrast Text -->
         <section id="hero" class="relative min-h-screen flex flex-col items-center justify-between text-center px-6 pt-28 pb-12 overflow-hidden">
             <div class="absolute inset-0 bg-cover bg-center animate-hero-motion scale-105" style="background-image: url('goa-opening.png.png');"></div>
-            <div class="absolute inset-0 bg-gradient-to-b from-white/50 via-white/30 to-white/70"></div>
+            <!-- Refined gradient overlay for superior text contrast -->
+            <div class="absolute inset-0 bg-gradient-to-b from-white/70 via-white/40 to-white/75"></div>
 
             <div class="relative z-10 max-w-3xl mx-auto space-y-4 my-auto pt-6">
-                <p class="font-serif text-[11px] md:text-xs tracking-[0.35em] text-navy uppercase font-semibold">TWO HEARTS · ONE BEAUTIFUL BEGINNING</p>
+                <p class="font-serif text-xs md:text-sm tracking-[0.35em] text-navy uppercase font-bold text-glow">TWO HEARTS · ONE BEAUTIFUL BEGINNING</p>
                 
-                <p class="font-editorial italic text-2xl md:text-3xl text-navy/90 font-light">With love and joy,</p>
+                <p class="font-editorial italic text-2xl md:text-3xl text-navy font-medium text-glow">With love and joy,</p>
                 
-                <h2 class="font-script-dec text-5xl md:text-7xl cool-gradient-text-dark font-bold tracking-tight drop-shadow-sm py-3 leading-tight">
-                    Shreya <span class="font-editorial italic font-normal text-3xl md:text-5xl text-navy/70">&</span> Sahil
+                <h2 class="font-script-dec text-5xl md:text-7xl text-navy font-bold tracking-tight drop-shadow-md py-3 leading-tight text-glow">
+                    Shreya <span class="font-editorial italic font-normal text-3xl md:text-5xl text-navy/80">&</span> Sahil
                 </h2>
                 
-                <p class="font-playfair italic text-xl md:text-2xl text-navy/90">A destination wedding in Goa</p>
+                <p class="font-playfair italic text-xl md:text-2xl text-navy font-semibold text-glow">A destination wedding in Goa</p>
 
-                <div class="pt-8 space-y-1.5">
-                    <p class="font-serif text-xs md:text-sm tracking-[0.25em] text-navy font-bold uppercase">30 JANUARY 2027 ✦ 31 JANUARY 2027</p>
-                    <p class="font-serif text-[11px] md:text-xs tracking-[0.2em] text-navy-muted uppercase font-medium">CARAVELA BEACH RESORT · GOA, INDIA</p>
+                <div class="pt-8 space-y-2">
+                    <p class="font-serif text-xs md:text-sm tracking-[0.3em] text-navy font-extrabold uppercase text-glow">30 JANUARY 2027 ✦ 31 JANUARY 2027</p>
+                    <p class="font-serif text-xs md:text-sm tracking-[0.25em] text-navy uppercase font-bold text-glow">CARAVELA BEACH RESORT · GOA, INDIA</p>
                 </div>
             </div>
 
             <div class="relative z-10 pt-8">
-                <a href="#scratch-section" class="inline-flex items-center space-x-2 px-6 py-2.5 bg-white/90 hover:bg-white text-navy font-serif text-[10px] md:text-xs tracking-[0.25em] uppercase rounded-full border border-navy/20 shadow-md backdrop-blur-sm transition-all duration-300">
+                <a href="#scratch-section" class="inline-flex items-center space-x-2 px-6 py-2.5 bg-white/95 hover:bg-white text-navy font-serif text-[10px] md:text-xs tracking-[0.25em] uppercase rounded-full border border-navy/30 shadow-lg backdrop-blur-sm transition-all duration-300 font-bold">
                     <span>SCROLL TO EXPLORE</span>
                     <svg class="w-3.5 h-3.5 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
                 </a>
@@ -254,7 +251,7 @@
             </div>
         </section>
 
-        <!-- Countdown Timer (Days, Hours, Minutes) -->
+        <!-- Countdown Timer -->
         <section class="py-20 px-6 bg-powder-light">
             <div class="max-w-3xl mx-auto text-center space-y-10">
                 <div>
@@ -302,16 +299,15 @@
                 <!-- Day 1 Content -->
                 <div id="content-day1" class="space-y-8 transition-all duration-500">
                     <div class="text-center pb-2">
-                        <h4 class="font-serif text-2xl text-navy font-semibold">Pre-Wedding Celebrations</h4>
+                        <h4 class="font-serif text-2xl text-navy font-semibold">Day 1 Celebrations</h4>
                         <p class="font-editorial text-lg italic text-navy-muted">Saturday, 30 January 2027</p>
                     </div>
 
                     <div class="grid md:grid-cols-2 gap-8">
-                        <!-- Haldi -->
                         <div class="relative bg-gradient-to-br from-powder-light to-white p-8 rounded-3xl border border-powder-dark/60 shadow-sm space-y-4 hover:shadow-md transition">
                             <div class="flex justify-between items-center">
                                 <span class="font-serif text-xs tracking-[0.2em] text-navy-muted uppercase font-semibold">1:00 PM Onwards</span>
-                                <span class="text-xs bg-yellow-100 text-yellow-800 font-serif px-3 py-1 rounded-full uppercase tracking-wider font-semibold">Pre-Wedding</span>
+                                <span class="text-xs bg-yellow-100 text-yellow-800 font-serif px-3 py-1 rounded-full uppercase tracking-wider font-semibold">Day 1</span>
                             </div>
                             <h5 class="font-serif text-2xl text-navy font-bold">Haldi</h5>
                             <p class="font-sans text-sm text-navy/80"><strong class="font-medium text-navy">Venue:</strong> Coconut Grove</p>
@@ -321,7 +317,6 @@
                             </div>
                         </div>
 
-                        <!-- Cocktail -->
                         <div class="relative bg-gradient-to-br from-powder-light to-white p-8 rounded-3xl border border-powder-dark/60 shadow-sm space-y-4 hover:shadow-md transition">
                             <div class="flex justify-between items-center">
                                 <span class="font-serif text-xs tracking-[0.2em] text-navy-muted uppercase font-semibold">6:30 PM Onwards</span>
@@ -445,7 +440,6 @@
 
     <!-- JavaScript logic -->
     <script>
-        // Floating Petals Generator
         function createPetals() {
             const container = document.getElementById('petals-container');
             if (!container) return;
@@ -464,7 +458,6 @@
             }
         }
 
-        // Background Audio Controls
         const bgMusic = document.getElementById('bg-music');
         const audioToggle = document.getElementById('audio-toggle');
         const iconPlay = document.getElementById('audio-icon-play');
@@ -488,7 +481,6 @@
             }
         }
 
-        // Open Envelope Animation
         function openEnvelope() {
             const envelopeScreen = document.getElementById('envelope-screen');
             const envelopeBox = document.getElementById('envelope-box');
@@ -514,7 +506,6 @@
             }, 900);
         }
 
-        // Day Selector Tabs
         function switchDay(day) {
             const tab1 = document.getElementById('tab-day1');
             const tab2 = document.getElementById('tab-day2');
@@ -534,7 +525,6 @@
             }
         }
 
-        // Scratch Card Canvas
         function initScratchCard() {
             const canvas = document.getElementById('scratch-canvas');
             if (!canvas) return;
@@ -601,7 +591,6 @@
             }
         }
 
-        // Live IST Countdown Timer (Days, Hours, Minutes)
         const weddingDate = new Date('2027-01-31T00:00:00+05:30').getTime();
 
         function updateCountdown() {
@@ -628,14 +617,12 @@
             if (minutesElem) minutesElem.innerText = String(minutes).padStart(2, '0');
         }
 
-        // Direct WhatsApp RSVP Handler
         function sendWhatsAppRSVP() {
             const phoneNumber = '919217799674';
             const message = encodeURIComponent("Hello! I would like to RSVP for Shreya & Sahil's wedding celebrations on 30–31 January 2027 in Goa.");
             window.open(`https://wa.me/${phoneNumber}?text=${message}`, '_blank');
         }
 
-        // Initialize on Load
         document.addEventListener('DOMContentLoaded', () => {
             createPetals();
             setInterval(updateCountdown, 1000);
