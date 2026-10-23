@@ -1,4 +1,4 @@
-// Floating Petals Animation
+// Floating Petals Generator
 function createPetals() {
     const container = document.getElementById('petals-container');
     if (!container) return;
@@ -36,12 +36,12 @@ function toggleAudio() {
                 if (iconPlay) iconPlay.classList.add('hidden');
                 if (iconPause) iconPause.classList.remove('hidden');
                 isPlaying = true;
-            }).catch(e => console.log("Audio play blocked:", e));
+            }).catch(e => console.log("Audio playback prevented:", e));
         }
     }
 }
 
-// Open Envelope Interactive Animation
+// Open Envelope Animation
 function openEnvelope() {
     const envelopeScreen = document.getElementById('envelope-screen');
     const envelopeBox = document.getElementById('envelope-box');
@@ -52,7 +52,7 @@ function openEnvelope() {
             if (iconPlay) iconPlay.classList.add('hidden');
             if (iconPause) iconPause.classList.remove('hidden');
             isPlaying = true;
-        }).catch(e => console.log("Audio play blocked:", e));
+        }).catch(e => console.log("Audio playback prevented:", e));
     }
 
     if (envelopeBox) envelopeBox.classList.add('envelope-open');
@@ -67,7 +67,7 @@ function openEnvelope() {
     }, 900);
 }
 
-// Day Switcher Tabs
+// Day Selector Tabs
 function switchDay(day) {
     const tab1 = document.getElementById('tab-day1');
     const tab2 = document.getElementById('tab-day2');
@@ -75,19 +75,19 @@ function switchDay(day) {
     const content2 = document.getElementById('content-day2');
 
     if (day === 1) {
-        if (tab1) tab1.className = "px-6 py-2.5 font-serif text-xs tracking-[0.2em] uppercase rounded-full bg-navy text-white shadow-sm transition-all duration-300";
-        if (tab2) tab2.className = "px-6 py-2.5 font-serif text-xs tracking-[0.2em] uppercase rounded-full bg-powder-light text-navy-muted hover:text-navy transition-all duration-300";
+        if (tab1) tab1.className = "px-8 py-3 font-serif text-xs tracking-[0.2em] uppercase rounded-full bg-navy text-white shadow-md transition-all duration-300";
+        if (tab2) tab2.className = "px-8 py-3 font-serif text-xs tracking-[0.2em] uppercase rounded-full bg-powder-light text-navy-muted hover:text-navy transition-all duration-300";
         if (content1) content1.classList.remove('hidden');
         if (content2) content2.classList.add('hidden');
     } else {
-        if (tab2) tab2.className = "px-6 py-2.5 font-serif text-xs tracking-[0.2em] uppercase rounded-full bg-navy text-white shadow-sm transition-all duration-300";
-        if (tab1) tab1.className = "px-6 py-2.5 font-serif text-xs tracking-[0.2em] uppercase rounded-full bg-powder-light text-navy-muted hover:text-navy transition-all duration-300";
+        if (tab2) tab2.className = "px-8 py-3 font-serif text-xs tracking-[0.2em] uppercase rounded-full bg-navy text-white shadow-md transition-all duration-300";
+        if (tab1) tab1.className = "px-8 py-3 font-serif text-xs tracking-[0.2em] uppercase rounded-full bg-powder-light text-navy-muted hover:text-navy transition-all duration-300";
         if (content2) content2.classList.remove('hidden');
         if (content1) content1.classList.add('hidden');
     }
 }
 
-// Canvas Scratch Card Implementation
+// Scratch Card Canvas
 function initScratchCard() {
     const canvas = document.getElementById('scratch-canvas');
     if (!canvas) return;
@@ -102,7 +102,7 @@ function initScratchCard() {
     ctx.fillStyle = '#0f1e2e';
     ctx.font = '13px Montserrat, sans-serif';
     ctx.textAlign = 'center';
-    ctx.fillText('Scratch here or drag to reveal', canvas.width / 2, canvas.height / 2 + 5);
+    ctx.fillText('Scratch or drag across to reveal', canvas.width / 2, canvas.height / 2 + 5);
 
     let isDrawing = false;
 
@@ -154,7 +154,7 @@ function revealDateDirectly() {
     }
 }
 
-// Real-Time IST Countdown Timer (Target: 31 January 2027 00:00:00 IST)
+// Live IST Countdown Timer (Days, Hours, Minutes)
 const weddingDate = new Date('2027-01-31T00:00:00+05:30').getTime();
 
 function updateCountdown() {
@@ -164,25 +164,21 @@ function updateCountdown() {
     const daysElem = document.getElementById('days');
     const hoursElem = document.getElementById('hours');
     const minutesElem = document.getElementById('minutes');
-    const secondsElem = document.getElementById('seconds');
 
     if (distance < 0) {
         if (daysElem) daysElem.innerText = '00';
         if (hoursElem) hoursElem.innerText = '00';
         if (minutesElem) minutesElem.innerText = '00';
-        if (secondsElem) secondsElem.innerText = '00';
         return;
     }
 
     const days = Math.floor(distance / (1000 * 60 * 60 * 24));
     const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
     const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
     if (daysElem) daysElem.innerText = String(days).padStart(2, '0');
     if (hoursElem) hoursElem.innerText = String(hours).padStart(2, '0');
     if (minutesElem) minutesElem.innerText = String(minutes).padStart(2, '0');
-    if (secondsElem) secondsElem.innerText = String(seconds).padStart(2, '0');
 }
 
 // Direct WhatsApp RSVP Handler
@@ -192,7 +188,7 @@ function sendWhatsAppRSVP() {
     window.open(`https://wa.me/${phoneNumber}?text=${message}`, '_blank');
 }
 
-// Initialize on DOM Ready
+// Initialize on Load
 document.addEventListener('DOMContentLoaded', () => {
     createPetals();
     setInterval(updateCountdown, 1000);
