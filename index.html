@@ -1,302 +1,601 @@
-
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#eaf2fa">
-  <meta name="description" content="A wedding invitation celebrating Shreya and Sahil, 30–31 January 2027, at Caravela Beach Resort, Goa.">
-  <title>Shreya & Sahil | Our Wedding</title>
-  <link rel="stylesheet" href="style.css">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shreya & Sahil — Wedding Invitation</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Pinyon Script, Alex Brush, Cinzel, Cormorant Garamond, Montserrat -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Cinzel:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Montserrat:wght@300;400;500;600&family=Pinyon+Script&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        powder: {
+                            light: '#f4f8fc',
+                            DEFAULT: '#e3edf7',
+                            dark: '#c4d7ec'
+                        },
+                        navy: {
+                            DEFAULT: '#0f1e2e',
+                            light: '#1e334d',
+                            muted: '#4a607a'
+                        },
+                        gold: {
+                            DEFAULT: '#d4af37',
+                            light: '#f3e5ab',
+                            dark: '#aa8c2c'
+                        }
+                    },
+                    fontFamily: {
+                        script: ['"Alex Brush"', 'cursive'],
+                        scriptAlt: ['"Pinyon Script"', 'cursive'],
+                        serif: ['"Cinzel"', 'serif'],
+                        editorial: ['"Cormorant Garamond"', 'serif'],
+                        sans: ['"Montserrat"', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #f4f8fc;
+            color: #0f1e2e;
+            overflow-x: hidden;
+        }
+        .font-script { font-family: 'Alex Brush', cursive; }
+        .font-script-alt { font-family: 'Pinyon Script', cursive; }
+        .font-serif { font-family: 'Cinzel', serif; }
+        .font-editorial { font-family: 'Cormorant Garamond', serif; }
+
+        /* Floating Petal Animation */
+        @keyframes floatPetals {
+            0% { transform: translateY(-10vh) translateX(0) rotate(0deg); opacity: 0; }
+            20% { opacity: 0.85; }
+            80% { opacity: 0.85; }
+            100% { transform: translateY(110vh) translateX(50px) rotate(360deg); opacity: 0; }
+        }
+        .petal {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 150% 0 150% 0;
+            animation: floatPetals linear infinite;
+            pointer-events: none;
+        }
+
+        /* Envelope Animation Dynamics */
+        #envelope-screen {
+            transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .envelope-open .flap {
+            transform: rotateX(180deg);
+            z-index: 10;
+        }
+        .envelope-open .seal-btn {
+            transform: scale(0);
+            opacity: 0;
+        }
+        .flap {
+            transition: transform 0.6s ease-in-out;
+            transform-origin: top;
+        }
+
+        /* Scratch Card Canvas */
+        #scratch-canvas {
+            touch-action: none;
+            cursor: pointer;
+        }
+    </style>
 </head>
-<body class="locked">
+<body class="antialiased selection:bg-powder-dark selection:text-navy">
 
-  <!-- ENVELOPE OPENING -->
-  <section class="opening" id="opening">
-    <div class="envelope-screen" id="envelopeScreen">
-      <div class="opening-photo"></div>
-      <div class="opening-shade"></div>
-      <div class="petals" aria-hidden="true">
-        <span>✿</span><span>❀</span><span>✧</span>
-        <span>✿</span><span>❀</span><span>✧</span>
-      </div>
+    <!-- Floating Background Audio -->
+    <audio id="bg-music" loop>
+        <source src="https://assets.mixkit.co/music/preview/mixkit-serene-view-443.mp3" type="audio/mpeg">
+    </audio>
 
-      <div class="opening-heading">
-        <p class="eyebrow">A WEDDING INVITATION</p>
-        <h1>Shreya <span>&</span> Sahil</h1>
-        <p class="opening-date">30 — 31 JANUARY 2027 · GOA</p>
-      </div>
+    <!-- Floating Audio Control Button -->
+    <button id="audio-toggle" onclick="toggleAudio()" class="fixed bottom-6 right-6 z-50 w-12 h-12 bg-white/80 hover:bg-white text-navy rounded-full flex items-center justify-center shadow-xl backdrop-blur-md transition-all duration-300 border border-navy/10" aria-label="Toggle Music">
+        <svg id="audio-icon-play" class="w-5 h-5 ml-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+        <svg id="audio-icon-pause" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 9v6m4-6v6m7-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+    </button>
 
-      <button class="envelope-button" id="openEnvelope"
-        aria-label="Open the wedding invitation">
-        <span class="envelope-back"></span>
-        <span class="envelope-letter">
-          <span class="letter-names">S <span>&</span> S</span>
-          <span class="letter-caption">Together with our families</span>
-          <span class="letter-caption">invite you to celebrate</span>
-        </span>
-        <span class="envelope-flap"></span>
-        <span class="envelope-front"></span>
-        <span class="wax-seal">S<span>&</span>S</span>
-      </button>
+    <!-- ==================== OPENING ENVELOPE SCREEN ==================== -->
+    <div id="envelope-screen" class="fixed inset-0 z-50 flex items-center justify-center overflow-hidden bg-navy">
+        <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('goa-opening.png.png');"></div>
+        <div class="absolute inset-0 bg-navy/60 backdrop-blur-[2px]"></div>
 
-      <p class="tap-note">Tap the seal to open your invitation</p>
+        <div id="petals-container" class="absolute inset-0 overflow-hidden pointer-events-none"></div>
+
+        <div class="relative z-10 w-full max-w-md px-6 flex flex-col items-center">
+            
+            <div class="text-center mb-8 transform transition-all duration-700">
+                <p class="font-serif text-xs md:text-sm tracking-[0.3em] text-powder uppercase mb-2">A Wedding Invitation</p>
+                <h1 class="font-script-alt text-5xl md:text-6xl text-white mb-2 drop-shadow-md">Shreya & Sahil</h1>
+                <p class="font-serif text-sm md:text-base text-powder-dark tracking-widest uppercase">30 – 31 January 2027 · Goa</p>
+            </div>
+
+            <div id="envelope-box" class="relative w-80 md:w-96 h-56 md:h-64 bg-[#f9f8f6] rounded-lg shadow-2xl border border-powder-dark/30 flex items-center justify-center cursor-pointer transition-transform duration-500 hover:scale-[1.02]" onclick="openEnvelope()">
+                
+                <div class="flap absolute top-0 left-0 w-full h-28 bg-[#f0eee9] origin-top border-b border-[#e2dfd8]" style="clip-path: polygon(0 0, 50% 100%, 100% 0);"></div>
+
+                <div class="absolute inset-0 border-2 border-[#e2dfd8] rounded-lg pointer-events-none"></div>
+
+                <div class="seal-btn absolute z-30 flex flex-col items-center transform transition-all duration-500" style="top: 42%;">
+                    <div class="w-16 h-16 md:w-20 md:h-20 bg-gradient-to-br from-gold via-amber-500 to-gold-dark rounded-full flex items-center justify-center shadow-xl border-2 border-gold-light/50">
+                        <span class="font-serif text-xl md:text-2xl text-navy font-bold tracking-tight">S&S</span>
+                    </div>
+                    <span class="mt-3 font-serif text-[10px] md:text-xs tracking-[0.25em] text-navy bg-white/90 px-4 py-1.5 rounded-full shadow-md uppercase border border-powder-dark/40 font-semibold animate-pulse">Tap to open</span>
+                </div>
+
+            </div>
+        </div>
     </div>
 
-    <div class="opening-reveal" id="openingReveal">
-      <p class="eyebrow">WITH LOVE, WE INVITE YOU</p>
-      <h2>Two hearts.<br>One beautiful beginning.</h2>
-      <p>Join us by the sea as we begin our forever.</p>
-      <button class="primary-button" id="enterInvitation">Enter the invitation <span>↗</span></button>
-    </div>
-  </section>
 
-  <!-- MAIN INVITATION -->
-  <main id="mainContent" class="main-content">
+    <!-- ==================== MAIN INVITATION PAGE ==================== -->
+    <main id="main-invitation" class="opacity-0 pointer-events-none transition-opacity duration-1000 min-h-screen bg-powder-light text-navy relative overflow-x-hidden">
 
-    <header class="site-header">
-      <a href="#home" class="monogram">S <span>&</span> S</a>
-      <nav aria-label="Main navigation">
-        <a href="#invitation">Invitation</a>
-        <a href="#celebrations">Celebrations</a>
-        <a href="#wardrobe">Wardrobe</a>
-        <a href="#venue">Venue</a>
-        <a href="#rsvp">RSVP</a>
-      </nav>
-    </header>
+        <!-- Header / Navigation Bar -->
+        <header class="fixed top-0 left-0 w-full z-40 bg-white/80 backdrop-blur-md border-b border-navy/10 px-6 py-4 flex items-center justify-between">
+            <span class="font-serif font-bold text-lg tracking-widest text-navy">S & S</span>
+            <nav class="hidden md:flex items-center space-x-6 font-serif text-[11px] tracking-[0.2em] text-navy-muted uppercase">
+                <a href="#hero" class="hover:text-navy transition">The Date</a>
+                <a href="#itinerary" class="hover:text-navy transition">Celebrations</a>
+                <a href="#venue" class="hover:text-navy transition">Venue Guide</a>
+                <a href="#rsvp" class="hover:text-navy transition border-b border-navy text-navy pb-0.5">RSVP</a>
+            </nav>
+        </header>
 
-    <!-- INVITATION -->
-    <section class="hero section" id="home">
-      <div class="hero-orbit orbit-one"></div>
-      <div class="hero-orbit orbit-two"></div>
-      <p class="eyebrow">THE WEDDING OF</p>
-      <h1>Shreya <span class="ampersand">&</span><br>Sahil</h1>
-      <div class="fine-line"></div>
-      <p class="hero-message">With our families by our side,<br>we invite you to celebrate our love.</p>
-      <p class="hero-date">30 — 31 JANUARY 2027</p>
-      <p class="hero-place">Caravela Beach Resort · Goa</p>
-      <a href="#invitation" class="text-link">Read our invitation ↓</a>
-    </section>
+        <!-- Slide 1: Full Background Image Hero (Matching Reference Picture) -->
+        <section id="hero" class="relative min-h-screen flex flex-col items-center justify-between text-center px-6 pt-28 pb-12 bg-cover bg-center" style="background-image: url('goa-opening.png.png');">
+            <!-- Light overlay for text legibility -->
+            <div class="absolute inset-0 bg-gradient-to-b from-white/40 via-white/20 to-white/60"></div>
 
-    <section class="invitation section" id="invitation">
-      <div class="section-label">01 / THE INVITATION</div>
-      <div class="invitation-card">
-        <p class="eyebrow">TO OUR FAVOURITE PEOPLE</p>
-        <h2>Some moments become<br>memories. Some become forever.</h2>
-        <p class="body-copy">
-          With full hearts and immense joy, we invite you to be part of
-          the beginning of our forever. Join us for two days of love,
-          laughter, celebrations and unforgettable memories by the sea.
-        </p>
-        <p class="signature">With love, Shreya & Sahil</p>
-        <div class="invitation-bottom">CARAVELA BEACH RESORT · GOA</div>
-      </div>
-    </section>
+            <div class="relative z-10 max-w-3xl mx-auto space-y-4 my-auto">
+                <p class="font-serif text-[11px] md:text-xs tracking-[0.35em] text-navy uppercase font-medium">TWO HEARTS · ONE BEAUTIFUL BEGINNING</p>
+                
+                <p class="font-editorial italic text-2xl md:text-3xl text-navy/90 font-light">With love and joy,</p>
+                
+                <h2 class="font-script-alt text-6xl md:text-8xl text-navy font-bold tracking-tight drop-shadow-sm py-2">
+                    Shreya <span class="font-editorial italic font-normal text-4xl md:text-6xl text-navy/70">&</span> Sahil
+                </h2>
+                
+                <p class="font-editorial text-xl md:text-2xl text-navy italic">A destination wedding in Goa</p>
 
-    <!-- SCRATCH DATE -->
-    <section class="date-section section" id="dateReveal">
-      <div class="section-label">02 / SAVE THE DATE</div>
-      <p class="eyebrow">A LITTLE SURPRISE</p>
-      <h2>Our forever begins on…</h2>
-      <p class="muted-copy">Scratch the card below to reveal our wedding date.</p>
-      <div class="scratch-card" id="scratchCard">
-        <div class="scratch-under">
-          <span class="eyebrow">THE WEDDING DAY</span>
-          <strong>31</strong>
-          <span>JANUARY 2027</span>
-          <span class="scratch-location">GOA, INDIA</span>
-        </div>
-        <canvas id="scratchCanvas" aria-label="Scratch to reveal the wedding date"></canvas>
-      </div>
-      <p class="scratch-hint" id="scratchHint">Use your finger or mouse to scratch away the silver-blue layer.</p>
-    </section>
+                <div class="pt-6 space-y-1">
+                    <p class="font-serif text-xs md:text-sm tracking-[0.25em] text-navy font-semibold uppercase">30 JANUARY 2027 ✦ 31 JANUARY 2027</p>
+                    <p class="font-serif text-[11px] md:text-xs tracking-[0.2em] text-navy-muted uppercase font-medium">CARAVELA BEACH RESORT · GOA, INDIA</p>
+                </div>
+            </div>
 
-    <!-- COUNTDOWN -->
-    <section class="countdown-section section">
-      <div class="section-label">03 / COUNTING DOWN</div>
-      <p class="eyebrow">UNTIL WE SAY “I DO”</p>
-      <h2>Every second brings us closer.</h2>
-      <div class="countdown" id="countdown">
-        <div class="countdown-unit"><strong id="days">000</strong><span>DAYS</span></div>
-        <div class="countdown-unit"><strong id="hours">00</strong><span>HOURS</span></div>
-        <div class="countdown-unit"><strong id="minutes">00</strong><span>MINUTES</span></div>
-        <div class="countdown-unit"><strong id="seconds">00</strong><span>SECONDS</span></div>
-      </div>
-      <p class="muted-copy">31 January 2027 · 2:00 PM onwards</p>
-    </section>
+            <!-- Scroll Indicator Button -->
+            <div class="relative z-10 pt-8">
+                <a href="#scratch-section" class="inline-flex items-center space-x-2 px-6 py-2.5 bg-white/80 hover:bg-white text-navy font-serif text-[10px] md:text-xs tracking-[0.25em] uppercase rounded-full border border-navy/20 shadow-md backdrop-blur-sm transition-all duration-300">
+                    <span>SCROLL TO EXPLORE</span>
+                    <svg class="w-3.5 h-3.5 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
+                </a>
+            </div>
+        </section>
 
-    <!-- ITINERARY -->
-    <section class="celebrations section" id="celebrations">
-      <div class="section-label">04 / THE CELEBRATIONS</div>
-      <p class="eyebrow">TWO DAYS OF LOVE & LAUGHTER</p>
-      <h2>Our wedding itinerary</h2>
-      <p class="muted-copy">Come for the celebrations. Stay for the memories.</p>
 
-      <div class="day-heading">
-        <span>DAY ONE</span>
-        <h3>Saturday, 30 January 2027</h3>
-      </div>
+        <!-- Slide 2 Onwards: Plain Background Sections -->
 
-      <article class="event-card">
-        <div class="event-time">01:00 PM<br><span>ONWARDS</span></div>
-        <div class="event-detail">
-          <p class="event-type">THE SUNSHINE CELEBRATION</p>
-          <h3>Haldi</h3>
-          <p class="event-venue">Coconut Grove</p>
-          <p>A joyful afternoon of sunshine, laughter and haldi-filled memories.</p>
-          <div class="dress-note"><span>ATTIRE</span> Beachside Festive Chic</div>
-        </div>
-      </article>
+        <!-- ==================== SCRATCH-TO-REVEAL DATE ==================== -->
+        <section id="scratch-section" class="py-24 px-6 bg-white border-y border-powder-dark/30">
+            <div class="max-w-xl mx-auto text-center space-y-8">
+                <div>
+                    <p class="font-serif text-xs tracking-[0.25em] text-navy-muted uppercase mb-2">A Little Surprise</p>
+                    <h3 class="font-serif text-2xl md:text-3xl text-navy">Scratch to Reveal Our Wedding Date</h3>
+                    <p class="font-sans text-xs md:text-sm text-navy/70 mt-2">Drag your finger or mouse across the surface below</p>
+                </div>
 
-      <article class="event-card">
-        <div class="event-time">06:30 PM<br><span>ONWARDS</span></div>
-        <div class="event-detail">
-          <p class="event-type">AN EVENING OF GLAMOUR</p>
-          <h3>Cocktail</h3>
-          <p class="event-venue">Varca Ballroom</p>
-          <p>Raise a glass to love, great company and a night to remember.</p>
-          <div class="dress-note"><span>ATTIRE</span> Black Tie Glamour</div>
-        </div>
-      </article>
+                <div class="relative w-full max-w-md h-48 mx-auto bg-powder rounded-2xl shadow-inner overflow-hidden flex flex-col items-center justify-center border border-powder-dark">
+                    <div class="absolute inset-0 flex flex-col items-center justify-center p-6 text-center bg-gradient-to-br from-powder-light to-powder">
+                        <span class="font-serif text-xs tracking-[0.3em] text-navy-muted uppercase mb-1">Save The Date</span>
+                        <h4 class="font-serif text-3xl md:text-4xl font-bold text-navy tracking-widest">31 JANUARY 2027</h4>
+                        <p class="font-editorial text-xl italic text-navy/80 mt-1">Caravela Beach Resort · Goa</p>
+                    </div>
 
-      <div class="day-heading second-day">
-        <span>DAY TWO</span>
-        <h3>Sunday, 31 January 2027</h3>
-      </div>
+                    <canvas id="scratch-canvas" class="absolute inset-0 w-full h-full z-20 cursor-crosshair rounded-2xl"></canvas>
+                </div>
 
-      <article class="event-card">
-        <div class="event-time">10:00 AM<br><span>ONWARDS</span></div>
-        <div class="event-detail">
-          <p class="event-type">A FAMILY TRADITION</p>
-          <h3>Chooda Ceremony</h3>
-          <p class="event-venue">Lawns</p>
-          <p>A beautiful morning of blessings, family and meaningful traditions.</p>
-        </div>
-      </article>
+                <button onclick="revealDateDirectly()" class="font-serif text-xs tracking-[0.15em] text-navy underline hover:text-navy-muted transition">
+                    Having trouble scratching? Click here to reveal
+                </button>
+            </div>
+        </section>
 
-      <article class="event-card">
-        <div class="event-time">11:00 AM</div>
-        <div class="event-detail">
-          <p class="event-type">THE GROOM'S ARRIVAL</p>
-          <h3>Sehrabandi</h3>
-          <p class="event-venue">Lawns</p>
-          <p>Join the family as the groom gets ready for his big moment.</p>
-        </div>
-      </article>
 
-      <article class="event-card">
-        <div class="event-time">12:00 PM</div>
-        <div class="event-detail">
-          <p class="event-type">LET THE CELEBRATION BEGIN</p>
-          <h3>Baraat</h3>
-          <p>Music, dancing and all the excitement as the baraat makes its way forward.</p>
-        </div>
-      </article>
+        <!-- ==================== COUNTDOWN TIMER ==================== -->
+        <section class="py-20 px-6 bg-powder-light">
+            <div class="max-w-3xl mx-auto text-center space-y-10">
+                <div>
+                    <p class="font-serif text-xs tracking-[0.25em] text-navy-muted uppercase mb-2">The Journey Begins In</p>
+                    <h3 class="font-serif text-3xl md:text-4xl text-navy">Counting Down to Forever</h3>
+                </div>
 
-      <article class="event-card">
-        <div class="event-time">02:00 PM<br><span>ONWARDS</span></div>
-        <div class="event-detail">
-          <p class="event-type">THE MOMENT WE'VE BEEN WAITING FOR</p>
-          <h3>Wedding & Pheras</h3>
-          <p class="event-venue">Beach Venue</p>
-          <p>By the sea, surrounded by our favourite people, we begin our forever.</p>
-          <div class="dress-note"><span>ATTIRE</span> Ivory & Gold</div>
-        </div>
-      </article>
+                <div id="countdown-grid" class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-2xl mx-auto">
+                    <div class="bg-white p-6 rounded-xl shadow-sm border border-powder-dark/50">
+                        <span id="days" class="font-serif text-4xl md:text-5xl font-bold text-navy block">00</span>
+                        <span class="font-serif text-xs tracking-[0.2em] text-navy-muted uppercase mt-2 block">Days</span>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl shadow-sm border border-powder-dark/50">
+                        <span id="hours" class="font-serif text-4xl md:text-5xl font-bold text-navy block">00</span>
+                        <span class="font-serif text-xs tracking-[0.2em] text-navy-muted uppercase mt-2 block">Hours</span>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl shadow-sm border border-powder-dark/50">
+                        <span id="minutes" class="font-serif text-4xl md:text-5xl font-bold text-navy block">00</span>
+                        <span class="font-serif text-xs tracking-[0.2em] text-navy-muted uppercase mt-2 block">Minutes</span>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl shadow-sm border border-powder-dark/50">
+                        <span id="seconds" class="font-serif text-4xl md:text-5xl font-bold text-navy block">00</span>
+                        <span class="font-serif text-xs tracking-[0.2em] text-navy-muted uppercase mt-2 block">Seconds</span>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-      <article class="event-card">
-        <div class="event-time">07:00 PM<br><span>ONWARDS</span></div>
-        <div class="event-detail">
-          <p class="event-type">ONE LAST NIGHT TO REMEMBER</p>
-          <h3>Afterparty</h3>
-          <p class="event-venue">Varca Ballroom</p>
-          <p>Let's turn up the music and dance the night away.</p>
-          <div class="dress-note"><span>ATTIRE</span> Bollywood After-Dark Glam</div>
-        </div>
-      </article>
-    </section>
 
-    <!-- WARDROBE PLANNER -->
-    <section class="wardrobe section" id="wardrobe">
-      <div class="section-label">05 / YOUR WARDROBE PLANNER</div>
-      <p class="eyebrow">PACK YOUR FAVOURITE LOOKS</p>
-      <h2>Dress for every celebration.</h2>
-      <p class="muted-copy">Plan your outfits your way. No fixed colour palette — just what makes you feel wonderful.</p>
+        <!-- ==================== EVENT ITINERARY (DAY-BY-DAY SECTIONS) ==================== -->
+        <section id="itinerary" class="py-24 px-6 bg-white border-t border-powder-dark/30">
+            <div class="max-w-4xl mx-auto space-y-12">
+                
+                <div class="text-center space-y-3">
+                    <p class="font-serif text-xs tracking-[0.25em] text-navy-muted uppercase">Celebration Schedule</p>
+                    <h3 class="font-serif text-3xl md:text-4xl text-navy">Event Itinerary</h3>
+                    <div class="w-12 h-0.5 bg-navy/20 mx-auto mt-4"></div>
+                </div>
 
-      <div class="wardrobe-layout">
-        <div class="wardrobe-tabs" role="tablist" aria-label="Choose an event">
-          <button class="wardrobe-tab active" data-event="haldi" role="tab" aria-selected="true">Haldi</button>
-          <button class="wardrobe-tab" data-event="cocktail" role="tab" aria-selected="false">Cocktail</button>
-          <button class="wardrobe-tab" data-event="chooda" role="tab" aria-selected="false">Chooda</button>
-          <button class="wardrobe-tab" data-event="sehrabandi" role="tab" aria-selected="false">Sehrabandi</button>
-          <button class="wardrobe-tab" data-event="baraat" role="tab" aria-selected="false">Baraat</button>
-          <button class="wardrobe-tab" data-event="wedding" role="tab" aria-selected="false">Wedding</button>
-          <button class="wardrobe-tab" data-event="afterparty" role="tab" aria-selected="false">Afterparty</button>
-        </div>
+                <!-- Day Selector Tabs -->
+                <div class="flex justify-center space-x-3 border-b border-navy/10 pb-4">
+                    <button onclick="switchDay(1)" id="tab-day1" class="px-6 py-2.5 font-serif text-xs tracking-[0.2em] uppercase rounded-full bg-navy text-white shadow-sm transition-all duration-300">
+                        Day 1 — 30 Jan
+                    </button>
+                    <button onclick="switchDay(2)" id="tab-day2" class="px-6 py-2.5 font-serif text-xs tracking-[0.2em] uppercase rounded-full bg-powder-light text-navy-muted hover:text-navy transition-all duration-300">
+                        Day 2 — 31 Jan
+                    </button>
+                </div>
 
-        <div class="wardrobe-editor">
-          <p class="eyebrow" id="wardrobeEventLabel">DAY 1 · 30 JANUARY</p>
-          <h3 id="wardrobeEventTitle">Haldi</h3>
-          <p id="wardrobeEventTime" class="muted-copy">1 PM onwards · Coconut Grove</p>
-          <label for="outfitNotes">Your outfit & styling notes</label>
-          <textarea id="outfitNotes" rows="5" placeholder="Outfit, footwear, jewellery, accessories, makeup…"></textarea>
-          <button id="saveOutfit" class="primary-button">Save outfit notes</button>
-          <p id="saveOutfitStatus" class="save-status" aria-live="polite"></p>
-        </div>
-      </div>
+                <!-- Day 1 Content: Pre-Wedding Celebrations -->
+                <div id="content-day1" class="space-y-8 transition-all duration-500">
+                    <div class="text-center pb-2">
+                        <h4 class="font-serif text-2xl text-navy font-semibold">Pre-Wedding Celebrations</h4>
+                        <p class="font-editorial text-lg italic text-navy-muted">Saturday, 30 January 2027</p>
+                    </div>
 
-      <div class="packing-section">
-        <div>
-          <p class="eyebrow">DON'T FORGET</p>
-          <h3>Your packing checklist</h3>
-          <p class="muted-copy">Tick things off as you pack. Your checklist stays saved on this device.</p>
-        </div>
-        <div class="packing-add">
-          <label class="sr-only" for="packingInput">Add a packing item</label>
-          <input id="packingInput" type="text" placeholder="Add an item, e.g. sunglasses">
-          <button id="addPackingItem" class="secondary-button">Add item +</button>
-        </div>
-        <div class="packing-list" id="packingList"></div>
-        <button id="clearPacking" class="text-button">Clear checklist</button>
-      </div>
-    </section>
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <!-- Haldi -->
+                        <div class="bg-powder-light/60 p-8 rounded-2xl border border-powder-dark/40 shadow-sm space-y-4">
+                            <span class="font-serif text-xs tracking-[0.2em] text-navy-muted uppercase block">1:00 PM Onwards</span>
+                            <h5 class="font-serif text-2xl text-navy">Haldi</h5>
+                            <p class="font-sans text-sm text-navy/80"><strong class="font-medium">Venue:</strong> Coconut Grove</p>
+                            <div class="pt-2 border-t border-navy/10">
+                                <span class="font-serif text-xs tracking-[0.15em] text-navy-muted uppercase block mb-0.5">Dress Code / Attire</span>
+                                <p class="font-serif text-base text-navy font-medium">Beachside Festive Chic</p>
+                            </div>
+                        </div>
 
-    <!-- VENUE -->
-    <section class="venue section" id="venue">
-      <div class="section-label">06 / THE DESTINATION</div>
-      <p class="eyebrow">MEET US BY THE SEA</p>
-      <h2>A little Goa, a lot of love.</h2>
-      <div class="venue-card">
-        <p class="eyebrow">OUR WEDDING VENUE</p>
-        <h3>Caravela Beach Resort</h3>
-        <p>Varca Beach, Goa, India</p>
-        <p class="venue-description">Join us for a seaside celebration filled with love, family and unforgettable memories.</p>
-        <a class="primary-button link-button" href="https://www.google.com/maps/search/?api=1&query=Caravela+Beach+Resort+Goa" target="_blank" rel="noopener noreferrer">Find the venue ↗</a>
-      </div>
-      <p class="venue-footnote">Please refer to your event itinerary for the location of each celebration within the resort.</p>
-    </section>
+                        <!-- Cocktail -->
+                        <div class="bg-powder-light/60 p-8 rounded-2xl border border-powder-dark/40 shadow-sm space-y-4">
+                            <span class="font-serif text-xs tracking-[0.2em] text-navy-muted uppercase block">6:30 PM Onwards</span>
+                            <h5 class="font-serif text-2xl text-navy">Cocktail</h5>
+                            <p class="font-sans text-sm text-navy/80"><strong class="font-medium">Venue:</strong> Varca Ballroom</p>
+                            <div class="pt-2 border-t border-navy/10">
+                                <span class="font-serif text-xs tracking-[0.15em] text-navy-muted uppercase block mb-0.5">Dress Code / Attire</span>
+                                <p class="font-serif text-base text-navy font-medium">Black Tie Glamour</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-    <!-- RSVP -->
-    <section class="rsvp section" id="rsvp">
-      <div class="section-label">07 / RSVP</div>
-      <p class="eyebrow">YOUR PRESENCE IS OUR PRESENT</p>
-      <h2>Will you celebrate with us?</h2>
-      <p class="body-copy">We cannot wait to share these special moments with you. Please get in touch to confirm your attendance.</p>
-      <a class="primary-button link-button" href="https://wa.me/919217799674?text=Hello%2C%20I%20would%20like%20to%20RSVP%20for%20Shreya%20%26%20Sahil%27s%20wedding." target="_blank" rel="noopener noreferrer">RSVP on WhatsApp ↗</a>
-      <p class="rsvp-number">+91 92177 99674</p>
-      <p class="signature final-signature">With love, Shreya & Sahil</p>
-    </section>
+                <!-- Day 2 Content: Wedding Day -->
+                <div id="content-day2" class="hidden space-y-8 transition-all duration-500">
+                    <div class="text-center pb-2">
+                        <h4 class="font-serif text-2xl text-navy font-semibold">The Wedding Day</h4>
+                        <p class="font-editorial text-lg italic text-navy-muted">Sunday, 31 January 2027</p>
+                    </div>
 
-    <footer class="site-footer">
-      <div class="footer-monogram">S <span>&</span> S</div>
-      <p>MADE WITH LOVE · GOA · JANUARY 2027</p>
-      <a href="#home">Back to the beginning ↑</a>
-    </footer>
+                    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        <div class="bg-powder-light/60 p-6 rounded-2xl border border-powder-dark/40 shadow-sm space-y-3">
+                            <span class="font-serif text-xs tracking-[0.2em] text-navy-muted uppercase block">10:00 AM Onwards</span>
+                            <h5 class="font-serif text-xl text-navy">Chooda Ceremony</h5>
+                            <p class="font-sans text-sm text-navy/80"><strong class="font-medium">Venue:</strong> Lawns</p>
+                        </div>
 
-  </main>
-  <script src="app.js"></script>
+                        <div class="bg-powder-light/60 p-6 rounded-2xl border border-powder-dark/40 shadow-sm space-y-3">
+                            <span class="font-serif text-xs tracking-[0.2em] text-navy-muted uppercase block">11:00 AM</span>
+                            <h5 class="font-serif text-xl text-navy">Sehrabandi</h5>
+                            <p class="font-sans text-sm text-navy/80"><strong class="font-medium">Venue:</strong> Lawns</p>
+                        </div>
+
+                        <div class="bg-powder-light/60 p-6 rounded-2xl border border-powder-dark/40 shadow-sm space-y-3">
+                            <span class="font-serif text-xs tracking-[0.2em] text-navy-muted uppercase block">12:00 PM</span>
+                            <h5 class="font-serif text-xl text-navy">Baraat</h5>
+                            <p class="font-sans text-sm text-navy/80"><strong class="font-medium">Venue:</strong> Resort Entrance</p>
+                        </div>
+
+                        <div class="bg-powder-light/60 p-6 rounded-2xl border border-powder-dark/40 shadow-sm space-y-3">
+                            <span class="font-serif text-xs tracking-[0.2em] text-navy-muted uppercase block">2:00 PM Onwards</span>
+                            <h5 class="font-serif text-xl text-navy">Wedding / Pheras</h5>
+                            <p class="font-sans text-sm text-navy/80"><strong class="font-medium">Venue:</strong> Beach venue</p>
+                            <div class="pt-2 border-t border-navy/10">
+                                <span class="font-serif text-xs tracking-[0.15em] text-navy-muted uppercase block mb-0.5">Dress Code / Attire</span>
+                                <p class="font-serif text-base text-navy font-medium">Ivory & Gold</p>
+                            </div>
+                        </div>
+
+                        <div class="bg-powder-light/60 p-6 rounded-2xl border border-powder-dark/40 shadow-sm space-y-3 lg:col-span-2">
+                            <span class="font-serif text-xs tracking-[0.2em] text-navy-muted uppercase block">7:00 PM Onwards</span>
+                            <h5 class="font-serif text-xl text-navy">Afterparty</h5>
+                            <p class="font-sans text-sm text-navy/80"><strong class="font-medium">Venue:</strong> Varca Ballroom</p>
+                            <div class="pt-2 border-t border-navy/10">
+                                <span class="font-serif text-xs tracking-[0.15em] text-navy-muted uppercase block mb-0.5">Dress Code / Attire</span>
+                                <p class="font-serif text-base text-navy font-medium">Bollywood After-Dark Glam</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- ==================== VENUE GUIDE ==================== -->
+        <section id="venue" class="py-24 px-6 bg-powder-light border-t border-powder-dark/30">
+            <div class="max-w-3xl mx-auto text-center space-y-8">
+                <div>
+                    <p class="font-serif text-xs tracking-[0.25em] text-navy-muted uppercase mb-2">Destination</p>
+                    <h3 class="font-serif text-3xl md:text-4xl text-navy">Caravela Beach Resort, Goa</h3>
+                    <p class="font-editorial text-xl italic text-navy/80 mt-2">Where coastal elegance meets timeless celebration.</p>
+                </div>
+
+                <p class="font-sans text-sm md:text-base text-navy/80 leading-relaxed max-w-xl mx-auto">
+                    We are thrilled to host our wedding celebrations at the magnificent Caravela Beach Resort in Goa. We look forward to creating unforgettable memories by the sea with our dearest family and friends.
+                </p>
+
+                <div class="pt-2">
+                    <a href="https://maps.google.com/?q=Caravela+Beach+Resort+Goa" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center px-8 py-3.5 bg-navy text-white font-serif text-xs tracking-[0.2em] uppercase rounded-full hover:bg-navy-light transition shadow-md">
+                        Open in Google Maps
+                    </a>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ==================== RSVP SECTION ==================== -->
+        <section id="rsvp" class="py-24 px-6 bg-white border-t border-powder-dark/30">
+            <div class="max-w-xl mx-auto text-center space-y-8">
+                <div>
+                    <p class="font-serif text-xs tracking-[0.25em] text-navy-muted uppercase mb-2">Be Our Guest</p>
+                    <h3 class="font-serif text-3xl md:text-4xl text-navy">RSVP</h3>
+                    <p class="font-sans text-sm text-navy/80 mt-3">Please confirm your gracious presence by reaching out directly via WhatsApp.</p>
+                </div>
+
+                <div class="bg-powder-light p-8 rounded-2xl border border-powder-dark/50 shadow-sm space-y-6">
+                    <div>
+                        <span class="font-serif text-xs tracking-[0.2em] text-navy-muted uppercase block mb-1">Contact Number</span>
+                        <span class="font-serif text-2xl font-bold text-navy tracking-wide">+91 92177 99674</span>
+                    </div>
+
+                    <div>
+                        <button onclick="sendWhatsAppRSVP()" class="w-full py-4 bg-emerald-600 hover:bg-emerald-700 text-white font-serif text-xs tracking-[0.2em] uppercase rounded-xl transition shadow-md flex items-center justify-center space-x-2">
+                            <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+                            <span>RSVP via WhatsApp</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="py-12 bg-navy text-powder text-center space-y-4">
+            <h4 class="font-script-alt text-3xl text-white">Shreya & Sahil</h4>
+            <p class="font-serif text-xs tracking-[0.25em] uppercase text-powder-dark">30 – 31 January 2027 · Goa</p>
+            <p class="font-sans text-xs text-powder/60 pt-4">© 2027 Shreya & Sahil. All rights reserved.</p>
+        </footer>
+
+    </main>
+
+
+    <!-- ==================== JAVASCRIPT ==================== -->
+    <script>
+        // Floating Petals Animation
+        function createPetals() {
+            const container = document.getElementById('petals-container');
+            if (!container) return;
+            const count = 25;
+            for (let i = 0; i < count; i++) {
+                const petal = document.createElement('div');
+                petal.className = 'petal';
+                const size = Math.random() * 10 + 8;
+                petal.style.width = `${size}px`;
+                petal.style.height = `${size * 1.4}px`;
+                petal.style.left = `${Math.random() * 100}%`;
+                petal.style.top = `-10%`;
+                petal.style.animationDuration = `${Math.random() * 6 + 6}s`;
+                petal.style.animationDelay = `${Math.random() * 5}s`;
+                container.appendChild(petal);
+            }
+        }
+        createPetals();
+
+        // Background Audio Controls
+        const bgMusic = document.getElementById('bg-music');
+        const audioToggle = document.getElementById('audio-toggle');
+        const iconPlay = document.getElementById('audio-icon-play');
+        const iconPause = document.getElementById('audio-icon-pause');
+        let isPlaying = false;
+
+        function toggleAudio() {
+            if (isPlaying) {
+                bgMusic.pause();
+                iconPlay.classList.remove('hidden');
+                iconPause.classList.add('hidden');
+                isPlaying = false;
+            } else {
+                bgMusic.play().then(() => {
+                    iconPlay.classList.add('hidden');
+                    iconPause.classList.remove('hidden');
+                    isPlaying = true;
+                }).catch(e => console.log("Audio play blocked:", e));
+            }
+        }
+
+        // Open Envelope Interactive Animation
+        function openEnvelope() {
+            const envelopeScreen = document.getElementById('envelope-screen');
+            const envelopeBox = document.getElementById('envelope-box');
+            const mainInvitation = document.getElementById('main-invitation');
+
+            if (!isPlaying) {
+                bgMusic.play().then(() => {
+                    iconPlay.classList.add('hidden');
+                    iconPause.classList.remove('hidden');
+                    isPlaying = true;
+                }).catch(e => console.log("Audio play blocked:", e));
+            }
+
+            envelopeBox.classList.add('envelope-open');
+
+            setTimeout(() => {
+                envelopeScreen.style.opacity = '0';
+                setTimeout(() => {
+                    envelopeScreen.style.display = 'none';
+                    mainInvitation.classList.remove('opacity-0', 'pointer-events-none');
+                    initScratchCard();
+                }, 800);
+            }, 900);
+        }
+
+        // Day Switcher Tabs
+        function switchDay(day) {
+            const tab1 = document.getElementById('tab-day1');
+            const tab2 = document.getElementById('tab-day2');
+            const content1 = document.getElementById('content-day1');
+            const content2 = document.getElementById('content-day2');
+
+            if (day === 1) {
+                tab1.className = "px-6 py-2.5 font-serif text-xs tracking-[0.2em] uppercase rounded-full bg-navy text-white shadow-sm transition-all duration-300";
+                tab2.className = "px-6 py-2.5 font-serif text-xs tracking-[0.2em] uppercase rounded-full bg-powder-light text-navy-muted hover:text-navy transition-all duration-300";
+                content1.classList.remove('hidden');
+                content2.classList.add('hidden');
+            } else {
+                tab2.className = "px-6 py-2.5 font-serif text-xs tracking-[0.2em] uppercase rounded-full bg-navy text-white shadow-sm transition-all duration-300";
+                tab1.className = "px-6 py-2.5 font-serif text-xs tracking-[0.2em] uppercase rounded-full bg-powder-light text-navy-muted hover:text-navy transition-all duration-300";
+                content2.classList.remove('hidden');
+                content1.classList.add('hidden');
+            }
+        }
+
+        // Canvas Scratch Card Implementation
+        function initScratchCard() {
+            const canvas = document.getElementById('scratch-canvas');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            
+            canvas.width = canvas.offsetWidth;
+            canvas.height = canvas.offsetHeight;
+
+            ctx.fillStyle = '#c4d7ec';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            ctx.fillStyle = '#0f1e2e';
+            ctx.font = '13px Montserrat, sans-serif';
+            ctx.textAlign = 'center';
+            ctx.fillText('Scratch here or drag to reveal', canvas.width / 2, canvas.height / 2 + 5);
+
+            let isDrawing = false;
+
+            function scratch(e) {
+                if (!isDrawing) return;
+                const rect = canvas.getBoundingClientRect();
+                const x = (e.clientX || e.touches[0].clientX) - rect.left;
+                const y = (e.clientY || e.touches[0].clientY) - rect.top;
+
+                ctx.globalCompositeOperation = 'destination-out';
+                ctx.beginPath();
+                ctx.arc(x, y, 30, 0, Math.PI * 2, false);
+                ctx.fill();
+
+                checkScratchPercentage();
+            }
+
+            canvas.addEventListener('mousedown', () => isDrawing = true);
+            canvas.addEventListener('mousemove', scratch);
+            window.addEventListener('mouseup', () => isDrawing = false);
+
+            canvas.addEventListener('touchstart', () => isDrawing = true);
+            canvas.addEventListener('touchmove', scratch);
+            window.addEventListener('touchend', () => isDrawing = false);
+        }
+
+        function checkScratchPercentage() {
+            const canvas = document.getElementById('scratch-canvas');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+            let cleared = 0;
+            for (let i = 3; i < imageData.data.length; i += 4) {
+                if (imageData.data[i] === 0) cleared++;
+            }
+            if (cleared > (imageData.data.length / 4) * 0.4) {
+                canvas.style.transition = 'opacity 0.6s ease';
+                canvas.style.opacity = '0';
+                setTimeout(() => canvas.style.display = 'none', 600);
+            }
+        }
+
+        function revealDateDirectly() {
+            const canvas = document.getElementById('scratch-canvas');
+            if (canvas) {
+                canvas.style.transition = 'opacity 0.6s ease';
+                canvas.style.opacity = '0';
+                setTimeout(() => canvas.style.display = 'none', 600);
+            }
+        }
+
+        // Real-Time IST Countdown Timer
+        const weddingDate = new Date('2027-01-31T00:00:00+05:30').getTime();
+
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const distance = weddingDate - now;
+
+            if (distance < 0) {
+                document.getElementById('days').innerText = '00';
+                document.getElementById('hours').innerText = '00';
+                document.getElementById('minutes').innerText = '00';
+                document.getElementById('seconds').innerText = '00';
+                return;
+            }
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById('days').innerText = String(days).padStart(2, '0');
+            document.getElementById('hours').innerText = String(hours).padStart(2, '0');
+            document.getElementById('minutes').innerText = String(minutes).padStart(2, '0');
+            document.getElementById('seconds').innerText = String(seconds).padStart(2, '0');
+        }
+
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+
+        // Direct WhatsApp RSVP Handler
+        function sendWhatsAppRSVP() {
+            const phoneNumber = '919217799674';
+            const message = encodeURIComponent("Hello! I would like to RSVP for Shreya & Sahil's wedding celebrations on 30–31 January 2027 in Goa.");
+            window.open(`https://wa.me/${phoneNumber}?text=${message}`, '_blank');
+        }
+    </script>
 </body>
 </html>
