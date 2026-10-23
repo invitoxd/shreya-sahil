@@ -4,22 +4,39 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#f7f3eb">
   <title>Shreya & Sahil | Wedding Invitation</title>
-  <meta name="theme-color" content="#f8f5ef">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
   <section class="opening" id="opening">
     <div class="opening-card">
-      <p class="eyebrow">A WEDDING INVITATION</p>
+      <p class="eyebrow">TOGETHER WITH THEIR FAMILIES</p>
       <div class="gold-line"></div>
-      <p class="invited">Together with their families</p>
-      <h1>Shreya <span>&</span> Sahil</h1>
-      <p class="opening-date">30 — 31 January 2027</p>
-      <p class="opening-place">Caravela Resort · Goa</p>
-      <button id="openInvitation" type="button">
-        OPEN INVITATION <span>↗</span>
+
+      <p class="scratch-instruction" id="scratchInstruction">
+        A little surprise awaits you
+      </p>
+
+      <div class="scratch-wrap" id="scratchWrap">
+        <div class="scratch-message">
+          <span class="scratch-sparkle">✧</span>
+          <p class="scratch-small">YOU ARE CORDIALLY INVITED TO</p>
+          <h1>Shreya <span>&</span> Sahil</h1>
+          <p class="scratch-date">30 — 31 JANUARY 2027</p>
+          <p class="scratch-place">Caravela Resort · Goa</p>
+          <span class="scratch-sparkle">✧</span>
+        </div>
+        <canvas id="scratchCanvas" aria-label="Scratch here to reveal the wedding invitation"></canvas>
+      </div>
+
+      <p class="scratch-hint" id="scratchHint">
+        ✦ Rub gently to reveal the invitation ✦
+      </p>
+
+      <button id="openInvitation" type="button" disabled>
+        REVEAL THE CELEBRATION <span>↗</span>
       </button>
     </div>
   </section>
@@ -35,6 +52,7 @@
         Two hearts, two families, one beautiful beginning.
         Join us as we celebrate love, laughter and forever.
       </p>
+      <span class="hero-ornament">✧ ❧ ✧</span>
     </header>
 
     <section class="events">
@@ -115,4 +133,3 @@
   <script src="app.js"></script>
 </body>
 </html>
-
