@@ -1,443 +1,308 @@
-:root{--wine:#591f32;--ink:#422b30;--cream:#faf6ed;--gold:#a58150;--muted:#7c6c64;--serif:'Cormorant Garamond',Georgia,serif}*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:78px}body{margin:0;background:var(--cream);color:var(--ink);font-family:Manrope,Arial,sans-serif;font-size:14px}body.sealed{overflow:hidden}button,a{-webkit-tap-highlight-color:transparent}button{font:inherit;cursor:pointer}a{color:inherit;text-decoration:none}button:focus-visible,a:focus-visible{outline:3px solid #c3994c;outline-offset:5px}.eyebrow{font-size:10px;letter-spacing:2.8px;font-weight:600;line-height:1.8}header{height:78px;display:flex;align-items:center;justify-content:space-between;padding:0 5%;position:absolute;top:0;left:0;width:100%;z-index:5;border-bottom:1px solid #906c4333;background:#faf6ed80}.monogram{font:34px var(--serif);letter-spacing:-3px}.monogram span{font-size:19px;font-style:italic;margin:0 3px}nav{display:flex;gap:35px;font-size:11px;letter-spacing:.4px}.sound{border:1px solid #591f3240;border-radius:50%;width:38px;height:38px;background:#faf6edaa;color:var(--wine);font-size:20px}.sound[aria-pressed=true]{background:var(--wine);color:white}.hero{height:930px;min-height:720px;max-height:1100px;position:relative;display:flex;align-items:center;justify-content:center;text-align:center;isolation:isolate}.hero-image{position:absolute;inset:0;z-index:-2;background:url('palace.png') center 57%/cover}.hero:after{content:'';position:absolute;inset:0;z-index:-1;background:linear-gradient(#faf6ed80 0%,#fffaf0a6 25%,#faf6ed55 58%,#faf6ed00 82%,var(--cream))}.hero-content{padding:20px;transform:translateY(-55px)}.blessing{font:italic 18px var(--serif);margin:26px 0 34px}.hero h1{font:500 clamp(80px,8vw,128px)/.97 var(--serif);margin:0;color:var(--wine);letter-spacing:-4px}.hero h1 span{display:block;font:italic 53px var(--serif);color:var(--gold);margin:3px 0}.hero-tagline{font:italic 29px var(--serif);margin:30px 0}.hero-date{display:flex;gap:20px;align-items:center;justify-content:center;font-size:10px;letter-spacing:2px}.hero-date i{color:var(--gold);font-style:normal}.scroll-link{display:inline-flex;flex-direction:column;gap:16px;font-size:9px;letter-spacing:2px;margin-top:44px}.scroll-link span{font-size:24px}.side-note{position:absolute;left:24px;top:48%;writing-mode:vertical-rl;font-size:8px;letter-spacing:3px;color:var(--muted)}.paper{background:var(--cream);background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' opacity='.035' filter='url(%23n)'/%3E%3C/svg%3E")}.invitation{text-align:center;padding:70px 24px 95px}.ornament{display:block;color:var(--gold);font:42px var(--serif);margin-bottom:20px}h2{font:400 clamp(39px,4.2vw,62px)/1.05 var(--serif);letter-spacing:-1.2px;margin:20px 0}h2 em{font-weight:400;color:var(--wine)}.intro-copy,.blessings>p:not(.eyebrow){font-size:13px;line-height:2;color:var(--muted)}.couple{display:flex;justify-content:center;align-items:center;gap:65px;margin:45px auto 48px}.couple h3{font:36px var(--serif);margin:0 0 9px;color:var(--wine)}.couple p{font-size:11px;line-height:1.9;color:var(--muted)}.couple strong{font-weight:500}.couple-and{font:italic 40px var(--serif);color:var(--gold)}.date-card{max-width:395px;padding:22px;margin:auto;border:1px solid #a5815060;position:relative}.scratch-wrap{height:140px;position:relative;margin-top:14px}.revealed-date{height:100%;display:flex;flex-direction:column;justify-content:center;gap:8px;background:#eee4d3}.revealed-date span{font-size:9px;letter-spacing:2px}.revealed-date strong{font:42px var(--serif);color:var(--wine)}#scratch{position:absolute;inset:0;width:100%;height:100%;touch-action:none;transition:opacity .7s}#scratch.done{opacity:0;pointer-events:none}.text-button{background:none;border:0;padding:18px 0 0;font-size:10px;color:var(--muted)}#revealMessage{font-size:11px;margin:8px 0 0;color:var(--wine)}#revealMessage:empty{display:none}.countdown{background:var(--wine);color:#f9eddc;text-align:center;padding:65px 24px;background-image:radial-gradient(ellipse at top,#ffffff09,transparent 65%)}.countdown>.eyebrow{color:#d6bc92}.countdown h2{font-style:italic;margin:15px 0 30px}#countdown{display:flex;justify-content:center;align-items:center;gap:28px}#countdown div{display:flex;flex-direction:column;min-width:70px}#countdown strong{font:56px var(--serif);font-variant-numeric:tabular-nums}#countdown span{font-size:8px;letter-spacing:2px;margin-top:9px;color:#d6bc92}#countdown i{font:26px var(--serif);color:#b89574}.light-link{border:0;border-bottom:1px solid #d6bc9270;background:transparent;color:#f9eddc;font-size:9px;letter-spacing:1.8px;padding:14px 0 8px;margin-top:30px}.celebrations{text-align:center;padding:95px 5% 100px}.section-subtitle{font-size:12px;color:var(--muted);margin:20px 0 40px}.events{display:grid;grid-template-columns:repeat(3,1fr);max-width:1120px;margin:auto;border:1px solid #a581504d}.event{padding:38px 20px 33px}.event+.event{border-left:1px solid #a581504d}.event.featured{background:#eee6d74d}.event-icon{font:45px var(--serif);color:var(--gold);display:block;margin-bottom:24px}.event .eyebrow{font-size:8px;letter-spacing:1.8px}.event h3{font:43px var(--serif);margin:15px 0 8px;color:var(--wine)}.event>p:not(.eyebrow){font:italic 19px var(--serif);color:var(--muted)}.event-details{font-size:9px;line-height:2.3;letter-spacing:1px;margin-top:27px}.dress{display:block;font-size:10px;color:var(--muted);border-top:1px solid #a5815033;padding-top:20px;margin-top:25px}.venue{display:grid;grid-template-columns:1fr 1fr;max-width:1440px;margin:auto;background:#efe7db}.venue-art{min-height:600px;background:url('palace.png') center/cover;position:relative}.venue-art span{position:absolute;bottom:28px;left:0;width:100%;text-align:center;font-size:9px;letter-spacing:3px;color:var(--wine)}.venue-copy{align-self:center;padding:55px 12%}.venue-copy h2{font-size:48px}.line{width:45px;height:1px;background:var(--gold);margin:30px 0}.venue-copy h3{font:34px var(--serif);margin:0 0 8px}.venue-copy>p:not(.eyebrow){color:var(--muted);font-size:12px}.venue-description{line-height:1.9;margin:26px 0}.button{display:inline-flex;align-items:center;justify-content:center;gap:32px;border:1px solid var(--wine);background:var(--wine);color:#fff4e6;padding:17px 25px;font-size:9px;letter-spacing:1.7px;transition:background .2s,transform .2s}.button:hover{background:#733047;transform:translateY(-2px)}.button span{font-size:17px}.venue-copy small{display:block;font-size:9px;line-height:1.7;color:var(--muted);margin-top:16px}.blessings{text-align:center;padding:90px 24px 70px}.families{display:flex;align-items:center;justify-content:center;gap:25px;font:26px var(--serif);color:var(--wine);margin:35px 0}.families i{font-style:normal;font-size:12px;color:var(--gold)}#shareStatus{font-size:11px;min-height:16px}footer{text-align:center;padding:55px 20px 30px;border-top:1px solid #a581504d}footer>div{font:48px var(--serif);color:var(--wine)}footer em{color:var(--gold);font-size:35px}footer>p:not(.eyebrow){font-size:10px;letter-spacing:2px;margin:20px}footer p span{margin:0 10px;color:var(--gold)}footer small{font-size:9px;color:var(--muted)}.opening{position:fixed;inset:0;z-index:30;display:flex;justify-content:center;align-items:center;background:#f4ecdf;transition:opacity 1s,visibility 1s;overflow:auto}.opening:before{content:'';position:absolute;inset:0;background:url('palace.png') center/cover;opacity:.14}.opening-border{position:relative;border:1px solid #a5815070;outline:1px solid #a5815030;outline-offset:8px;padding:60px 65px;text-align:center;margin:30px;max-width:560px}.envelope{margin:35px auto 25px;width:180px;height:115px;background:#e6d7c3;box-shadow:0 12px 30px #591f3210;position:relative;border:1px solid #c7ac85}.envelope:before{content:'';position:absolute;inset:0;background:linear-gradient(32deg,transparent 49.4%,#b69c7650 50%,transparent 50.6%),linear-gradient(-32deg,transparent 49.4%,#b69c7650 50%,transparent 50.6%)}.seal{position:absolute;left:64px;top:30px;border:3px double #b68479;border-radius:50%;background:var(--wine);width:54px;height:54px;display:flex;justify-content:center;align-items:center;font:23px var(--serif);color:#f5ddba;box-shadow:0 4px 10px #591f3230}.seal span{font-size:13px;margin:0 1px}.opening h1{font:54px var(--serif);color:var(--wine);margin:20px 0}.opening p:not(.eyebrow){font:italic 20px/1.6 var(--serif);color:var(--muted)}.opening .button{margin:18px 0 25px}.opening small{display:block;font-size:9px;color:var(--muted)}.opening.opened{opacity:0;visibility:hidden;pointer-events:none}#petals{pointer-events:none;position:fixed;inset:0;overflow:hidden;z-index:8}.petal{position:absolute;top:-30px;background:#a34e6380;width:9px;height:14px;border-radius:80% 0 80% 0;animation:fall 14s linear infinite}@keyframes fall{to{transform:translate(100px,110vh) rotate(600deg)}}@media(max-width:700px){header{height:65px;padding:0 6%}nav{gap:17px;font-size:9px}nav a:last-child{display:none}.hero{height:850px;min-height:740px}.hero-image{background-position:center}.hero-content{transform:translateY(-45px);width:100%}.hero h1{font-size:92px}.hero h1 span{font-size:44px}.hero .eyebrow{font-size:8px;letter-spacing:2px}.blessing{font-size:15px;max-width:270px;margin:22px auto 32px;line-height:1.5}.hero-tagline{font-size:25px}.hero-date{gap:10px;font-size:8px;letter-spacing:1.3px}.side-note{display:none}.invitation{padding-top:45px}.couple{gap:18px;margin-top:35px}.couple h3{font-size:29px}.couple p{font-size:10px}.couple-and{font-size:30px}.intro-copy{font-size:12px}.countdown{padding:55px 15px}#countdown{gap:10px}#countdown div{min-width:55px}#countdown strong{font-size:43px}#countdown span{font-size:7px}.celebrations{padding:65px 24px}.events{grid-template-columns:1fr;max-width:420px}.event+.event{border-left:0;border-top:1px solid #a581504d}.event{padding:28px 20px}.event-icon{margin-bottom:15px}.venue{grid-template-columns:1fr}.venue-art{min-height:470px}.venue-copy{padding:45px 28px 55px}.venue-copy h2{font-size:43px}.blessings{padding-top:65px}.families{gap:15px;font-size:21px}.opening-border{padding:38px 23px;margin:25px;max-width:calc(100% - 50px);width:420px}.opening-border>.eyebrow{font-size:8px;letter-spacing:1.8px}.opening h1{font-size:46px}.opening p:not(.eyebrow){font-size:18px}footer>div{font-size:42px}}@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{animation:none!important;transition:none!important}}
-:root{color-scheme:light}html,body{width:100%;max-width:100%;overflow-x:clip}body{overscroll-behavior-x:none}button,a{touch-action:manipulation}img,canvas{max-width:100%}.opening[hidden]{display:none}.opening{overflow:hidden;background:#ece1ce;isolation:isolate;min-height:100svh}.opening:before{display:none}.opening-garden{position:absolute;inset:0;background:url('palace.png') center/cover;z-index:-3;transform:scale(1.08)}.intro-running .opening-garden{animation:garden-approach 8s ease-out both}.opening-glow{position:absolute;inset:0;z-index:-1;background:radial-gradient(ellipse at center,#fff6de90,transparent 70%);opacity:0}.intro-running .opening-glow{animation:soft-glow 5s 1.2s both}.curtain{position:absolute;top:0;bottom:-8%;width:58%;z-index:2;background:repeating-linear-gradient(90deg,#cbbba5 0%,#f8f0df 7%,#d3c3ac 12%,#fff9e8 18%,#bbaa93 24%);box-shadow:0 0 36px #715a3a66;transform-origin:top center;will-change:transform;pointer-events:none}.curtain:after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,#fff5d54d,transparent 40%,#8c715933);border-bottom:2px solid #c9a86a}.curtain-left{left:-7%;border-radius:0 0 42% 0}.curtain-right{right:-7%;border-radius:0 0 0 42%}.intro-running .curtain-left{animation:curtain-left 5.5s .35s cubic-bezier(.2,.65,.2,1) both}.intro-running .curtain-right{animation:curtain-right 5.5s .35s cubic-bezier(.2,.65,.2,1) both}.opening-title{position:relative;z-index:1;text-align:center;padding:24px;width:100%;opacity:0;transform:translateY(20px);color:var(--wine);text-shadow:0 2px 25px #fff5d9}.intro-running .opening-title{animation:title-reveal 2.5s 2s both}.opening .opening-title h1{font:500 clamp(76px,10vw,128px)/.96 var(--serif);letter-spacing:-3px;margin:22px 0}.opening-title h1 span{display:block;font:italic .48em var(--serif);margin:8px 0;color:#a58150}.opening .opening-title .eyebrow{font:500 9px/1.8 Manrope,sans-serif;letter-spacing:3px;color:var(--wine)}.opening .opening-title .opening-date{font:500 10px/1.8 Manrope,sans-serif;letter-spacing:3px;color:var(--wine);margin-top:30px}.intro-skip{position:absolute;bottom:max(30px,env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);z-index:4;border:1px solid #c2a67d;background:#faf6edeb;backdrop-filter:blur(8px);color:var(--wine);padding:15px 20px;min-height:48px;font-size:9px;letter-spacing:2px;white-space:nowrap;border-radius:2px}.intro-skip span{margin-left:16px}.opening.opened{opacity:0;visibility:hidden}.hero{min-height:680px;height:100svh;max-height:1100px}.hero-content{padding-top:80px;transform:none}.sound{min-width:44px;min-height:44px}.text-button,.light-link{min-height:44px}.hero-date{flex-wrap:wrap}.families{flex-wrap:wrap}.button{min-height:48px}.venue-copy,.event,.couple>div{min-width:0}@keyframes curtain-left{0%{transform:translateX(0) rotate(0)}100%{transform:translateX(-93%) rotate(5deg)}}@keyframes curtain-right{0%{transform:translateX(0) rotate(0)}100%{transform:translateX(93%) rotate(-5deg)}}@keyframes garden-approach{from{transform:scale(1.08)}to{transform:scale(1)}}@keyframes title-reveal{to{opacity:1;transform:translateY(0)}}@keyframes soft-glow{to{opacity:1}}@media(max-width:700px){html{scroll-padding-top:15px}header{height:68px;padding:env(safe-area-inset-top) 20px 0;background:transparent;border:0}header nav{display:none}.monogram{font-size:32px}.sound{position:fixed;top:max(16px,env(safe-area-inset-top));right:16px;z-index:10;box-shadow:0 3px 15px #591f3210}.hero{height:100svh;min-height:540px;max-height:none;overflow:hidden}.hero:after{background:linear-gradient(#faf6ed55,#faf6ed7a 30%,#faf6ed55 70%,#faf6ed)}.hero-image{background-position:center center}.hero-content{padding:65px 24px 30px;transform:none}.hero h1{font-size:clamp(64px,min(22vw,13svh),100px);line-height:.95;letter-spacing:-2px}.hero h1 span{font-size:.49em;margin:8px 0}.hero .eyebrow{font-size:8px;letter-spacing:2px;margin:0}.blessing{font-size:16px;line-height:1.5;max-width:265px;margin:20px auto 26px}.hero-tagline{font-size:25px;margin:23px 0}.hero-date{font-size:9px;letter-spacing:1px;gap:9px}.scroll-link{font-size:9px;margin-top:28px;gap:10px;min-height:44px}.hero-content .scroll-link span{font-size:24px}.opening .opening-title h1{font-size:clamp(70px,min(23vw,13svh),104px)}.opening .opening-title .eyebrow{font-size:8px;letter-spacing:2.2px}.opening-title{padding:30px 20px}.opening .opening-title .opening-date{font-size:9px}.curtain{width:59%}.intro-skip{bottom:max(26px,env(safe-area-inset-bottom));font-size:9px}.invitation{padding:55px 22px 65px}h2{font-size:clamp(34px,10vw,46px);letter-spacing:-.8px;line-height:1.1}.intro-copy,.blessings>p:not(.eyebrow){font-size:13px;line-height:1.9}.couple{display:grid;grid-template-columns:1fr;gap:12px;margin:30px 0}.couple h3{font-size:37px}.couple p{font-size:12px;margin:8px 0}.couple-and{font-size:31px;line-height:1}.date-card{padding:20px 15px;width:100%}.text-button{font-size:11px;line-height:1.6}.scratch-wrap{height:145px}.countdown{padding:48px 18px}.countdown>.eyebrow{font-size:8px;letter-spacing:1.7px}#countdown{gap:8px}#countdown div{min-width:0;flex:1;max-width:72px}#countdown strong{font-size:clamp(34px,10vw,46px)}#countdown i{font-size:20px}#countdown span{font-size:8px;letter-spacing:1px}.light-link{font-size:10px}.celebrations{padding:55px 20px 60px}.section-subtitle{font-size:13px;line-height:1.7}.event{padding:30px 20px}.event .eyebrow{font-size:9px}.event-details{font-size:11px;line-height:2}.dress{font-size:12px}.venue-art{min-height:0;height:115vw;max-height:600px;background-position:center 60%}.venue-copy{padding:40px 24px 46px}.venue-copy h2{font-size:clamp(35px,10vw,43px)}.venue-copy>p:not(.eyebrow){font-size:13px;line-height:1.9}.venue-copy .eyebrow{font-size:8px;letter-spacing:1.7px}.families{gap:12px;font-size:24px}.blessings{padding:55px 22px 40px}.eyebrow{font-size:9px;letter-spacing:2px}.button{font-size:10px;max-width:100%;gap:22px;padding:16px 22px}.blessings .button{width:100%;max-width:330px}footer{padding:38px 20px max(30px,env(safe-area-inset-bottom))}footer>div{font-size:42px}.petal{width:6px;height:10px}}@media(max-width:700px) and (max-height:680px){.hero-content{padding-top:60px}.hero .blessing{margin:14px auto 18px;font-size:14px}.hero-tagline{font-size:22px;margin:17px 0}.scroll-link{margin-top:18px}.opening-title{transform:none}}@media(prefers-reduced-motion:reduce){.opening-title,.opening-glow{opacity:1;transform:none}.curtain-left{transform:translateX(-93%)}.curtain-right{transform:translateX(93%)}.hero-content{transform:none}}
-
-/* SHREYA & SAHIL — PREMIUM FLORAL WEDDING THEME */
 
 :root {
-  --wine: #713747;
-  --ink: #49383c;
-  --cream: #fbf7f0;
-  --gold: #b18b65;
-  --muted: #81716f;
-  --serif: 'Cormorant Garamond', Georgia, serif;
+  --cream: #f8f5ef;
+  --ivory: #fffdf8;
+  --blue: #c8d8e5;
+  --blue-dark: #718da5;
+  --gold: #b99a62;
+  --charcoal: #34332f;
+  --muted: #77736c;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background-color: var(--cream);
-  color: var(--ink);
+  margin: 0;
+  background: var(--cream);
+  color: var(--charcoal);
+  font-family: Georgia, "Times New Roman", serif;
+  line-height: 1.7;
 }
 
-::selection {
-  background: #ead3d8;
-  color: #713747;
+button {
+  font: inherit;
 }
 
-/* Soft floral paper texture */
-.paper {
-  background-color: #fbf7f0;
-  background-image:
-    radial-gradient(ellipse at 0% 0%, #e8d4d744, transparent 38%),
-    radial-gradient(ellipse at 100% 100%, #c8d4c044, transparent 38%);
-}
-
-/* Elegant opening screen */
 .opening {
-  background: #f7efe5;
-}
-
-.opening-border {
-  border-color: #b18b6580;
-  outline-color: #b18b6538;
-}
-
-.opening .button {
-  background: #713747;
-  border-color: #713747;
-}
-
-/* Romantic hero section */
-.hero:after {
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
   background:
-    radial-gradient(ellipse at 50% 38%, #fffaf0b8, transparent 65%),
-    linear-gradient(
-      to bottom,
-      #fbf7f099,
-      #fbf7f066 55%,
-      #fbf7f0
-    );
+    radial-gradient(ellipse at top, #ffffff 0%, transparent 65%),
+    linear-gradient(140deg, #f8f5ef, #e7edf1);
+  transition: opacity 0.9s ease, visibility 0.9s ease;
 }
 
-.hero h1,
-.couple h3,
-.event h3,
-.venue-copy h3 {
-  color: #713747;
+.opening-card {
+  width: min(100%, 560px);
+  padding: 58px 25px;
+  text-align: center;
+  border: 1px solid rgba(185, 154, 98, 0.65);
+  outline: 1px solid rgba(185, 154, 98, 0.25);
+  outline-offset: 8px;
+  background: rgba(255, 253, 248, 0.78);
+  box-shadow: 0 20px 65px rgba(70, 75, 80, 0.08);
+  animation: arrive 1.2s ease both;
 }
 
-.hero h1 span,
-.couple-and,
-.ornament,
-.event-icon {
-  color: #b18b65;
+.eyebrow,
+.day-label,
+.event-time,
+.dress-code,
+.footer-place {
+  font-family: Arial, sans-serif;
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
 }
 
-/* Floral decorative accents */
-.invitation,
-.celebrations,
-.blessings {
-  position: relative;
-  overflow: hidden;
+.eyebrow {
+  color: var(--gold);
 }
 
-.invitation:before,
-.blessings:before {
-  content: "❧";
-  position: absolute;
-  top: 18px;
-  left: 5%;
-  color: #b7c5ad;
-  font: 52px Georgia, serif;
-  opacity: 0.65;
+.gold-line {
+  width: 65px;
+  height: 1px;
+  margin: 22px auto;
+  background: var(--gold);
+}
+
+.invited {
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+h1,
+h2,
+h3,
+h4,
+p {
+  margin-top: 0;
+}
+
+.opening h1,
+.hero h1 {
+  margin: 14px 0;
+  font-size: clamp(2.8rem, 10vw, 5.2rem);
+  line-height: 1.15;
+  font-weight: 400;
+  letter-spacing: -0.045em;
+}
+
+.opening h1 span,
+.hero h1 span {
+  color: var(--gold);
+  font-style: italic;
+}
+
+.opening-date {
+  margin-top: 24px;
+  letter-spacing: 0.12em;
+  font-size: 0.9rem;
+}
+
+.opening-place,
+.hero-place {
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+#openInvitation {
+  margin-top: 28px;
+  padding: 14px 24px;
+  border: 1px solid var(--gold);
+  background: transparent;
+  color: var(--charcoal);
+  cursor: pointer;
+  font-family: Arial, sans-serif;
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+#openInvitation:hover {
+  background: var(--gold);
+  color: white;
+}
+
+#openInvitation span {
+  margin-left: 10px;
+}
+
+.opening.hide {
+  opacity: 0;
+  visibility: hidden;
   pointer-events: none;
 }
 
-.invitation:after,
-.blessings:after {
-  content: "❧";
-  position: absolute;
-  bottom: 18px;
-  right: 5%;
-  color: #d4a6ad;
-  font: 52px Georgia, serif;
-  transform: rotate(180deg);
-  opacity: 0.65;
-  pointer-events: none;
+#invitation[hidden] {
+  display: none;
 }
 
-/* Invitation date card */
-.date-card {
-  border-color: #b18b6570;
-  background-color: #fffaf4;
+#invitation {
+  animation: fadeIn 1.2s ease both;
 }
 
-.revealed-date {
-  background: #f0e6dc;
+.hero {
+  min-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 90px 24px;
+  text-align: center;
+  background:
+    radial-gradient(ellipse at top, #ffffff 0%, transparent 70%),
+    linear-gradient(180deg, var(--cream), #edf1f3);
 }
 
-/* Countdown */
-.countdown {
-  background-color: #713747;
-  background-image:
-    radial-gradient(ellipse at top left, #b18b6528, transparent 55%),
-    radial-gradient(ellipse at bottom right, #d4a6ad20, transparent 55%);
+.hero h1 {
+  margin: 16px 0;
 }
 
-.countdown > .eyebrow,
-#countdown span {
-  color: #e4cba9;
+.hero-date {
+  letter-spacing: 0.13em;
+  font-size: 0.95rem;
 }
 
-/* Wedding event cards */
+.welcome {
+  max-width: 420px;
+  margin: 24px auto 0;
+  color: var(--muted);
+}
+
 .events {
-  border-color: #c8b39b70;
+  padding: 85px 20px;
+  text-align: center;
+}
+
+.events > .eyebrow {
+  margin-bottom: 8px;
+}
+
+.events > h2,
+footer h2 {
+  font-size: clamp(2rem, 6vw, 3.2rem);
+  font-weight: 400;
+}
+
+.event-day {
+  width: min(100%, 680px);
+  margin: 45px auto;
+  padding: 35px 24px;
+  border: 1px solid #e4d9c5;
+  background: var(--ivory);
+}
+
+.day-label {
+  color: var(--blue-dark);
+}
+
+.event-day h3 {
+  margin: 10px 0 30px;
+  font-size: 1.8rem;
+  font-weight: 400;
 }
 
 .event {
-  transition: background-color 0.3s ease;
+  padding: 25px 10px;
+  border-top: 1px solid #eee7db;
 }
 
-.event:hover {
-  background-color: #f0e5e1;
+.event-time {
+  margin-bottom: 8px;
+  color: var(--gold);
 }
 
-.event + .event {
-  border-color: #c8b39b70;
+.event h4 {
+  margin-bottom: 6px;
+  font-size: 1.6rem;
+  font-weight: 400;
 }
 
-.event.featured {
-  background-color: #eee4e0;
+.event p {
+  margin-bottom: 7px;
 }
 
-.dress {
-  border-color: #c8b39b50;
+.event .dress-code {
+  margin-top: 16px;
+  color: var(--blue-dark);
 }
 
-/* Venue section */
-.venue {
-  background: #f0e8dc;
-}
-
-.venue-copy .line {
-  background: #b18b65;
-}
-
-.button {
-  border-radius: 2px;
-}
-
-.button:hover {
-  background: #8a4b5d;
-  border-color: #8a4b5d;
-}
-
-/* Family names and footer */
-.families {
-  color: #713747;
-}
-
-.families i,
-footer em {
-  color: #b18b65;
+.event p:last-child {
+  color: var(--muted);
+  font-size: 0.95rem;
 }
 
 footer {
-  border-color: #c8b39b70;
+  padding: 70px 20px 55px;
+  text-align: center;
+  background: #e8eef2;
 }
 
-footer > div {
-  color: #713747;
+footer h2 {
+  margin-bottom: 14px;
 }
 
-/* Soft falling rose petals */
-.petal {
-  background: #c98d9b90;
-  border-radius: 80% 0 80% 0;
+.footer-place {
+  margin-top: 28px;
+  color: var(--blue-dark);
 }
 
-.petal:nth-child(3n) {
-  background: #b7c5ad99;
-}
-
-.petal:nth-child(4n) {
-  background: #e4cba9b3;
-}
-
-/* Comfortable mobile styling */
-@media (max-width: 700px) {
-  .invitation:before,
-  .blessings:before {
-    font-size: 38px;
-    top: 10px;
-    left: 3%;
+@keyframes arrive {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
   }
-
-  .invitation:after,
-  .blessings:after {
-    font-size: 38px;
-    bottom: 10px;
-    right: 3%;
-  }
-
-  .event:hover {
-    background-color: transparent;
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
-/* SHREYA & SAHIL — IVORY, POWDER BLUE & CHAMPAGNE THEME */
-
-:root {
-  --wine: #9BAFC2;
-  --ink: #34383D;
-  --cream: #F8F5EF;
-  --gold: #C6AD83;
-  --muted: #777C82;
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
-/* Main background and text */
-body {
-  background-color: #F8F5EF;
-  color: #34383D;
-}
-
-/* Invitation paper */
-.paper {
-  background-color: #FBF9F4;
-  color: #34383D;
-}
-
-/* Opening screen */
-.opening {
-  background-color: #F2EEE6;
-  color: #34383D;
-}
-
-/* Headings and decorative accents */
-.hero h1,
-h1, h2, h3 {
-  color: #34383D;
-}
-
-/* Soft powder-blue details */
-.countdown,
-.events,
-.venue,
-.families {
-  background-color: #E8EEF3;
-  color: #34383D;
-}
-
-/* Champagne-gold accents */
-.invitation:before,
-.invitation:after,
-.blessings:before,
-.blessings:after {
-  color: #C6AD83;
-}
-
-/* Links and event details */
-a {
-  color: #718AA2;
-}
-
-/* Footer */
-footer {
-  background-color: #E8EEF3;
-  color: #34383D;
-}
-
-/* Keep the theme soft on mobile too */
-@media (max-width: 700px) {
-  body {
-    background-color: #F8F5EF;
+@media (max-width: 480px) {
+  .opening-card {
+    padding: 44px 18px;
   }
 
-  
-/* FINAL COLOUR OVERRIDE — SHREYA & SAHIL */
+  .hero {
+    min-height: 70vh;
+    padding: 65px 20px;
+  }
 
-:root {
-  --wine: #9BAFC2 !important;
-  --ink: #34383D !important;
-  --cream: #F8F5EF !important;
-  --gold: #C6AD83 !important;
-  --muted: #777C82 !important;
+  .events {
+    padding: 65px 14px;
+  }
+
+  .event-day {
+    padding: 28px 14px;
+  }
 }
 
-html,
-body {
-  background: #F8F5EF !important;
-  color: #34383D !important;
-}
-
-.paper,
-.invitation {
-  background-color: #FBF9F4 !important;
-  color: #34383D !important;
-}
-
-.opening {
-  background: #F2EEE6 !important;
-  color: #34383D !important;
-}
-
-.countdown,
-.events,
-.venue,
-.families,
-footer {
-  background-color: #E8EEF3 !important;
-  color: #34383D !important;
-}
-
-h1, h2, h3, p, .hero h1 {
-  color: #34383D;
-}
-
-a {
-  color: #718AA2 !important;
-}
-
-::selection {
-  background: #DCE6EE !important;
-  color: #34383D !important;
-}
-
-}
-
-
-/* SWIKRITI & KARTIK INSPIRED COLOUR THEME */
-
-:root {
-  --wine: #91A9BE;
-  --ink: #343A40;
-  --cream: #F7F4EE;
-  --gold: #C7AD83;
-  --muted: #777D82;
-}
-
-/* Main page */
-body,
-.paper {
-  background-color: #F7F4EE !important;
-  color: #343A40 !important;
-}
-
-/* Header */
-header {
-  background: #F7F4EEDD !important;
-  border-bottom-color: #C7AD8340 !important;
-}
-
-/* Names and headings */
-.hero h1,
-.opening h1,
-.couple h3,
-.event h3,
-.venue-copy h3,
-h2,
-h2 em {
-  color: #343A40 !important;
-}
-
-/* Gold decorative details */
-.hero h1 span,
-.ornament,
-.event-icon,
-.hero-date i,
-.couple-and,
-footer em {
-  color: #C7AD83 !important;
-}
-
-/* Countdown */
-.countdown {
-  background: #DDE6ED !important;
-  color: #343A40 !important;
-}
-
-.countdown .eyebrow,
-#countdown span {
-  color: #657D91 !important;
-}
-
-/* Event cards */
-.events {
-  background: #F7F4EE !important;
-  border-color: #C7AD8370 !important;
-}
-
-.event,
-.event.featured {
-  background-color: #F7F4EE !important;
-}
-
-.event + .event {
-  border-color: #C7AD8370 !important;
-}
-
-/* Venue section */
-.venue {
-  background: #E8EEF2 !important;
-}
-
-/* Opening screen */
-.opening {
-  background: #F7F4EE !important;
-}
-
-.opening:before {
-  opacity: 0.08 !important;
-}
-
-/* Buttons */
-.button {
-  background: #91A9BE !important;
-  border-color: #91A9BE !important;
-  color: #FFFFFF !important;
-}
-
-/* Footer */
-footer {
-  background: #F7F4EE !important;
-  color: #343A40 !important;
-  border-color: #C7AD8370 !important;
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
 }
