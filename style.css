@@ -222,3 +222,73 @@ footer > div {
     background-color: transparent;
   }
 }
+
+/* SHREYA & SAHIL — IVORY, POWDER BLUE & CHAMPAGNE THEME */
+
+:root {
+  --wine: #9BAFC2;
+  --ink: #34383D;
+  --cream: #F8F5EF;
+  --gold: #C6AD83;
+  --muted: #777C82;
+}
+
+/* Main background and text */
+body {
+  background-color: #F8F5EF;
+  color: #34383D;
+}
+
+/* Invitation paper */
+.paper {
+  background-color: #FBF9F4;
+  color: #34383D;
+}
+
+/* Opening screen */
+.opening {
+  background-color: #F2EEE6;
+  color: #34383D;
+}
+
+/* Headings and decorative accents */
+.hero h1,
+h1, h2, h3 {
+  color: #34383D;
+}
+
+/* Soft powder-blue details */
+.countdown,
+.events,
+.venue,
+.families {
+  background-color: #E8EEF3;
+  color: #34383D;
+}
+
+/* Champagne-gold accents */
+.invitation:before,
+.invitation:after,
+.blessings:before,
+.blessings:after {
+  color: #C6AD83;
+}
+
+/* Links and event details */
+a {
+  color: #718AA2;
+}
+
+/* Footer */
+footer {
+  background-color: #E8EEF3;
+  color: #34383D;
+}
+
+/* Keep the theme soft on mobile too */
+@media (max-width: 700px) {
+  body {
+    background-color: #F8F5EF;
+  }
+}
+
