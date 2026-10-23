@@ -1,489 +1,398 @@
 
 document.addEventListener("DOMContentLoaded", () => {
-  // ==========================================
-  // 1. ENVELOPE OPENING
-  // ==========================================
+  const opening = document.getElementById("opening");
+  const openEnvelopeButton = document.getElementById("openEnvelope");
+  const enterInvitationButton = document.getElementById("enterInvitation");
+  const mainContent = document.getElementById("mainContent");
 
-  const envelopeScreen = document.getElementById("envelopeScreen");
-  const opening = document.querySelector(".opening");
-  const openInvitation = document.getElementById("openInvitation");
-  const waxSeal = document.getElementById("waxSeal");
-
-  let envelopeOpened = false;
-
+  // ENVELOPE OPENING
   function openEnvelope() {
-    if (envelopeOpened || !opening) return;
+    if (opening.classList.contains("is-opening")) return;
 
-    envelopeOpened = true;
     opening.classList.add("is-opening");
 
-    // Reveal the invitation card after the envelope opens.
     window.setTimeout(() => {
       opening.classList.add("show-reveal");
-    }, 900);
+    }, 700);
   }
 
-  if (envelopeScreen) {
-    envelopeScreen.addEventListener("click", openEnvelope);
-    envelopeScreen.addEventListener("keydown", (event) => {
-      if (event.key === "Enter" || event.key === " ") {
-        event.preventDefault();
-        openEnvelope();
-      }
-    });
+  function enterInvitation() {
+    opening.classList.add("is-finished");
+    document.body.classList.remove("locked");
+    mainContent.classList.add("is-visible");
+
+    window.setTimeout(() => {
+      mainContent.scrollIntoView({ behavior: "smooth", block: "start" });
+    }, 100);
   }
 
-  if (waxSeal) {
-    waxSeal.addEventListener("click", (event) => {
-      event.stopPropagation();
-      openEnvelope();
-    });
-  }
+  openEnvelopeButton.addEventListener("click", openEnvelope);
+  enterInvitationButton.addEventListener("click", enterInvitation);
 
-  if (openInvitation) {
-    openInvitation.addEventListener("click", () => {
-      if (!opening) return;
-
-      opening.classList.add("is-finished");
-      document.body.classList.remove("is-locked");
-
-      window.setTimeout(() => {
-        const home = document.getElementById("home");
-        if (home) {
-          home.scrollIntoView({ behavior: "smooth", block: "start" });
-        }
-      }, 250);
-    });
-  }
-
-  // ==========================================
-  // 2. WEDDING COUNTDOWN
-  // ==========================================
-
-  const weddingDate = new Date("2027-01-30T00:00:00+05:30");
-
-  const countdownElements = {
-    days: document.getElementById("days"),
-    hours: document.getElementById("hours"),
-    minutes: document.getElementById("minutes"),
-    seconds: document.getElementById("seconds"),
-  };
+  // COUNTDOWN TO THE WEDDING: 31 JANUARY 2027, 2 PM IST
+  const weddingDate = new Date("2027-01-31T14:00:00+05:30").getTime();
 
   function updateCountdown() {
-    const now = Date.now();
-    const difference = weddingDate.getTime() - now;
+    const remaining = weddingDate - Date.now();
 
-    if (difference <= 0) {
-      Object.values(countdownElements).forEach((element) => {
-        if (element) element.textContent = "00";
-      });
+    if (remaining <= 0) {
+      document.getElementById("days").textContent = "000";
+      document.getElementById("hours").textContent = "00";
+      document.getElementById("minutes").textContent = "00";
+      document.getElementById("seconds").textContent = "00";
       return;
     }
 
-    const days = Math.floor(difference / (1000 * 60 * 60 * 24));
-    const hours = Math.floor(
-      (difference / (1000 * 60 * 60)) % 24
-    );
-    const minutes = Math.floor(
-      (difference / (1000 * 60)) % 60
-    );
-    const seconds = Math.floor((difference / 1000) % 60);
+    const days = Math.floor(remaining / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((remaining / (1000 * 60 * 60)) % 24);
+    const minutes = Math.floor((remaining / (1000 * 60)) % 60);
+    const seconds = Math.floor((remaining / 1000) % 60);
 
-    if (countdownElements.days) {
-      countdownElements.days.textContent = String(days).padStart(2, "0");
-    }
-
-    if (countdownElements.hours) {
-      countdownElements.hours.textContent = String(hours).padStart(2, "0");
-    }
-
-    if (countdownElements.minutes) {
-      countdownElements.minutes.textContent = String(minutes).padStart(2, "0");
-    }
-
-    if (countdownElements.seconds) {
-      countdownElements.seconds.textContent = String(seconds).padStart(2, "0");
-    }
+    document.getElementById("days").textContent = String(days).padStart(3, "0");
+    document.getElementById("hours").textContent = String(hours).padStart(2, "0");
+    document.getElementById("minutes").textContent = String(minutes).padStart(2, "0");
+    document.getElementById("seconds").textContent = String(seconds).padStart(2, "0");
   }
 
   updateCountdown();
   window.setInterval(updateCountdown, 1000);
 
-  // ==========================================
-  // 3. SCRATCH-TO-REVEAL DATE CARDS
-  // ==========================================
+  // SCRATCH-TO-REVEAL DATE
+  const scratchCanvas = document.getElementById("scratchCanvas");
+  const scratchCard = document.getElementById("scratchCard");
+  const scratchHint = document.getElementById("scratchHint");
+  const ctx = scratchCanvas.getContext("2d");
 
-  document.querySelectorAll(".scratch-card").forEach((card) => {
-    const canvas = card.querySelector(".scratch-canvas");
-    if (!canvas) return;
+  let isScratching = false;
+  let hasRevealed = false;
+  let scratchCheckCounter = 0;
 
-    const context = canvas.getContext("2d");
-    if (!context) return;
+  function setupScratchCard() {
+    const rect = scratchCard.getBoundingClientRect();
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
 
-    let isScratching = false;
-    let scratchedAway = false;
+    scratchCanvas.width = Math.round(rect.width * dpr);
+    scratchCanvas.height = Math.round(rect.height * dpr);
+    scratchCanvas.style.width = `${rect.width}px`;
+    scratchCanvas.style.height = `${rect.height}px`;
 
-    function setupCanvas() {
-      const rect = card.getBoundingClientRect();
-      const width = Math.max(1, Math.round(rect.width));
-      const height = Math.max(1, Math.round(rect.height));
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    ctx.globalCompositeOperation = "source-over";
 
-      if (!width || !height) return;
+    const gradient = ctx.createLinearGradient(0, 0, rect.width, rect.height);
+    gradient.addColorStop(0, "#dfeaf5");
+    gradient.addColorStop(0.5, "#f7fbff");
+    gradient.addColorStop(1, "#c8d9ea");
 
-      const pixelRatio = Math.min(window.devicePixelRatio || 1, 2);
+    ctx.fillStyle = gradient;
+    ctx.fillRect(0, 0, rect.width, rect.height);
 
-      canvas.width = Math.round(width * pixelRatio);
-      canvas.height = Math.round(height * pixelRatio);
-      canvas.style.width = `${width}px`;
-      canvas.style.height = `${height}px`;
+    ctx.strokeStyle = "rgba(91, 117, 145, .25)";
+    ctx.lineWidth = 1;
 
-      context.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
-      context.globalCompositeOperation = "source-over";
-
-      const gradient = context.createLinearGradient(0, 0, width, height);
-      gradient.addColorStop(0, "#a8bbc9");
-      gradient.addColorStop(0.5, "#718da4");
-      gradient.addColorStop(1, "#d3dce2");
-
-      context.fillStyle = gradient;
-      context.fillRect(0, 0, width, height);
-
-      // A subtle decorative texture.
-      context.fillStyle = "rgba(255,255,255,0.13)";
-
-      for (let i = 0; i < 70; i++) {
-        const x = Math.random() * width;
-        const y = Math.random() * height;
-        context.beginPath();
-        context.arc(x, y, Math.random() * 1.5 + 0.3, 0, Math.PI * 2);
-        context.fill();
-      }
-
-      context.globalCompositeOperation = "destination-out";
-      scratchedAway = false;
-      card.classList.remove("is-revealed");
+    for (let y = 12; y < rect.height; y += 16) {
+      ctx.beginPath();
+      ctx.moveTo(0, y);
+      ctx.lineTo(rect.width, y);
+      ctx.stroke();
     }
 
-    function getPosition(event) {
-      const rect = canvas.getBoundingClientRect();
+    ctx.globalCompositeOperation = "source-over";
+    ctx.fillStyle = "#526e8b";
+    ctx.textAlign = "center";
+    ctx.font = "600 10px sans-serif";
+    ctx.fillText("SCRATCH TO REVEAL", rect.width / 2, rect.height / 2 - 8);
 
-      let clientX;
-      let clientY;
+    ctx.font = "20px Georgia";
+    ctx.fillText("✧  ✧  ✧", rect.width / 2, rect.height / 2 + 25);
 
-      if (event.touches && event.touches.length) {
-        clientX = event.touches[0].clientX;
-        clientY = event.touches[0].clientY;
-      } else {
-        clientX = event.clientX;
-        clientY = event.clientY;
-      }
+    ctx.globalCompositeOperation = "destination-out";
+  }
 
-      return {
-        x: clientX - rect.left,
-        y: clientY - rect.top,
-      };
+  function getScratchPosition(event) {
+    const rect = scratchCanvas.getBoundingClientRect();
+    return {
+      x: event.clientX - rect.left,
+      y: event.clientY - rect.top
+    };
+  }
+
+  function scratch(event) {
+    if (!isScratching || hasRevealed) return;
+
+    const pos = getScratchPosition(event);
+
+    ctx.beginPath();
+    ctx.arc(pos.x, pos.y, 21, 0, Math.PI * 2);
+    ctx.fill();
+
+    scratchCheckCounter++;
+
+    if (scratchCheckCounter % 12 === 0) {
+      checkScratchProgress();
+    }
+  }
+
+  function checkScratchProgress() {
+    if (hasRevealed) return;
+
+    const pixels = ctx.getImageData(
+      0, 0, scratchCanvas.width, scratchCanvas.height
+    ).data;
+
+    let transparentPixels = 0;
+    const totalPixels = pixels.length / 4;
+
+    for (let i = 3; i < pixels.length; i += 4) {
+      if (pixels[i] < 128) transparentPixels++;
     }
 
-    function scratch(event) {
-      if (!isScratching || scratchedAway) return;
-
-      const position = getPosition(event);
-
-      context.beginPath();
-      context.arc(position.x, position.y, 23, 0, Math.PI * 2);
-      context.fill();
-
-      // Reveal the card once enough of the surface has been scratched.
-      const pixels = context.getImageData(
-        0,
-        0,
-        canvas.width,
-        canvas.height
-      ).data;
-
-      let transparentPixels = 0;
-      let totalPixels = 0;
-      const sampleStep = 32;
-
-      for (let i = 3; i < pixels.length; i += sampleStep * 4) {
-        totalPixels++;
-        if (pixels[i] < 80) transparentPixels++;
-      }
-
-      if (totalPixels && transparentPixels / totalPixels > 0.42) {
-        revealScratchCard();
-      }
+    if (transparentPixels / totalPixels > 0.42) {
+      revealScratchCard();
     }
+  }
 
-    function revealScratchCard() {
-      scratchedAway = true;
-      isScratching = false;
-      card.classList.add("is-revealed");
-      canvas.style.transition = "opacity 450ms ease";
-      canvas.style.opacity = "0";
-      canvas.style.pointerEvents = "none";
-    }
+  function revealScratchCard() {
+    if (hasRevealed) return;
 
-    canvas.addEventListener("pointerdown", (event) => {
-      if (scratchedAway) return;
-      isScratching = true;
-      canvas.setPointerCapture?.(event.pointerId);
-      scratch(event);
-    });
+    hasRevealed = true;
+    scratchCanvas.style.transition = "opacity .5s ease";
+    scratchCanvas.style.opacity = "0";
+    scratchHint.textContent = "31 January 2027 — save the date!";
+    scratchCanvas.style.pointerEvents = "none";
+  }
 
-    canvas.addEventListener("pointermove", scratch);
+  scratchCanvas.addEventListener("pointerdown", event => {
+    if (hasRevealed) return;
 
-    canvas.addEventListener("pointerup", () => {
-      isScratching = false;
-    });
-
-    canvas.addEventListener("pointercancel", () => {
-      isScratching = false;
-    });
-
-    setupCanvas();
+    isScratching = true;
+    scratchCanvas.setPointerCapture(event.pointerId);
+    scratch(event);
   });
 
-  // ==========================================
-  // 4. WARDROBE STUDIO EVENT TABS
-  // ==========================================
+  scratchCanvas.addEventListener("pointermove", scratch);
 
-  const eventTabs = document.querySelectorAll("[data-event]");
-  const outfitNote = document.getElementById("outfitNote");
-  const saveLook = document.getElementById("saveLook");
+  scratchCanvas.addEventListener("pointerup", () => {
+    isScratching = false;
+    checkScratchProgress();
+  });
 
-  let activeEvent = "haldi";
+  scratchCanvas.addEventListener("pointercancel", () => {
+    isScratching = false;
+  });
 
-  const outfitSuggestions = {
+  setupScratchCard();
+
+  window.addEventListener("resize", () => {
+    if (!hasRevealed) setupScratchCard();
+  });
+
+  // WARDROBE PLANNER
+  const wardrobeEvents = {
     haldi: {
-      title: "Haldi — Beachside Festive Chic",
-      ideas: [
-        "A breezy co-ord set or a flowing festive outfit",
-        "Comfortable sandals suitable for the lawn",
-        "Lightweight jewellery and sunglasses",
-        "An outfit that feels easy in Goa's warm weather",
-      ],
+      title: "Haldi",
+      label: "DAY 1 · 30 JANUARY",
+      time: "1 PM onwards · Coconut Grove"
     },
     cocktail: {
-      title: "Cocktail — Black Tie Glamour",
-      ideas: [
-        "A formal gown, elegant dress, or tailored evening outfit",
-        "Dress shoes or comfortable formal heels",
-        "Statement earrings or understated evening jewellery",
-        "A light wrap for the journey back to your room",
-      ],
+      title: "Cocktail",
+      label: "DAY 1 · 30 JANUARY",
+      time: "6:30 PM onwards · Varca Ballroom"
     },
     chooda: {
       title: "Chooda Ceremony",
-      ideas: [
-        "A graceful Indian festive outfit",
-        "Comfortable footwear for the morning ceremony",
-        "Light jewellery and a small essentials pouch",
-      ],
+      label: "DAY 2 · 31 JANUARY",
+      time: "10 AM onwards · Lawns"
+    },
+    sehrabandi: {
+      title: "Sehrabandi",
+      label: "DAY 2 · 31 JANUARY",
+      time: "11 AM · Lawns"
+    },
+    baraat: {
+      title: "Baraat",
+      label: "DAY 2 · 31 JANUARY",
+      time: "12 PM"
     },
     wedding: {
-      title: "Wedding — Ivory & Gold",
-      ideas: [
-        "An elegant ivory, gold, or wedding-appropriate festive outfit",
-        "Dressy footwear suitable for the beach venue",
-        "Jewellery that works comfortably throughout the ceremony",
-        "Consider the beach setting when choosing your footwear",
-      ],
+      title: "Wedding & Pheras",
+      label: "DAY 2 · 31 JANUARY",
+      time: "2 PM onwards · Beach Venue"
     },
     afterparty: {
-      title: "Afterparty — Bollywood After-Dark Glam",
-      ideas: [
-        "A glamorous party outfit you can dance in",
-        "Comfortable party shoes",
-        "A small bag for your phone and essentials",
-        "Optional statement accessories for the evening",
-      ],
-    },
+      title: "Afterparty",
+      label: "DAY 2 · 31 JANUARY",
+      time: "7 PM onwards · Varca Ballroom"
+    }
   };
 
-  function showOutfit(eventName) {
-    activeEvent = eventName;
+  const outfitNotes = document.getElementById("outfitNotes");
+  const saveOutfitButton = document.getElementById("saveOutfit");
+  const saveOutfitStatus = document.getElementById("saveOutfitStatus");
 
-    eventTabs.forEach((tab) => {
-      const selected = tab.dataset.event === eventName;
+  let currentWardrobeEvent = "haldi";
+
+  function readSavedData(key, fallback) {
+    try {
+      const saved = localStorage.getItem(key);
+      return saved ? JSON.parse(saved) : fallback;
+    } catch {
+      return fallback;
+    }
+  }
+
+  function writeSavedData(key, value) {
+    try {
+      localStorage.setItem(key, JSON.stringify(value));
+      return true;
+    } catch {
+      return false;
+    }
+  }
+
+  function loadOutfit(eventKey) {
+    currentWardrobeEvent = eventKey;
+    const event = wardrobeEvents[eventKey];
+
+    document.getElementById("wardrobeEventLabel").textContent = event.label;
+    document.getElementById("wardrobeEventTitle").textContent = event.title;
+    document.getElementById("wardrobeEventTime").textContent = event.time;
+
+    const savedNotes = readSavedData("ss-wedding-outfits", {});
+    outfitNotes.value = savedNotes[eventKey] || "";
+    saveOutfitStatus.textContent = "";
+
+    document.querySelectorAll(".wardrobe-tab").forEach(tab => {
+      const selected = tab.dataset.event === eventKey;
       tab.classList.toggle("active", selected);
-      tab.setAttribute("aria-pressed", String(selected));
+      tab.setAttribute("aria-selected", String(selected));
     });
-
-    const suggestion = outfitSuggestions[eventName];
-
-    const outfitTitle = document.getElementById("outfitTitle");
-    const outfitIdeas = document.getElementById("outfitIdeas");
-
-    if (suggestion && outfitTitle) {
-      outfitTitle.textContent = suggestion.title;
-    }
-
-    if (suggestion && outfitIdeas) {
-      outfitIdeas.replaceChildren();
-
-      suggestion.ideas.forEach((idea) => {
-        const item = document.createElement("li");
-        item.textContent = idea;
-        outfitIdeas.appendChild(item);
-      });
-    }
-
-    if (outfitNote) {
-      try {
-        outfitNote.value =
-          localStorage.getItem(`shreyaSahilNote_${eventName}`) || "";
-      } catch (error) {
-        outfitNote.value = "";
-      }
-    }
-
-    if (saveLook) {
-      saveLook.textContent = "Save my notes";
-    }
   }
 
-  eventTabs.forEach((tab) => {
-    tab.addEventListener("click", () => {
-      showOutfit(tab.dataset.event);
-    });
+  document.querySelectorAll(".wardrobe-tab").forEach(tab => {
+    tab.addEventListener("click", () => loadOutfit(tab.dataset.event));
   });
 
-  if (saveLook && outfitNote) {
-    saveLook.addEventListener("click", () => {
-      try {
-        localStorage.setItem(
-          `shreyaSahilNote_${activeEvent}`,
-          outfitNote.value
-        );
-        saveLook.textContent = "Notes saved ✓";
-      } catch (error) {
-        saveLook.textContent = "Unable to save on this device";
-      }
-    });
-  }
+  saveOutfitButton.addEventListener("click", () => {
+    const savedNotes = readSavedData("ss-wedding-outfits", {});
+    savedNotes[currentWardrobeEvent] = outfitNotes.value;
 
-  if (eventTabs.length) {
-    const initiallyActive =
-      document.querySelector("[data-event].active") || eventTabs[0];
-    showOutfit(initiallyActive.dataset.event);
-  }
-
-  // ==========================================
-  // 5. PACKING CHECKLIST
-  // ==========================================
-
-  const packingItems = document.querySelectorAll("[data-pack]");
-  const packingPercent = document.getElementById("packingPercent");
-  const packingProgress = document.getElementById("packingProgress");
-  const resetChecklist = document.getElementById("resetChecklist");
-
-  const packingStorageKey = "shreyaSahilPackingChecklist";
-
-  function readPackingState() {
-    try {
-      return JSON.parse(localStorage.getItem(packingStorageKey) || "{}");
-    } catch (error) {
-      return {};
+    if (writeSavedData("ss-wedding-outfits", savedNotes)) {
+      saveOutfitStatus.textContent = "Your outfit notes have been saved on this device.";
+    } else {
+      saveOutfitStatus.textContent = "Unable to save. Please check your browser settings.";
     }
-  }
-
-  function updatePackingProgress() {
-    const checkedCount = [...packingItems].filter(
-      (item) => item.checked
-    ).length;
-
-    const percentage = packingItems.length
-      ? Math.round((checkedCount / packingItems.length) * 100)
-      : 0;
-
-    if (packingPercent) {
-      packingPercent.textContent = `${percentage}%`;
-    }
-
-    if (packingProgress) {
-      packingProgress.style.width = `${percentage}%`;
-      packingProgress.setAttribute("aria-valuenow", String(percentage));
-    }
-  }
-
-  function savePackingState() {
-    const state = {};
-
-    packingItems.forEach((item, index) => {
-      state[item.value || item.dataset.pack || String(index)] = item.checked;
-    });
-
-    try {
-      localStorage.setItem(packingStorageKey, JSON.stringify(state));
-    } catch (error) {
-      // The checklist will still work until the page is refreshed.
-    }
-
-    updatePackingProgress();
-  }
-
-  const savedPackingState = readPackingState();
-
-  packingItems.forEach((item, index) => {
-    const key = item.value || item.dataset.pack || String(index);
-
-    if (Object.prototype.hasOwnProperty.call(savedPackingState, key)) {
-      item.checked = Boolean(savedPackingState[key]);
-    }
-
-    item.addEventListener("change", savePackingState);
   });
 
-  updatePackingProgress();
+  loadOutfit("haldi");
 
-  if (resetChecklist) {
-    resetChecklist.addEventListener("click", () => {
-      packingItems.forEach((item) => {
-        item.checked = false;
+  // PACKING CHECKLIST
+  const defaultPackingItems = [
+    { id: "clothes", text: "Outfits for all events", done: false },
+    { id: "footwear", text: "Comfortable footwear", done: false },
+    { id: "accessories", text: "Jewellery and accessories", done: false },
+    { id: "toiletries", text: "Toiletries and skincare", done: false },
+    { id: "chargers", text: "Phone charger and essentials", done: false },
+    { id: "documents", text: "Travel documents and ID", done: false },
+    { id: "medicines", text: "Personal medicines, if needed", done: false },
+    { id: "sunglasses", text: "Sunglasses and sun protection", done: false }
+  ];
+
+  const packingList = document.getElementById("packingList");
+  const packingInput = document.getElementById("packingInput");
+  const addPackingItemButton = document.getElementById("addPackingItem");
+  const clearPackingButton = document.getElementById("clearPacking");
+
+  let packingItems = readSavedData("ss-wedding-packing", null);
+
+  if (!Array.isArray(packingItems)) {
+    packingItems = defaultPackingItems.map(item => ({ ...item }));
+  }
+
+  function savePacking() {
+    const success = writeSavedData("ss-wedding-packing", packingItems);
+
+    if (!success) {
+      alert("The checklist could not be saved. Please check your browser settings.");
+    }
+  }
+
+  function renderPackingList() {
+    packingList.replaceChildren();
+
+    packingItems.forEach(item => {
+      const label = document.createElement("label");
+      label.className = "packing-item" + (item.done ? " done" : "");
+
+      const checkbox = document.createElement("input");
+      checkbox.type = "checkbox";
+      checkbox.checked = Boolean(item.done);
+      checkbox.addEventListener("change", () => {
+        item.done = checkbox.checked;
+        savePacking();
+        renderPackingList();
       });
 
-      savePackingState();
+      const text = document.createElement("span");
+      text.textContent = item.text;
+
+      const remove = document.createElement("button");
+      remove.type = "button";
+      remove.className = "remove-packing";
+      remove.textContent = "×";
+      remove.setAttribute("aria-label", `Remove ${item.text}`);
+
+      remove.addEventListener("click", () => {
+        packingItems = packingItems.filter(entry => entry.id !== item.id);
+        savePacking();
+        renderPackingList();
+      });
+
+      label.append(checkbox, text, remove);
+      packingList.appendChild(label);
     });
   }
 
-  // ==========================================
-  // 6. OPTIONAL BACKGROUND MUSIC
-  // ==========================================
+  function addPackingItem() {
+    const value = packingInput.value.trim();
 
-  const music = document.getElementById("backgroundMusic");
-  const musicToggle = document.getElementById("musicToggle");
+    if (!value) {
+      packingInput.focus();
+      return;
+    }
 
-  if (music && musicToggle) {
-    musicToggle.addEventListener("click", async () => {
-      if (music.paused) {
-        try {
-          await music.play();
-          musicToggle.textContent = "Pause music";
-          musicToggle.setAttribute("aria-pressed", "true");
-        } catch (error) {
-          musicToggle.textContent = "Tap to play music";
-        }
-      } else {
-        music.pause();
-        musicToggle.textContent = "Play music";
-        musicToggle.setAttribute("aria-pressed", "false");
-      }
+    packingItems.push({
+      id: `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
+      text: value,
+      done: false
     });
 
-    music.addEventListener("ended", () => {
-      musicToggle.textContent = "Play music";
-      musicToggle.setAttribute("aria-pressed", "false");
-    });
+    savePacking();
+    renderPackingList();
+    packingInput.value = "";
+    packingInput.focus();
   }
 
-  // ==========================================
-  // 7. CURRENT YEAR (IF USED IN FOOTER)
-  // ==========================================
+  addPackingItemButton.addEventListener("click", addPackingItem);
 
-  const currentYear = document.getElementById("currentYear");
+  packingInput.addEventListener("keydown", event => {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      addPackingItem();
+    }
+  });
 
-  if (currentYear) {
-    currentYear.textContent = new Date().getFullYear();
-  }
+  clearPackingButton.addEventListener("click", () => {
+    const confirmed = window.confirm(
+      "Reset your packing checklist to the original items? Your custom items will be removed."
+    );
+
+    if (!confirmed) return;
+
+    packingItems = defaultPackingItems.map(item => ({ ...item }));
+    savePacking();
+    renderPackingList();
+  });
+
+  renderPackingList();
 });
