@@ -6,10 +6,12 @@
     <title>Shreya & Sahil — Wedding Invitation</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts: Pinyon Script, Alex Brush, Cinzel, Cormorant Garamond, Montserrat -->
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Cinzel:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Montserrat:wght@300;400;500;600&family=Pinyon+Script&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind Theme Configuration -->
     <script>
         tailwind.config = {
             theme: {
@@ -42,56 +44,9 @@
             }
         }
     </script>
-    <style>
-        body {
-            font-family: 'Montserrat', sans-serif;
-            background-color: #f4f8fc;
-            color: #0f1e2e;
-            overflow-x: hidden;
-        }
-        .font-script { font-family: 'Alex Brush', cursive; }
-        .font-script-alt { font-family: 'Pinyon Script', cursive; }
-        .font-serif { font-family: 'Cinzel', serif; }
-        .font-editorial { font-family: 'Cormorant Garamond', serif; }
-
-        /* Floating Petal Animation */
-        @keyframes floatPetals {
-            0% { transform: translateY(-10vh) translateX(0) rotate(0deg); opacity: 0; }
-            20% { opacity: 0.85; }
-            80% { opacity: 0.85; }
-            100% { transform: translateY(110vh) translateX(50px) rotate(360deg); opacity: 0; }
-        }
-        .petal {
-            position: absolute;
-            background: rgba(255, 255, 255, 0.9);
-            border-radius: 150% 0 150% 0;
-            animation: floatPetals linear infinite;
-            pointer-events: none;
-        }
-
-        /* Envelope Animation Dynamics */
-        #envelope-screen {
-            transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        .envelope-open .flap {
-            transform: rotateX(180deg);
-            z-index: 10;
-        }
-        .envelope-open .seal-btn {
-            transform: scale(0);
-            opacity: 0;
-        }
-        .flap {
-            transition: transform 0.6s ease-in-out;
-            transform-origin: top;
-        }
-
-        /* Scratch Card Canvas */
-        #scratch-canvas {
-            touch-action: none;
-            cursor: pointer;
-        }
-    </style>
+    
+    <!-- External CSS -->
+    <link rel="stylesheet" href="style.css">
 </head>
 <body class="antialiased selection:bg-powder-dark selection:text-navy">
 
@@ -106,7 +61,7 @@
         <svg id="audio-icon-pause" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 9v6m4-6v6m7-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
     </button>
 
-    <!-- ==================== OPENING ENVELOPE SCREEN ==================== -->
+    <!-- OPENING ENVELOPE SCREEN -->
     <div id="envelope-screen" class="fixed inset-0 z-50 flex items-center justify-center overflow-hidden bg-navy">
         <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('goa-opening.png.png');"></div>
         <div class="absolute inset-0 bg-navy/60 backdrop-blur-[2px]"></div>
@@ -138,11 +93,10 @@
         </div>
     </div>
 
-
-    <!-- ==================== MAIN INVITATION PAGE ==================== -->
+    <!-- MAIN INVITATION PAGE -->
     <main id="main-invitation" class="opacity-0 pointer-events-none transition-opacity duration-1000 min-h-screen bg-powder-light text-navy relative overflow-x-hidden">
 
-        <!-- Header / Navigation Bar -->
+        <!-- Navigation Bar -->
         <header class="fixed top-0 left-0 w-full z-40 bg-white/80 backdrop-blur-md border-b border-navy/10 px-6 py-4 flex items-center justify-between">
             <span class="font-serif font-bold text-lg tracking-widest text-navy">S & S</span>
             <nav class="hidden md:flex items-center space-x-6 font-serif text-[11px] tracking-[0.2em] text-navy-muted uppercase">
@@ -153,20 +107,16 @@
             </nav>
         </header>
 
-        <!-- Slide 1: Full Background Image Hero (Matching Reference Picture) -->
+        <!-- Hero Section with Background Image -->
         <section id="hero" class="relative min-h-screen flex flex-col items-center justify-between text-center px-6 pt-28 pb-12 bg-cover bg-center" style="background-image: url('goa-opening.png.png');">
-            <!-- Light overlay for text legibility -->
             <div class="absolute inset-0 bg-gradient-to-b from-white/40 via-white/20 to-white/60"></div>
 
             <div class="relative z-10 max-w-3xl mx-auto space-y-4 my-auto">
                 <p class="font-serif text-[11px] md:text-xs tracking-[0.35em] text-navy uppercase font-medium">TWO HEARTS · ONE BEAUTIFUL BEGINNING</p>
-                
                 <p class="font-editorial italic text-2xl md:text-3xl text-navy/90 font-light">With love and joy,</p>
-                
                 <h2 class="font-script-alt text-6xl md:text-8xl text-navy font-bold tracking-tight drop-shadow-sm py-2">
                     Shreya <span class="font-editorial italic font-normal text-4xl md:text-6xl text-navy/70">&</span> Sahil
                 </h2>
-                
                 <p class="font-editorial text-xl md:text-2xl text-navy italic">A destination wedding in Goa</p>
 
                 <div class="pt-6 space-y-1">
@@ -175,7 +125,6 @@
                 </div>
             </div>
 
-            <!-- Scroll Indicator Button -->
             <div class="relative z-10 pt-8">
                 <a href="#scratch-section" class="inline-flex items-center space-x-2 px-6 py-2.5 bg-white/80 hover:bg-white text-navy font-serif text-[10px] md:text-xs tracking-[0.25em] uppercase rounded-full border border-navy/20 shadow-md backdrop-blur-sm transition-all duration-300">
                     <span>SCROLL TO EXPLORE</span>
@@ -184,10 +133,7 @@
             </div>
         </section>
 
-
-        <!-- Slide 2 Onwards: Plain Background Sections -->
-
-        <!-- ==================== SCRATCH-TO-REVEAL DATE ==================== -->
+        <!-- Scratch-to-Reveal Date -->
         <section id="scratch-section" class="py-24 px-6 bg-white border-y border-powder-dark/30">
             <div class="max-w-xl mx-auto text-center space-y-8">
                 <div>
@@ -212,8 +158,7 @@
             </div>
         </section>
 
-
-        <!-- ==================== COUNTDOWN TIMER ==================== -->
+        <!-- Countdown Timer -->
         <section class="py-20 px-6 bg-powder-light">
             <div class="max-w-3xl mx-auto text-center space-y-10">
                 <div>
@@ -242,8 +187,7 @@
             </div>
         </section>
 
-
-        <!-- ==================== EVENT ITINERARY (DAY-BY-DAY SECTIONS) ==================== -->
+        <!-- Day-by-Day Event Itinerary -->
         <section id="itinerary" class="py-24 px-6 bg-white border-t border-powder-dark/30">
             <div class="max-w-4xl mx-auto space-y-12">
                 
@@ -263,7 +207,7 @@
                     </button>
                 </div>
 
-                <!-- Day 1 Content: Pre-Wedding Celebrations -->
+                <!-- Day 1 Content -->
                 <div id="content-day1" class="space-y-8 transition-all duration-500">
                     <div class="text-center pb-2">
                         <h4 class="font-serif text-2xl text-navy font-semibold">Pre-Wedding Celebrations</h4>
@@ -271,7 +215,6 @@
                     </div>
 
                     <div class="grid md:grid-cols-2 gap-8">
-                        <!-- Haldi -->
                         <div class="bg-powder-light/60 p-8 rounded-2xl border border-powder-dark/40 shadow-sm space-y-4">
                             <span class="font-serif text-xs tracking-[0.2em] text-navy-muted uppercase block">1:00 PM Onwards</span>
                             <h5 class="font-serif text-2xl text-navy">Haldi</h5>
@@ -282,7 +225,6 @@
                             </div>
                         </div>
 
-                        <!-- Cocktail -->
                         <div class="bg-powder-light/60 p-8 rounded-2xl border border-powder-dark/40 shadow-sm space-y-4">
                             <span class="font-serif text-xs tracking-[0.2em] text-navy-muted uppercase block">6:30 PM Onwards</span>
                             <h5 class="font-serif text-2xl text-navy">Cocktail</h5>
@@ -295,7 +237,7 @@
                     </div>
                 </div>
 
-                <!-- Day 2 Content: Wedding Day -->
+                <!-- Day 2 Content -->
                 <div id="content-day2" class="hidden space-y-8 transition-all duration-500">
                     <div class="text-center pb-2">
                         <h4 class="font-serif text-2xl text-navy font-semibold">The Wedding Day</h4>
@@ -346,8 +288,7 @@
             </div>
         </section>
 
-
-        <!-- ==================== VENUE GUIDE ==================== -->
+        <!-- Venue Guide -->
         <section id="venue" class="py-24 px-6 bg-powder-light border-t border-powder-dark/30">
             <div class="max-w-3xl mx-auto text-center space-y-8">
                 <div>
@@ -368,8 +309,7 @@
             </div>
         </section>
 
-
-        <!-- ==================== RSVP SECTION ==================== -->
+        <!-- RSVP Section -->
         <section id="rsvp" class="py-24 px-6 bg-white border-t border-powder-dark/30">
             <div class="max-w-xl mx-auto text-center space-y-8">
                 <div>
@@ -403,199 +343,7 @@
 
     </main>
 
-
-    <!-- ==================== JAVASCRIPT ==================== -->
-    <script>
-        // Floating Petals Animation
-        function createPetals() {
-            const container = document.getElementById('petals-container');
-            if (!container) return;
-            const count = 25;
-            for (let i = 0; i < count; i++) {
-                const petal = document.createElement('div');
-                petal.className = 'petal';
-                const size = Math.random() * 10 + 8;
-                petal.style.width = `${size}px`;
-                petal.style.height = `${size * 1.4}px`;
-                petal.style.left = `${Math.random() * 100}%`;
-                petal.style.top = `-10%`;
-                petal.style.animationDuration = `${Math.random() * 6 + 6}s`;
-                petal.style.animationDelay = `${Math.random() * 5}s`;
-                container.appendChild(petal);
-            }
-        }
-        createPetals();
-
-        // Background Audio Controls
-        const bgMusic = document.getElementById('bg-music');
-        const audioToggle = document.getElementById('audio-toggle');
-        const iconPlay = document.getElementById('audio-icon-play');
-        const iconPause = document.getElementById('audio-icon-pause');
-        let isPlaying = false;
-
-        function toggleAudio() {
-            if (isPlaying) {
-                bgMusic.pause();
-                iconPlay.classList.remove('hidden');
-                iconPause.classList.add('hidden');
-                isPlaying = false;
-            } else {
-                bgMusic.play().then(() => {
-                    iconPlay.classList.add('hidden');
-                    iconPause.classList.remove('hidden');
-                    isPlaying = true;
-                }).catch(e => console.log("Audio play blocked:", e));
-            }
-        }
-
-        // Open Envelope Interactive Animation
-        function openEnvelope() {
-            const envelopeScreen = document.getElementById('envelope-screen');
-            const envelopeBox = document.getElementById('envelope-box');
-            const mainInvitation = document.getElementById('main-invitation');
-
-            if (!isPlaying) {
-                bgMusic.play().then(() => {
-                    iconPlay.classList.add('hidden');
-                    iconPause.classList.remove('hidden');
-                    isPlaying = true;
-                }).catch(e => console.log("Audio play blocked:", e));
-            }
-
-            envelopeBox.classList.add('envelope-open');
-
-            setTimeout(() => {
-                envelopeScreen.style.opacity = '0';
-                setTimeout(() => {
-                    envelopeScreen.style.display = 'none';
-                    mainInvitation.classList.remove('opacity-0', 'pointer-events-none');
-                    initScratchCard();
-                }, 800);
-            }, 900);
-        }
-
-        // Day Switcher Tabs
-        function switchDay(day) {
-            const tab1 = document.getElementById('tab-day1');
-            const tab2 = document.getElementById('tab-day2');
-            const content1 = document.getElementById('content-day1');
-            const content2 = document.getElementById('content-day2');
-
-            if (day === 1) {
-                tab1.className = "px-6 py-2.5 font-serif text-xs tracking-[0.2em] uppercase rounded-full bg-navy text-white shadow-sm transition-all duration-300";
-                tab2.className = "px-6 py-2.5 font-serif text-xs tracking-[0.2em] uppercase rounded-full bg-powder-light text-navy-muted hover:text-navy transition-all duration-300";
-                content1.classList.remove('hidden');
-                content2.classList.add('hidden');
-            } else {
-                tab2.className = "px-6 py-2.5 font-serif text-xs tracking-[0.2em] uppercase rounded-full bg-navy text-white shadow-sm transition-all duration-300";
-                tab1.className = "px-6 py-2.5 font-serif text-xs tracking-[0.2em] uppercase rounded-full bg-powder-light text-navy-muted hover:text-navy transition-all duration-300";
-                content2.classList.remove('hidden');
-                content1.classList.add('hidden');
-            }
-        }
-
-        // Canvas Scratch Card Implementation
-        function initScratchCard() {
-            const canvas = document.getElementById('scratch-canvas');
-            if (!canvas) return;
-            const ctx = canvas.getContext('2d');
-            
-            canvas.width = canvas.offsetWidth;
-            canvas.height = canvas.offsetHeight;
-
-            ctx.fillStyle = '#c4d7ec';
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-            ctx.fillStyle = '#0f1e2e';
-            ctx.font = '13px Montserrat, sans-serif';
-            ctx.textAlign = 'center';
-            ctx.fillText('Scratch here or drag to reveal', canvas.width / 2, canvas.height / 2 + 5);
-
-            let isDrawing = false;
-
-            function scratch(e) {
-                if (!isDrawing) return;
-                const rect = canvas.getBoundingClientRect();
-                const x = (e.clientX || e.touches[0].clientX) - rect.left;
-                const y = (e.clientY || e.touches[0].clientY) - rect.top;
-
-                ctx.globalCompositeOperation = 'destination-out';
-                ctx.beginPath();
-                ctx.arc(x, y, 30, 0, Math.PI * 2, false);
-                ctx.fill();
-
-                checkScratchPercentage();
-            }
-
-            canvas.addEventListener('mousedown', () => isDrawing = true);
-            canvas.addEventListener('mousemove', scratch);
-            window.addEventListener('mouseup', () => isDrawing = false);
-
-            canvas.addEventListener('touchstart', () => isDrawing = true);
-            canvas.addEventListener('touchmove', scratch);
-            window.addEventListener('touchend', () => isDrawing = false);
-        }
-
-        function checkScratchPercentage() {
-            const canvas = document.getElementById('scratch-canvas');
-            if (!canvas) return;
-            const ctx = canvas.getContext('2d');
-            const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-            let cleared = 0;
-            for (let i = 3; i < imageData.data.length; i += 4) {
-                if (imageData.data[i] === 0) cleared++;
-            }
-            if (cleared > (imageData.data.length / 4) * 0.4) {
-                canvas.style.transition = 'opacity 0.6s ease';
-                canvas.style.opacity = '0';
-                setTimeout(() => canvas.style.display = 'none', 600);
-            }
-        }
-
-        function revealDateDirectly() {
-            const canvas = document.getElementById('scratch-canvas');
-            if (canvas) {
-                canvas.style.transition = 'opacity 0.6s ease';
-                canvas.style.opacity = '0';
-                setTimeout(() => canvas.style.display = 'none', 600);
-            }
-        }
-
-        // Real-Time IST Countdown Timer
-        const weddingDate = new Date('2027-01-31T00:00:00+05:30').getTime();
-
-        function updateCountdown() {
-            const now = new Date().getTime();
-            const distance = weddingDate - now;
-
-            if (distance < 0) {
-                document.getElementById('days').innerText = '00';
-                document.getElementById('hours').innerText = '00';
-                document.getElementById('minutes').innerText = '00';
-                document.getElementById('seconds').innerText = '00';
-                return;
-            }
-
-            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-            document.getElementById('days').innerText = String(days).padStart(2, '0');
-            document.getElementById('hours').innerText = String(hours).padStart(2, '0');
-            document.getElementById('minutes').innerText = String(minutes).padStart(2, '0');
-            document.getElementById('seconds').innerText = String(seconds).padStart(2, '0');
-        }
-
-        setInterval(updateCountdown, 1000);
-        updateCountdown();
-
-        // Direct WhatsApp RSVP Handler
-        function sendWhatsAppRSVP() {
-            const phoneNumber = '919217799674';
-            const message = encodeURIComponent("Hello! I would like to RSVP for Shreya & Sahil's wedding celebrations on 30–31 January 2027 in Goa.");
-            window.open(`https://wa.me/${phoneNumber}?text=${message}`, '_blank');
-        }
-    </script>
+    <!-- External JavaScript -->
+    <script src="app.js"></script>
 </body>
 </html>
