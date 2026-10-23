@@ -1663,3 +1663,67 @@ footer > a {
     transition-duration: .01ms !important;
   }
 }
+
+/* FIX: Allow the complete invitation to scroll */
+html {
+  min-height: 100%;
+  height: auto;
+  overflow-x: hidden;
+  overflow-y: auto;
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100%;
+  height: auto;
+  margin: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+/* The opening should fill the screen, not trap scrolling */
+.opening-screen {
+  min-height: 100vh;
+  min-height: 100svh;
+  height: auto;
+  overflow: hidden;
+  position: relative;
+}
+
+/* Keep the invitation hidden until the envelope opens */
+.main-content {
+  display: none;
+  width: 100%;
+  min-height: 100vh;
+  overflow: visible;
+}
+
+.main-content.is-visible {
+  display: block;
+}
+
+/* Let every section extend naturally down the page */
+section,
+.date-section,
+.countdown-section,
+.events-section,
+.wardrobe-section,
+.venue-section {
+  max-width: 100%;
+  overflow: visible;
+}
+
+/* Prevent mobile browsers from clipping the page */
+@media (max-width: 768px) {
+  html,
+  body {
+    width: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .opening-screen {
+    min-height: 100svh;
+  }
+}
