@@ -343,3 +343,101 @@ a {
 
 }
 
+
+/* SWIKRITI & KARTIK INSPIRED COLOUR THEME */
+
+:root {
+  --wine: #91A9BE;
+  --ink: #343A40;
+  --cream: #F7F4EE;
+  --gold: #C7AD83;
+  --muted: #777D82;
+}
+
+/* Main page */
+body,
+.paper {
+  background-color: #F7F4EE !important;
+  color: #343A40 !important;
+}
+
+/* Header */
+header {
+  background: #F7F4EEDD !important;
+  border-bottom-color: #C7AD8340 !important;
+}
+
+/* Names and headings */
+.hero h1,
+.opening h1,
+.couple h3,
+.event h3,
+.venue-copy h3,
+h2,
+h2 em {
+  color: #343A40 !important;
+}
+
+/* Gold decorative details */
+.hero h1 span,
+.ornament,
+.event-icon,
+.hero-date i,
+.couple-and,
+footer em {
+  color: #C7AD83 !important;
+}
+
+/* Countdown */
+.countdown {
+  background: #DDE6ED !important;
+  color: #343A40 !important;
+}
+
+.countdown .eyebrow,
+#countdown span {
+  color: #657D91 !important;
+}
+
+/* Event cards */
+.events {
+  background: #F7F4EE !important;
+  border-color: #C7AD8370 !important;
+}
+
+.event,
+.event.featured {
+  background-color: #F7F4EE !important;
+}
+
+.event + .event {
+  border-color: #C7AD8370 !important;
+}
+
+/* Venue section */
+.venue {
+  background: #E8EEF2 !important;
+}
+
+/* Opening screen */
+.opening {
+  background: #F7F4EE !important;
+}
+
+.opening:before {
+  opacity: 0.08 !important;
+}
+
+/* Buttons */
+.button {
+  background: #91A9BE !important;
+  border-color: #91A9BE !important;
+  color: #FFFFFF !important;
+}
+
+/* Footer */
+footer {
+  background: #F7F4EE !important;
+  color: #343A40 !important;
+  border-color: #C7AD8370 !important;
+}
