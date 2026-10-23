@@ -30,7 +30,10 @@ function setupScratchCard() {
   canvas.style.width = `${rect.width}px`;
   canvas.style.height = `${rect.height}px`;
 
+
   ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  canvas.style.display = "block";
+canvas.style.opacity = "1";
   ctx.globalCompositeOperation = "source-over";
 
   const gradient = ctx.createLinearGradient(0, 0, rect.width, rect.height);
