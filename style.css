@@ -453,3 +453,139 @@ footer > p {
     transition-duration: .01ms !important;
   }
 }
+
+/* Elegant wax-seal envelope opening */
+.opening {
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background-color: #f8f6f1;
+  background-image:
+    radial-gradient(#d8d0c2 0.55px, transparent 0.55px),
+    linear-gradient(135deg, #fffefa, #f1eee7);
+  background-size: 7px 7px, 100% 100%;
+  transition: opacity 0.9s ease, visibility 0.9s ease;
+}
+
+.envelope-trigger {
+  position: relative;
+  width: min(100%, 420px);
+  height: min(68vh, 650px);
+  min-height: 420px;
+  border: 0;
+  padding: 0;
+  background:
+    linear-gradient(145deg, transparent 49.7%, #e6e0d5 50%, transparent 50.5%),
+    linear-gradient(215deg, transparent 49.7%, #e6e0d5 50%, transparent 50.5%),
+    linear-gradient(180deg, #fffefa, #f5f1e9);
+  box-shadow: 0 12px 35px rgba(80, 65, 45, 0.08);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.envelope-trigger::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border: 1px solid rgba(183, 151, 94, 0.28);
+  pointer-events: none;
+}
+
+.envelope-flap {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 52%;
+  background: linear-gradient(180deg, #fffdf8, #eee7d9);
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
+  filter: drop-shadow(0 3px 2px rgba(100, 80, 50, 0.08));
+  transform-origin: top center;
+  transition: transform 0.9s ease;
+}
+
+.wax-seal {
+  position: relative;
+  z-index: 2;
+  width: 108px;
+  height: 108px;
+  margin-top: 10px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  color: #795321;
+  font-family: Georgia, serif;
+  font-size: 27px;
+  letter-spacing: -2px;
+  background:
+    radial-gradient(circle at 32% 25%, #fff0b6, transparent 35%),
+    radial-gradient(circle at 65% 75%, #c18c37, transparent 55%),
+    linear-gradient(135deg, #f6df98, #c99a48 55%, #f2d78d);
+  border: 5px double #b98535;
+  box-shadow:
+    0 4px 7px rgba(83, 56, 22, 0.22),
+    inset 0 0 0 3px rgba(255, 246, 204, 0.55);
+  transition: transform 0.5s ease, opacity 0.5s ease;
+}
+
+.wax-seal span {
+  font-size: 17px;
+  font-style: italic;
+}
+
+.envelope-prompt {
+  position: relative;
+  z-index: 2;
+  margin-top: 24px;
+  color: #6e9bb0;
+  font-family: Georgia, serif;
+  font-size: 25px;
+  font-weight: 400;
+}
+
+.envelope-trigger:hover .wax-seal {
+  transform: scale(1.06);
+}
+
+.opening.is-opening .envelope-flap {
+  transform: rotateX(180deg);
+}
+
+.opening.is-opening .wax-seal {
+  transform: scale(1.25);
+  opacity: 0;
+}
+
+.opening.is-opening {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+@media (max-width: 480px) {
+  .envelope-trigger {
+    width: 100%;
+    height: 72vh;
+    min-height: 460px;
+  }
+
+  .wax-seal {
+    width: 100px;
+    height: 100px;
+  }
+
+  .envelope-prompt {
+    font-size: 24px;
+  }
+}
+
