@@ -1,191 +1,544 @@
 
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#f8f2ee">
-<title>Shreya & Sahil | A Celebration of Forever</title>
-<meta name="description" content="Join Shreya and Sahil as they begin their forever. A floral wedding celebration.">
-<meta property="og:title" content="Shreya & Sahil | Wedding Invitation">
-<meta property="og:description" content="With love and blessings, we invite you to celebrate our wedding.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="preload" as="image" href="palace.png">
-<link rel="stylesheet" href="style.css?v=4">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Shreya & Sahil | A Wedding Celebration</title>
+
+  <meta
+    name="description"
+    content="Join Shreya and Sahil for two beautiful days of wedding celebrations on 30 and 31 January 2027 at Caravela Resort, Goa."
+  >
+
+  <meta name="theme-color" content="#F7F4EE">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Manrope:wght@300;400;500;600&display=swap"
+    rel="stylesheet"
+  >
+
+  <link rel="stylesheet" href="style.css?v=5">
+
+  <link rel="preload" as="image" href="palace.png">
 </head>
 
 <body class="sealed">
-<div id="petals" aria-hidden="true"></div>
 
-<div class="opening" id="opening" role="dialog" aria-label="Shreya and Sahil wedding invitation" aria-modal="true">
-  <div class="opening-garden" aria-hidden="true"></div>
-  <div class="curtain curtain-left" aria-hidden="true"></div>
-  <div class="curtain curtain-right" aria-hidden="true"></div>
-  <div class="opening-glow" aria-hidden="true"></div>
-  <div class="opening-title">
-    <p class="eyebrow">A LOVE STORY IN BLOOM</p>
-    <h1>Shreya <span>&</span> Sahil</h1>
-    <p class="opening-date">SAVE THE DATE</p>
-  </div>
-  <button id="openInvite" class="intro-skip">OPEN YOUR INVITATION <span>↓</span></button>
-</div>
+  <!-- Opening screen -->
+  <div class="opening" id="opening">
 
-<header>
-  <a class="monogram" href="#home" aria-label="Shreya and Sahil home">S<span>&</span>S</a>
-  <nav aria-label="Invitation sections">
-    <a href="#celebrations">Celebrations</a>
-    <a href="#venue">The venue</a>
-    <a href="#blessings">With love</a>
-  </nav>
-  <button id="music" class="sound" aria-label="Play music" aria-pressed="false">♫</button>
-</header>
+    <div class="opening-garden"></div>
+    <div class="opening-glow"></div>
 
-<main>
-<section class="hero" id="home">
-  <div class="hero-image"></div>
-  <div class="hero-content">
-    <p class="eyebrow">TOGETHER WITH OUR FAMILIES</p>
-    <p class="blessing">With love in our hearts and blessings from our families</p>
-    <h1>Shreya <span>&</span> Sahil</h1>
-    <p class="hero-tagline">A beautiful love story, a forever beginning.</p>
-    <div class="hero-date">
-      <span>WEDDING DATE TO BE CONFIRMED</span>
-      <i>✿</i>
-      <span>VENUE TO BE CONFIRMED</span>
+    <div class="curtain curtain-left"></div>
+    <div class="curtain curtain-right"></div>
+
+    <div class="opening-title">
+      <p class="eyebrow">TOGETHER WITH THEIR FAMILIES</p>
+
+      <h1>
+        Shreya
+        <span>&</span>
+        Sahil
+      </h1>
+
+      <p class="opening-date">30 — 31 JANUARY 2027</p>
+
+      <p class="eyebrow">CARAVELA RESORT · GOA</p>
     </div>
-    <a href="#invitation" class="scroll-link">THE INVITATION <span>↓</span></a>
-  </div>
-  <p class="side-note">TWO HEARTS. ONE BEAUTIFUL BEGINNING.</p>
-</section>
 
-<section class="invitation paper" id="invitation">
-  <div class="ornament">✿</div>
-  <p class="eyebrow">A NEW CHAPTER BEGINS</p>
-  <h2>A love that blooms.<br><em>A forever to cherish.</em></h2>
-  <p class="intro-copy">
-    With grateful hearts and the blessings of our families,
-    we invite you to join us as we begin our forever.
-  </p>
-  <div class="couple">
-    <div>
-      <h3>Shreya</h3>
-      <p>Beloved daughter of<br><strong>Bride's Family</strong></p>
-    </div>
-    <span class="couple-and">&</span>
-    <div>
-      <h3>Sahil</h3>
-      <p>Beloved son of<br><strong>Groom's Family</strong></p>
-    </div>
-  </div>
-  <div class="date-card">
-    <p class="eyebrow">A DATE TO REMEMBER</p>
-    <div class="scratch-wrap">
-      <div class="revealed-date">
-        <span>OUR SPECIAL DAY</span>
-        <strong>Wedding Date</strong>
-        <span>DETAILS TO FOLLOW</span>
-      </div>
-      <canvas id="scratch" aria-hidden="true"></canvas>
-    </div>
-    <button class="text-button" id="revealDate">Reveal our special date ✿</button>
-    <p id="revealMessage" role="status"></p>
-  </div>
-</section>
+    <button class="intro-skip" id="openInvitation" type="button">
+      OPEN INVITATION <span>↗</span>
+    </button>
 
-<section class="countdown">
-  <p class="eyebrow">EVERY MOMENT BRINGS US CLOSER</p>
-  <h2>Until our forever.</h2>
-  <div id="countdown" aria-live="off">
-    <div><strong id="days">00</strong><span>DAYS</span></div>
-    <i>:</i>
-    <div><strong id="hours">00</strong><span>HOURS</span></div>
-    <i>:</i>
-    <div><strong id="minutes">00</strong><span>MINUTES</span></div>
-    <i>:</i>
-    <div><strong id="seconds">00</strong><span>SECONDS</span></div>
   </div>
-  <button class="light-link" id="calendar">ADD TO YOUR CALENDAR ↗</button>
-</section>
 
-<section class="celebrations paper" id="celebrations">
-  <p class="eyebrow">LOVE, LAUGHTER & HAPPY MEMORIES</p>
-  <h2>Let the <em>celebrations</em> begin.</h2>
-  <p class="section-subtitle">Every celebration is more beautiful with you.</p>
-  <div class="events">
-    <article class="event">
-      <span class="event-icon">✿</span>
-      <p class="eyebrow">DATE TO BE CONFIRMED</p>
-      <h3>Mehendi</h3>
-      <p>Intricate henna, joyful hearts and beautiful beginnings.</p>
-      <div class="event-details">TIME TO BE CONFIRMED<br>VENUE TO BE CONFIRMED</div>
-      <span class="dress">Suggested colours: shades of green</span>
-    </article>
-    <article class="event featured">
-      <span class="event-icon">❀</span>
-      <p class="eyebrow">WEDDING DAY</p>
-      <h3>The Wedding</h3>
-      <p>A promise of love, a lifetime of togetherness.</p>
-      <div class="event-details">TIME TO BE CONFIRMED<br>VENUE TO BE CONFIRMED</div>
-      <span class="dress">Celebrate in your festive finest</span>
-    </article>
-    <article class="event">
-      <span class="event-icon">❦</span>
-      <p class="eyebrow">DATE TO BE CONFIRMED</p>
-      <h3>Reception</h3>
-      <p>An evening filled with smiles, music and memories.</p>
-      <div class="event-details">TIME TO BE CONFIRMED<br>VENUE TO BE CONFIRMED</div>
-      <span class="dress">Dress to celebrate</span>
-    </article>
-  </div>
-</section>
 
-<section class="venue" id="venue">
-  <div class="venue-art" role="img" aria-label="Romantic floral wedding venue illustration">
-    <span>A DAY FULL OF LOVE</span>
-  </div>
-  <div class="venue-copy">
-    <p class="eyebrow">MEET US WHERE THE MAGIC HAPPENS</p>
-    <h2>A beautiful setting.<br><em>A heartfelt celebration.</em></h2>
-    <div class="line"></div>
-    <h3>Wedding Venue</h3>
-    <p>Location to be confirmed</p>
-    <p class="venue-description">
-      Surrounded by flowers, family and friends,
-      we look forward to celebrating this special chapter with you.
-    </p>
-    <a class="button" target="_blank" rel="noopener"
-       href="https://www.google.com/maps">
-      VENUE DIRECTIONS <span>↗</span>
+  <!-- Decorative petals -->
+  <div id="petals" aria-hidden="true"></div>
+
+
+  <!-- Navigation -->
+  <header>
+
+    <a class="monogram" href="#home" aria-label="Shreya and Sahil home">
+      S<span>&</span>S
     </a>
-  </div>
-</section>
 
-<section class="blessings paper" id="blessings">
-  <span class="ornament">❦</span>
-  <p class="eyebrow">WITH LOVE & BLESSINGS</p>
-  <h2>Two families.<br><em>One beautiful celebration.</em></h2>
-  <p>
-    Your presence is our most cherished gift.
-    Bring your blessings, your laughter and your dancing shoes.
-  </p>
-  <div class="families">
-    <span>Bride's Family</span>
-    <i>✿</i>
-    <span>Groom's Family</span>
-  </div>
-  <button class="button" id="share">SHARE THIS INVITATION <span>↗</span></button>
-  <p id="shareStatus" role="status"></p>
-</section>
+    <nav aria-label="Main navigation">
+      <a href="#invitation">OUR STORY</a>
+      <a href="#celebrations">CELEBRATIONS</a>
+      <a href="#venue">THE VENUE</a>
+    </nav>
 
-<footer>
-  <p class="eyebrow">AND SO, OUR FOREVER BEGINS.</p>
-  <div>Shreya <em>&</em> Sahil</div>
-  <p>OUR SPECIAL DAY <span>✿</span> A CELEBRATION OF LOVE</p>
-</footer>
-</main>
+    <button
+      class="sound"
+      id="soundToggle"
+      type="button"
+      aria-label="Toggle music"
+      aria-pressed="false"
+    >
+      ♪
+    </button>
 
-<script src="app.js?v=2"></script>
+  </header>
+
+
+  <main>
+
+    <!-- Hero section -->
+    <section class="hero" id="home">
+
+      <div class="hero-image"></div>
+
+      <div class="hero-content">
+
+        <p class="eyebrow">WITH LOVE, JOY & BLESSINGS</p>
+
+        <p class="blessing">
+          Two hearts, one beautiful beginning
+        </p>
+
+        <h1>
+          Shreya
+          <span>&</span>
+          Sahil
+        </h1>
+
+        <p class="hero-tagline">
+          Together is a beautiful place to be.
+        </p>
+
+        <div class="hero-date">
+          <span>30–31 JANUARY 2027</span>
+          <i>✿</i>
+          <span>CARAVELA RESORT · GOA</span>
+        </div>
+
+        <a class="scroll-link" href="#invitation">
+          DISCOVER OUR CELEBRATION
+          <span>↓</span>
+        </a>
+
+      </div>
+
+      <span class="side-note">A CELEBRATION OF LOVE</span>
+
+    </section>
+
+
+    <!-- Invitation section -->
+    <section class="invitation paper" id="invitation">
+
+      <span class="ornament">❦</span>
+
+      <p class="eyebrow">THE BEGINNING OF FOREVER</p>
+
+      <h2>
+        A celebration of love,<br>
+        <em>a lifetime of togetherness.</em>
+      </h2>
+
+      <p class="intro-copy">
+        With hearts full of happiness and families full of love,
+        we invite you to be part of our special celebration.
+        Your presence will make these moments even more memorable
+        as we begin our forever together.
+      </p>
+
+      <div class="couple">
+
+        <div>
+          <h3>Shreya</h3>
+          <p>THE BRIDE</p>
+        </div>
+
+        <span class="couple-and">&</span>
+
+        <div>
+          <h3>Sahil</h3>
+          <p>THE GROOM</p>
+        </div>
+
+      </div>
+
+      <div class="date-card">
+
+        <p class="eyebrow">SAVE THE DATE</p>
+
+        <div class="scratch-wrap">
+
+          <div class="revealed-date">
+            <span>JANUARY</span>
+            <strong>30 — 31</strong>
+            <span>2027 · GOA</span>
+          </div>
+
+          <canvas id="scratch" aria-label="Reveal the wedding date"></canvas>
+
+        </div>
+
+        <button class="text-button" id="revealDate" type="button">
+          Reveal our wedding date
+        </button>
+
+        <p id="revealMessage" aria-live="polite"></p>
+
+      </div>
+
+    </section>
+
+
+    <!-- Countdown -->
+    <section class="countdown">
+
+      <p class="eyebrow">THE COUNTDOWN TO FOREVER</p>
+
+      <h2>Until we say “I do”</h2>
+
+      <div id="countdown" aria-label="Countdown to the wedding">
+
+        <div>
+          <strong id="days">00</strong>
+          <span>DAYS</span>
+        </div>
+
+        <i>:</i>
+
+        <div>
+          <strong id="hours">00</strong>
+          <span>HOURS</span>
+        </div>
+
+        <i>:</i>
+
+        <div>
+          <strong id="minutes">00</strong>
+          <span>MINUTES</span>
+        </div>
+
+        <i>:</i>
+
+        <div>
+          <strong id="seconds">00</strong>
+          <span>SECONDS</span>
+        </div>
+
+      </div>
+
+      <button class="light-link" id="addToCalendar" type="button">
+        SAVE THE DATE TO YOUR CALENDAR ↗
+      </button>
+
+    </section>
+
+
+    <!-- Wedding celebrations -->
+    <section class="celebrations paper" id="celebrations">
+
+      <p class="eyebrow">TWO DAYS · ENDLESS MEMORIES</p>
+
+      <h2>
+        The Wedding <em>Festivities</em>
+      </h2>
+
+      <p class="section-subtitle">
+        From sun-kissed beginnings to dancing under the stars,
+        every moment is a reason to celebrate.
+      </p>
+
+
+      <!-- Day 1 -->
+      <p class="eyebrow">DAY ONE · 30 JANUARY 2027</p>
+
+      <h2><em>The Festivities Begin</em></h2>
+
+      <div class="events">
+
+        <article class="event featured">
+
+          <span class="event-icon">☼</span>
+
+          <p class="eyebrow">01 · DAYTIME CELEBRATION</p>
+
+          <h3>Haldi</h3>
+
+          <p>Sunshine, laughter & haldi hues</p>
+
+          <div class="event-details">
+            <div>30 JANUARY 2027</div>
+            <div>1:00 PM ONWARDS</div>
+            <div>COCONUT GROVE</div>
+          </div>
+
+          <span class="dress">
+            <strong>Dress Code</strong><br>
+            Beachside Festive Chic<br>
+            Breezy Western, Indian or Indo-Western outfits.
+            All silhouettes welcome.
+          </span>
+
+        </article>
+
+
+        <article class="event">
+
+          <span class="event-icon">✧</span>
+
+          <p class="eyebrow">02 · EVENING CELEBRATION</p>
+
+          <h3>Cocktail</h3>
+
+          <p>An evening of glamour</p>
+
+          <div class="event-details">
+            <div>30 JANUARY 2027</div>
+            <div>6:30 PM ONWARDS</div>
+            <div>VARCA BALLROOM</div>
+          </div>
+
+          <span class="dress">
+            <strong>Dress Code</strong><br>
+            Black Tie Glamour<br>
+            Gowns, dresses, sarees, tuxedos and formal suits.
+          </span>
+
+        </article>
+
+      </div>
+
+
+      <!-- Day 2 -->
+      <p class="eyebrow" style="margin-top: 65px;">
+        DAY TWO · 31 JANUARY 2027
+      </p>
+
+      <h2><em>The Wedding Day</em></h2>
+
+      <p class="section-subtitle">
+        Sacred traditions, heartfelt blessings and a night to remember.
+      </p>
+
+      <div class="events">
+
+        <article class="event">
+
+          <span class="event-icon">❀</span>
+
+          <p class="eyebrow">03 · BRIDAL TRADITION</p>
+
+          <h3>Chooda</h3>
+
+          <p>A beautiful beginning</p>
+
+          <div class="event-details">
+            <div>31 JANUARY 2027</div>
+            <div>10:00 AM ONWARDS</div>
+            <div>LAWNS</div>
+          </div>
+
+        </article>
+
+
+        <article class="event featured">
+
+          <span class="event-icon">✧</span>
+
+          <p class="eyebrow">04 · WEDDING TRADITION</p>
+
+          <h3>Sehrabandi</h3>
+
+          <p>Blessings before the baraat</p>
+
+          <div class="event-details">
+            <div>31 JANUARY 2027</div>
+            <div>11:00 AM</div>
+            <div>LAWNS</div>
+          </div>
+
+        </article>
+
+
+        <article class="event">
+
+          <span class="event-icon">♧</span>
+
+          <p class="eyebrow">05 · THE GRAND ARRIVAL</p>
+
+          <h3>Baraat</h3>
+
+          <p>Music, dancing & celebration</p>
+
+          <div class="event-details">
+            <div>31 JANUARY 2027</div>
+            <div>12:00 PM</div>
+            <div>VENUE DETAILS TO FOLLOW</div>
+          </div>
+
+        </article>
+
+
+        <article class="event featured">
+
+          <span class="event-icon">♡</span>
+
+          <p class="eyebrow">06 · THE WEDDING CEREMONY</p>
+
+          <h3>Pheras</h3>
+
+          <p>Two souls, one forever</p>
+
+          <div class="event-details">
+            <div>31 JANUARY 2027</div>
+            <div>2:00 PM ONWARDS</div>
+            <div>BEACH VENUE</div>
+          </div>
+
+          <span class="dress">
+            <strong>Dress Code</strong><br>
+            Ivory & Gold<br>
+            All silhouettes welcome.
+          </span>
+
+        </article>
+
+
+        <article class="event">
+
+          <span class="event-icon">☾</span>
+
+          <p class="eyebrow">07 · THE GRAND FINALE</p>
+
+          <h3>Afterparty</h3>
+
+          <p>One last night to remember</p>
+
+          <div class="event-details">
+            <div>31 JANUARY 2027</div>
+            <div>7:00 PM ONWARDS</div>
+            <div>VARCA BALLROOM</div>
+          </div>
+
+          <span class="dress">
+            <strong>Dress Code</strong><br>
+            Bollywood After-Dark Glam<br>
+            Indo-Western outfits, mini dresses and statement sets.
+            Comfortable shoes encouraged.
+          </span>
+
+        </article>
+
+      </div>
+
+    </section>
+
+
+    <!-- Venue -->
+    <section class="venue" id="venue">
+
+      <div class="venue-art">
+        <span>YOUR DESTINATION · OUR CELEBRATION</span>
+      </div>
+
+      <div class="venue-copy">
+
+        <p class="eyebrow">WHERE OUR FOREVER BEGINS</p>
+
+        <h2>
+          A little slice<br>
+          <em>of paradise.</em>
+        </h2>
+
+        <div class="line"></div>
+
+        <h3>Caravela Resort, Goa</h3>
+
+        <p>30–31 January 2027</p>
+
+        <p class="venue-description">
+          Join us by the beautiful Goan coastline for two days
+          filled with love, traditions, laughter and unforgettable
+          memories. We cannot wait to celebrate with you.
+        </p>
+
+        <a
+          class="button"
+          href="https://www.google.com/maps/search/?api=1&query=Caravela+Beach+Resort+Varca+Goa"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          EXPLORE THE VENUE <span>↗</span>
+        </a>
+
+        <small>
+          Caravela Beach Resort, Varca, Goa
+        </small>
+
+      </div>
+
+    </section>
+
+
+    <!-- Family blessings -->
+    <section class="blessings paper" id="blessings">
+
+      <span class="ornament">❦</span>
+
+      <p class="eyebrow">WITH LOVE AND BLESSINGS</p>
+
+      <h2>
+        Your presence is<br>
+        <em>our greatest gift.</em>
+      </h2>
+
+      <p>
+        We look forward to celebrating these precious moments
+        with the people who mean the most to us.
+      </p>
+
+      <div class="families">
+        <span>Shreya</span>
+        <i>♡</i>
+        <span>Sahil</span>
+      </div>
+
+      <button class="button" id="shareInvitation" type="button">
+        SHARE THE INVITATION <span>↗</span>
+      </button>
+
+      <p id="shareStatus" aria-live="polite"></p>
+
+    </section>
+
+  </main>
+
+
+  <!-- Footer -->
+  <footer>
+
+    <div>
+      Shreya <em>&</em> Sahil
+    </div>
+
+    <p>
+      30–31 JANUARY 2027
+      <span>✿</span>
+      GOA, INDIA
+    </p>
+
+    <small>
+      Made with love for a beautiful beginning.
+    </small>
+
+  </footer>
+
+
+  <script src="app.js?v=2"></script>
+
 </body>
 </html>
