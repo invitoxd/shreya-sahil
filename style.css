@@ -290,5 +290,56 @@ footer {
   body {
     background-color: #F8F5EF;
   }
+
+  
+/* FINAL COLOUR OVERRIDE — SHREYA & SAHIL */
+
+:root {
+  --wine: #9BAFC2 !important;
+  --ink: #34383D !important;
+  --cream: #F8F5EF !important;
+  --gold: #C6AD83 !important;
+  --muted: #777C82 !important;
+}
+
+html,
+body {
+  background: #F8F5EF !important;
+  color: #34383D !important;
+}
+
+.paper,
+.invitation {
+  background-color: #FBF9F4 !important;
+  color: #34383D !important;
+}
+
+.opening {
+  background: #F2EEE6 !important;
+  color: #34383D !important;
+}
+
+.countdown,
+.events,
+.venue,
+.families,
+footer {
+  background-color: #E8EEF3 !important;
+  color: #34383D !important;
+}
+
+h1, h2, h3, p, .hero h1 {
+  color: #34383D;
+}
+
+a {
+  color: #718AA2 !important;
+}
+
+::selection {
+  background: #DCE6EE !important;
+  color: #34383D !important;
+}
+
 }
 
