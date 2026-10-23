@@ -9,7 +9,7 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Cinzel:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Montserrat:wght@300;400;500;600&family=Pinyon+Script&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Cinzel:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Montserrat:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
     
     <!-- Tailwind Theme Configuration -->
     <script>
@@ -18,7 +18,7 @@
                 extend: {
                     colors: {
                         powder: {
-                            light: '#f4f8fc',
+                            light: '#f2f7fc',
                             DEFAULT: '#e3edf7',
                             dark: '#c4d7ec'
                         },
@@ -34,29 +34,29 @@
                         }
                     },
                     fontFamily: {
-                        script: ['"Alex Brush"', 'cursive'],
-                        scriptAlt: ['"Pinyon Script"', 'cursive'],
+                        scriptDec: ['"Cinzel Decorative"', 'serif'],
                         serif: ['"Cinzel"', 'serif'],
                         editorial: ['"Cormorant Garamond"', 'serif'],
+                        playfair: ['"Playfair Display"', 'serif'],
                         sans: ['"Montserrat"', 'sans-serif'],
                     }
                 }
             }
         }
     </script>
-    
-    <!-- External CSS -->
+
+    <!-- External Stylesheet -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body class="antialiased selection:bg-powder-dark selection:text-navy">
 
-    <!-- Floating Background Audio -->
+    <!-- Background Audio -->
     <audio id="bg-music" loop>
         <source src="https://assets.mixkit.co/music/preview/mixkit-serene-view-443.mp3" type="audio/mpeg">
     </audio>
 
-    <!-- Floating Audio Control Button -->
-    <button id="audio-toggle" onclick="toggleAudio()" class="fixed bottom-6 right-6 z-50 w-12 h-12 bg-white/80 hover:bg-white text-navy rounded-full flex items-center justify-center shadow-xl backdrop-blur-md transition-all duration-300 border border-navy/10" aria-label="Toggle Music">
+    <!-- Audio Control Button -->
+    <button id="audio-toggle" onclick="toggleAudio()" class="fixed bottom-6 right-6 z-50 w-12 h-12 bg-white/80 hover:bg-white text-navy rounded-full flex items-center justify-center shadow-2xl backdrop-blur-md transition-all duration-300 border border-navy/10" aria-label="Toggle Music">
         <svg id="audio-icon-play" class="w-5 h-5 ml-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
         <svg id="audio-icon-pause" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 9v6m4-6v6m7-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
     </button>
@@ -70,23 +70,22 @@
 
         <div class="relative z-10 w-full max-w-md px-6 flex flex-col items-center">
             
-            <div class="text-center mb-8 transform transition-all duration-700">
-                <p class="font-serif text-xs md:text-sm tracking-[0.3em] text-powder uppercase mb-2">A Wedding Invitation</p>
-                <h1 class="font-script-alt text-5xl md:text-6xl text-white mb-2 drop-shadow-md">Shreya & Sahil</h1>
-                <p class="font-serif text-sm md:text-base text-powder-dark tracking-widest uppercase">30 – 31 January 2027 · Goa</p>
+            <div class="text-center mb-8">
+                <p class="font-serif text-xs md:text-sm tracking-[0.35em] text-powder uppercase mb-3 font-medium">A Wedding Invitation</p>
+                <h1 class="font-script-dec text-4xl md:text-5xl text-white font-bold tracking-wider drop-shadow-lg">Shreya & Sahil</h1>
+                <p class="font-editorial italic text-lg md:text-xl text-powder-light tracking-widest mt-2">30 – 31 January 2027 · Goa</p>
             </div>
 
-            <div id="envelope-box" class="relative w-80 md:w-96 h-56 md:h-64 bg-[#f9f8f6] rounded-lg shadow-2xl border border-powder-dark/30 flex items-center justify-center cursor-pointer transition-transform duration-500 hover:scale-[1.02]" onclick="openEnvelope()">
+            <div id="envelope-box" class="relative w-80 md:w-96 h-56 md:h-64 bg-[#fbf9f5] rounded-xl shadow-2xl border border-powder-dark/40 flex items-center justify-center cursor-pointer transition-transform duration-500 hover:scale-[1.02]" onclick="openEnvelope()">
                 
-                <div class="flap absolute top-0 left-0 w-full h-28 bg-[#f0eee9] origin-top border-b border-[#e2dfd8]" style="clip-path: polygon(0 0, 50% 100%, 100% 0);"></div>
+                <div class="flap absolute top-0 left-0 w-full h-28 bg-[#f3efe8] origin-top border-b border-[#e2dfd8]" style="clip-path: polygon(0 0, 50% 100%, 100% 0);"></div>
+                <div class="absolute inset-0 border-2 border-[#e2dfd8] rounded-xl pointer-events-none"></div>
 
-                <div class="absolute inset-0 border-2 border-[#e2dfd8] rounded-lg pointer-events-none"></div>
-
-                <div class="seal-btn absolute z-30 flex flex-col items-center transform transition-all duration-500" style="top: 42%;">
-                    <div class="w-16 h-16 md:w-20 md:h-20 bg-gradient-to-br from-gold via-amber-500 to-gold-dark rounded-full flex items-center justify-center shadow-xl border-2 border-gold-light/50">
-                        <span class="font-serif text-xl md:text-2xl text-navy font-bold tracking-tight">S&S</span>
+                <div class="seal-btn absolute z-30 flex flex-col items-center" style="top: 38%;">
+                    <div class="w-16 h-16 md:w-20 md:h-20 bg-gradient-to-br from-gold via-amber-500 to-gold-dark rounded-full flex items-center justify-center shadow-2xl border-2 border-gold-light/60">
+                        <span class="font-serif text-lg md:text-xl text-navy font-bold tracking-widest">S & S</span>
                     </div>
-                    <span class="mt-3 font-serif text-[10px] md:text-xs tracking-[0.25em] text-navy bg-white/90 px-4 py-1.5 rounded-full shadow-md uppercase border border-powder-dark/40 font-semibold animate-pulse">Tap to open</span>
+                    <span class="mt-4 font-serif text-[10px] md:text-xs tracking-[0.25em] text-navy bg-white/95 px-5 py-1.5 rounded-full shadow-lg uppercase border border-powder-dark/50 font-semibold animate-pulse">Tap Seal to Open</span>
                 </div>
 
             </div>
@@ -96,37 +95,41 @@
     <!-- MAIN INVITATION PAGE -->
     <main id="main-invitation" class="opacity-0 pointer-events-none transition-opacity duration-1000 min-h-screen bg-powder-light text-navy relative overflow-x-hidden">
 
-        <!-- Navigation Bar -->
-        <header class="fixed top-0 left-0 w-full z-40 bg-white/80 backdrop-blur-md border-b border-navy/10 px-6 py-4 flex items-center justify-between">
+        <!-- Header / Category Navigation -->
+        <header class="fixed top-0 left-0 w-full z-40 bg-white/85 backdrop-blur-md border-b border-navy/10 px-6 py-4 flex items-center justify-between shadow-sm">
             <span class="font-serif font-bold text-lg tracking-widest text-navy">S & S</span>
-            <nav class="hidden md:flex items-center space-x-6 font-serif text-[11px] tracking-[0.2em] text-navy-muted uppercase">
+            <nav class="flex items-center space-x-4 md:space-x-8 font-serif text-[10px] md:text-[11px] tracking-[0.2em] text-navy-muted uppercase font-medium">
                 <a href="#hero" class="hover:text-navy transition">The Date</a>
                 <a href="#itinerary" class="hover:text-navy transition">Celebrations</a>
                 <a href="#venue" class="hover:text-navy transition">Venue Guide</a>
-                <a href="#rsvp" class="hover:text-navy transition border-b border-navy text-navy pb-0.5">RSVP</a>
+                <a href="#rsvp" class="hover:text-navy transition border-b border-navy text-navy pb-0.5 font-bold">RSVP</a>
             </nav>
         </header>
 
-        <!-- Hero Section with Background Image -->
-        <section id="hero" class="relative min-h-screen flex flex-col items-center justify-between text-center px-6 pt-28 pb-12 bg-cover bg-center" style="background-image: url('goa-opening.png.png');">
-            <div class="absolute inset-0 bg-gradient-to-b from-white/40 via-white/20 to-white/60"></div>
+        <!-- Slide 1: Full Background Video-like Motion Hero -->
+        <section id="hero" class="relative min-h-screen flex flex-col items-center justify-between text-center px-6 pt-28 pb-12 overflow-hidden">
+            <div class="absolute inset-0 bg-cover bg-center animate-hero-motion scale-105" style="background-image: url('goa-opening.png.png');"></div>
+            <div class="absolute inset-0 bg-gradient-to-b from-white/50 via-white/30 to-white/70"></div>
 
-            <div class="relative z-10 max-w-3xl mx-auto space-y-4 my-auto">
-                <p class="font-serif text-[11px] md:text-xs tracking-[0.35em] text-navy uppercase font-medium">TWO HEARTS · ONE BEAUTIFUL BEGINNING</p>
+            <div class="relative z-10 max-w-3xl mx-auto space-y-4 my-auto pt-6">
+                <p class="font-serif text-[11px] md:text-xs tracking-[0.35em] text-navy uppercase font-semibold">TWO HEARTS · ONE BEAUTIFUL BEGINNING</p>
+                
                 <p class="font-editorial italic text-2xl md:text-3xl text-navy/90 font-light">With love and joy,</p>
-                <h2 class="font-script-alt text-6xl md:text-8xl text-navy font-bold tracking-tight drop-shadow-sm py-2">
-                    Shreya <span class="font-editorial italic font-normal text-4xl md:text-6xl text-navy/70">&</span> Sahil
+                
+                <h2 class="font-script-dec text-5xl md:text-7xl cool-gradient-text-dark font-bold tracking-tight drop-shadow-sm py-3 leading-tight">
+                    Shreya <span class="font-editorial italic font-normal text-3xl md:text-5xl text-navy/70">&</span> Sahil
                 </h2>
-                <p class="font-editorial text-xl md:text-2xl text-navy italic">A destination wedding in Goa</p>
+                
+                <p class="font-playfair italic text-xl md:text-2xl text-navy/90">A destination wedding in Goa</p>
 
-                <div class="pt-6 space-y-1">
-                    <p class="font-serif text-xs md:text-sm tracking-[0.25em] text-navy font-semibold uppercase">30 JANUARY 2027 ✦ 31 JANUARY 2027</p>
+                <div class="pt-8 space-y-1.5">
+                    <p class="font-serif text-xs md:text-sm tracking-[0.25em] text-navy font-bold uppercase">30 JANUARY 2027 ✦ 31 JANUARY 2027</p>
                     <p class="font-serif text-[11px] md:text-xs tracking-[0.2em] text-navy-muted uppercase font-medium">CARAVELA BEACH RESORT · GOA, INDIA</p>
                 </div>
             </div>
 
             <div class="relative z-10 pt-8">
-                <a href="#scratch-section" class="inline-flex items-center space-x-2 px-6 py-2.5 bg-white/80 hover:bg-white text-navy font-serif text-[10px] md:text-xs tracking-[0.25em] uppercase rounded-full border border-navy/20 shadow-md backdrop-blur-sm transition-all duration-300">
+                <a href="#scratch-section" class="inline-flex items-center space-x-2 px-6 py-2.5 bg-white/90 hover:bg-white text-navy font-serif text-[10px] md:text-xs tracking-[0.25em] uppercase rounded-full border border-navy/20 shadow-md backdrop-blur-sm transition-all duration-300">
                     <span>SCROLL TO EXPLORE</span>
                     <svg class="w-3.5 h-3.5 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
                 </a>
@@ -158,7 +161,7 @@
             </div>
         </section>
 
-        <!-- Countdown Timer -->
+        <!-- Countdown Timer (Days, Hours, Minutes) -->
         <section class="py-20 px-6 bg-powder-light">
             <div class="max-w-3xl mx-auto text-center space-y-10">
                 <div>
@@ -166,28 +169,24 @@
                     <h3 class="font-serif text-3xl md:text-4xl text-navy">Counting Down to Forever</h3>
                 </div>
 
-                <div id="countdown-grid" class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-2xl mx-auto">
-                    <div class="bg-white p-6 rounded-xl shadow-sm border border-powder-dark/50">
+                <div id="countdown-grid" class="grid grid-cols-3 gap-4 md:gap-6 max-w-lg mx-auto">
+                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-powder-dark/50">
                         <span id="days" class="font-serif text-4xl md:text-5xl font-bold text-navy block">00</span>
                         <span class="font-serif text-xs tracking-[0.2em] text-navy-muted uppercase mt-2 block">Days</span>
                     </div>
-                    <div class="bg-white p-6 rounded-xl shadow-sm border border-powder-dark/50">
+                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-powder-dark/50">
                         <span id="hours" class="font-serif text-4xl md:text-5xl font-bold text-navy block">00</span>
                         <span class="font-serif text-xs tracking-[0.2em] text-navy-muted uppercase mt-2 block">Hours</span>
                     </div>
-                    <div class="bg-white p-6 rounded-xl shadow-sm border border-powder-dark/50">
+                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-powder-dark/50">
                         <span id="minutes" class="font-serif text-4xl md:text-5xl font-bold text-navy block">00</span>
                         <span class="font-serif text-xs tracking-[0.2em] text-navy-muted uppercase mt-2 block">Minutes</span>
-                    </div>
-                    <div class="bg-white p-6 rounded-xl shadow-sm border border-powder-dark/50">
-                        <span id="seconds" class="font-serif text-4xl md:text-5xl font-bold text-navy block">00</span>
-                        <span class="font-serif text-xs tracking-[0.2em] text-navy-muted uppercase mt-2 block">Seconds</span>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Day-by-Day Event Itinerary -->
+        <!-- Decorated Event Itinerary -->
         <section id="itinerary" class="py-24 px-6 bg-white border-t border-powder-dark/30">
             <div class="max-w-4xl mx-auto space-y-12">
                 
@@ -198,11 +197,11 @@
                 </div>
 
                 <!-- Day Selector Tabs -->
-                <div class="flex justify-center space-x-3 border-b border-navy/10 pb-4">
-                    <button onclick="switchDay(1)" id="tab-day1" class="px-6 py-2.5 font-serif text-xs tracking-[0.2em] uppercase rounded-full bg-navy text-white shadow-sm transition-all duration-300">
+                <div class="flex justify-center space-x-4 border-b border-navy/10 pb-4">
+                    <button onclick="switchDay(1)" id="tab-day1" class="px-8 py-3 font-serif text-xs tracking-[0.2em] uppercase rounded-full bg-navy text-white shadow-md transition-all duration-300">
                         Day 1 — 30 Jan
                     </button>
-                    <button onclick="switchDay(2)" id="tab-day2" class="px-6 py-2.5 font-serif text-xs tracking-[0.2em] uppercase rounded-full bg-powder-light text-navy-muted hover:text-navy transition-all duration-300">
+                    <button onclick="switchDay(2)" id="tab-day2" class="px-8 py-3 font-serif text-xs tracking-[0.2em] uppercase rounded-full bg-powder-light text-navy-muted hover:text-navy transition-all duration-300">
                         Day 2 — 31 Jan
                     </button>
                 </div>
@@ -215,23 +214,31 @@
                     </div>
 
                     <div class="grid md:grid-cols-2 gap-8">
-                        <div class="bg-powder-light/60 p-8 rounded-2xl border border-powder-dark/40 shadow-sm space-y-4">
-                            <span class="font-serif text-xs tracking-[0.2em] text-navy-muted uppercase block">1:00 PM Onwards</span>
-                            <h5 class="font-serif text-2xl text-navy">Haldi</h5>
-                            <p class="font-sans text-sm text-navy/80"><strong class="font-medium">Venue:</strong> Coconut Grove</p>
-                            <div class="pt-2 border-t border-navy/10">
-                                <span class="font-serif text-xs tracking-[0.15em] text-navy-muted uppercase block mb-0.5">Dress Code / Attire</span>
-                                <p class="font-serif text-base text-navy font-medium">Beachside Festive Chic</p>
+                        <!-- Haldi -->
+                        <div class="relative bg-gradient-to-br from-powder-light to-white p-8 rounded-3xl border border-powder-dark/60 shadow-sm space-y-4 hover:shadow-md transition">
+                            <div class="flex justify-between items-center">
+                                <span class="font-serif text-xs tracking-[0.2em] text-navy-muted uppercase font-semibold">1:00 PM Onwards</span>
+                                <span class="text-xs bg-yellow-100 text-yellow-800 font-serif px-3 py-1 rounded-full uppercase tracking-wider font-semibold">Pre-Wedding</span>
+                            </div>
+                            <h5 class="font-serif text-2xl text-navy font-bold">Haldi</h5>
+                            <p class="font-sans text-sm text-navy/80"><strong class="font-medium text-navy">Venue:</strong> Coconut Grove</p>
+                            <div class="pt-3 border-t border-navy/10">
+                                <span class="font-serif text-[11px] tracking-[0.15em] text-navy-muted uppercase block mb-1">Dress Code</span>
+                                <span class="inline-block px-4 py-1.5 bg-powder text-navy font-serif text-xs rounded-lg font-medium border border-powder-dark/40">Beachside Festive Chic</span>
                             </div>
                         </div>
 
-                        <div class="bg-powder-light/60 p-8 rounded-2xl border border-powder-dark/40 shadow-sm space-y-4">
-                            <span class="font-serif text-xs tracking-[0.2em] text-navy-muted uppercase block">6:30 PM Onwards</span>
-                            <h5 class="font-serif text-2xl text-navy">Cocktail</h5>
-                            <p class="font-sans text-sm text-navy/80"><strong class="font-medium">Venue:</strong> Varca Ballroom</p>
-                            <div class="pt-2 border-t border-navy/10">
-                                <span class="font-serif text-xs tracking-[0.15em] text-navy-muted uppercase block mb-0.5">Dress Code / Attire</span>
-                                <p class="font-serif text-base text-navy font-medium">Black Tie Glamour</p>
+                        <!-- Cocktail -->
+                        <div class="relative bg-gradient-to-br from-powder-light to-white p-8 rounded-3xl border border-powder-dark/60 shadow-sm space-y-4 hover:shadow-md transition">
+                            <div class="flex justify-between items-center">
+                                <span class="font-serif text-xs tracking-[0.2em] text-navy-muted uppercase font-semibold">6:30 PM Onwards</span>
+                                <span class="text-xs bg-indigo-100 text-indigo-800 font-serif px-3 py-1 rounded-full uppercase tracking-wider font-semibold">Evening</span>
+                            </div>
+                            <h5 class="font-serif text-2xl text-navy font-bold">Cocktail</h5>
+                            <p class="font-sans text-sm text-navy/80"><strong class="font-medium text-navy">Venue:</strong> Varca Ballroom</p>
+                            <div class="pt-3 border-t border-navy/10">
+                                <span class="font-serif text-[11px] tracking-[0.15em] text-navy-muted uppercase block mb-1">Dress Code</span>
+                                <span class="inline-block px-4 py-1.5 bg-powder text-navy font-serif text-xs rounded-lg font-medium border border-powder-dark/40">Black Tie Glamour</span>
                             </div>
                         </div>
                     </div>
@@ -244,42 +251,42 @@
                         <p class="font-editorial text-lg italic text-navy-muted">Sunday, 31 January 2027</p>
                     </div>
 
-                    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                        <div class="bg-powder-light/60 p-6 rounded-2xl border border-powder-dark/40 shadow-sm space-y-3">
-                            <span class="font-serif text-xs tracking-[0.2em] text-navy-muted uppercase block">10:00 AM Onwards</span>
-                            <h5 class="font-serif text-xl text-navy">Chooda Ceremony</h5>
+                    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <div class="bg-gradient-to-br from-powder-light to-white p-6 rounded-2xl border border-powder-dark/50 shadow-sm space-y-3">
+                            <span class="font-serif text-xs tracking-[0.2em] text-navy-muted uppercase block font-semibold">10:00 AM Onwards</span>
+                            <h5 class="font-serif text-xl text-navy font-bold">Chooda Ceremony</h5>
                             <p class="font-sans text-sm text-navy/80"><strong class="font-medium">Venue:</strong> Lawns</p>
                         </div>
 
-                        <div class="bg-powder-light/60 p-6 rounded-2xl border border-powder-dark/40 shadow-sm space-y-3">
-                            <span class="font-serif text-xs tracking-[0.2em] text-navy-muted uppercase block">11:00 AM</span>
-                            <h5 class="font-serif text-xl text-navy">Sehrabandi</h5>
+                        <div class="bg-gradient-to-br from-powder-light to-white p-6 rounded-2xl border border-powder-dark/50 shadow-sm space-y-3">
+                            <span class="font-serif text-xs tracking-[0.2em] text-navy-muted uppercase block font-semibold">11:00 AM</span>
+                            <h5 class="font-serif text-xl text-navy font-bold">Sehrabandi</h5>
                             <p class="font-sans text-sm text-navy/80"><strong class="font-medium">Venue:</strong> Lawns</p>
                         </div>
 
-                        <div class="bg-powder-light/60 p-6 rounded-2xl border border-powder-dark/40 shadow-sm space-y-3">
-                            <span class="font-serif text-xs tracking-[0.2em] text-navy-muted uppercase block">12:00 PM</span>
-                            <h5 class="font-serif text-xl text-navy">Baraat</h5>
+                        <div class="bg-gradient-to-br from-powder-light to-white p-6 rounded-2xl border border-powder-dark/50 shadow-sm space-y-3">
+                            <span class="font-serif text-xs tracking-[0.2em] text-navy-muted uppercase block font-semibold">12:00 PM</span>
+                            <h5 class="font-serif text-xl text-navy font-bold">Baraat</h5>
                             <p class="font-sans text-sm text-navy/80"><strong class="font-medium">Venue:</strong> Resort Entrance</p>
                         </div>
 
-                        <div class="bg-powder-light/60 p-6 rounded-2xl border border-powder-dark/40 shadow-sm space-y-3">
-                            <span class="font-serif text-xs tracking-[0.2em] text-navy-muted uppercase block">2:00 PM Onwards</span>
-                            <h5 class="font-serif text-xl text-navy">Wedding / Pheras</h5>
+                        <div class="bg-gradient-to-br from-powder-light to-white p-6 rounded-2xl border border-powder-dark/50 shadow-sm space-y-3">
+                            <span class="font-serif text-xs tracking-[0.2em] text-navy-muted uppercase block font-semibold">2:00 PM Onwards</span>
+                            <h5 class="font-serif text-xl text-navy font-bold">Wedding / Pheras</h5>
                             <p class="font-sans text-sm text-navy/80"><strong class="font-medium">Venue:</strong> Beach venue</p>
                             <div class="pt-2 border-t border-navy/10">
-                                <span class="font-serif text-xs tracking-[0.15em] text-navy-muted uppercase block mb-0.5">Dress Code / Attire</span>
-                                <p class="font-serif text-base text-navy font-medium">Ivory & Gold</p>
+                                <span class="font-serif text-[10px] tracking-[0.15em] text-navy-muted uppercase block mb-1">Dress Code</span>
+                                <span class="inline-block px-3 py-1 bg-powder text-navy font-serif text-xs rounded-lg font-medium border border-powder-dark/40">Ivory & Gold</span>
                             </div>
                         </div>
 
-                        <div class="bg-powder-light/60 p-6 rounded-2xl border border-powder-dark/40 shadow-sm space-y-3 lg:col-span-2">
-                            <span class="font-serif text-xs tracking-[0.2em] text-navy-muted uppercase block">7:00 PM Onwards</span>
-                            <h5 class="font-serif text-xl text-navy">Afterparty</h5>
+                        <div class="bg-gradient-to-br from-powder-light to-white p-6 rounded-2xl border border-powder-dark/50 shadow-sm space-y-3 lg:col-span-2">
+                            <span class="font-serif text-xs tracking-[0.2em] text-navy-muted uppercase block font-semibold">7:00 PM Onwards</span>
+                            <h5 class="font-serif text-xl text-navy font-bold">Afterparty</h5>
                             <p class="font-sans text-sm text-navy/80"><strong class="font-medium">Venue:</strong> Varca Ballroom</p>
                             <div class="pt-2 border-t border-navy/10">
-                                <span class="font-serif text-xs tracking-[0.15em] text-navy-muted uppercase block mb-0.5">Dress Code / Attire</span>
-                                <p class="font-serif text-base text-navy font-medium">Bollywood After-Dark Glam</p>
+                                <span class="font-serif text-[10px] tracking-[0.15em] text-navy-muted uppercase block mb-1">Dress Code</span>
+                                <span class="inline-block px-3 py-1 bg-powder text-navy font-serif text-xs rounded-lg font-medium border border-powder-dark/40">Bollywood After-Dark Glam</span>
                             </div>
                         </div>
                     </div>
@@ -318,7 +325,7 @@
                     <p class="font-sans text-sm text-navy/80 mt-3">Please confirm your gracious presence by reaching out directly via WhatsApp.</p>
                 </div>
 
-                <div class="bg-powder-light p-8 rounded-2xl border border-powder-dark/50 shadow-sm space-y-6">
+                <div class="bg-powder-light p-8 rounded-3xl border border-powder-dark/50 shadow-sm space-y-6">
                     <div>
                         <span class="font-serif text-xs tracking-[0.2em] text-navy-muted uppercase block mb-1">Contact Number</span>
                         <span class="font-serif text-2xl font-bold text-navy tracking-wide">+91 92177 99674</span>
@@ -336,14 +343,14 @@
 
         <!-- Footer -->
         <footer class="py-12 bg-navy text-powder text-center space-y-4">
-            <h4 class="font-script-alt text-3xl text-white">Shreya & Sahil</h4>
+            <h4 class="font-script-dec text-3xl text-white">Shreya & Sahil</h4>
             <p class="font-serif text-xs tracking-[0.25em] uppercase text-powder-dark">30 – 31 January 2027 · Goa</p>
             <p class="font-sans text-xs text-powder/60 pt-4">© 2027 Shreya & Sahil. All rights reserved.</p>
         </footer>
 
     </main>
 
-    <!-- External JavaScript -->
+    <!-- External Script -->
     <script src="app.js"></script>
 </body>
 </html>
