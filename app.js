@@ -1,28 +1,111 @@
-const $=id=>document.getElementById(id);
-let audioContext,timer,musicOn=false,notes=[],noteIndex=0;
-function playNote(){if(!musicOn)return;const sequence=[261.63,329.63,392,523.25,440,392,329.63,293.66,261.63,329.63,392,440,392,329.63,293.66,261.63];const now=audioContext.currentTime;const osc=audioContext.createOscillator(),gain=audioContext.createGain();osc.type='sine';osc.frequency.value=sequence[noteIndex++%sequence.length];gain.gain.setValueAtTime(0,now);gain.gain.linearRampToValueAtTime(.075,now+.04);gain.gain.exponentialRampToValueAtTime(.0001,now+2.5);osc.connect(gain);gain.connect(audioContext.destination);osc.start(now);osc.stop(now+2.6);notes.push(osc);osc.onended=()=>notes=notes.filter(n=>n!==osc)}
-async function toggleMusic(){try{audioContext??=new(window.AudioContext||window.webkitAudioContext)();await audioContext.resume();musicOn=!musicOn;if(musicOn){playNote();timer=setInterval(playNote,700)}else{clearInterval(timer);notes.forEach(n=>{try{n.stop()}catch{}});notes=[]}$('music').setAttribute('aria-pressed',String(musicOn));$('music').setAttribute('aria-label',musicOn?'Pause music':'Play music');$('music').textContent=musicOn?'Ⅱ':'♫'}catch{$('music').textContent='♫';$('music').setAttribute('aria-label','Music unavailable in this browser')}}
-$('music').addEventListener('click',toggleMusic);
-let introDone=false;
-const reducedMotion=matchMedia('(prefers-reduced-motion: reduce)').matches;
-function finishIntro(withMusic=false){if(introDone)return;introDone=true;$('opening').classList.add('opened');document.body.classList.remove('sealed');document.querySelector('main').inert=false;document.querySelector('header').inert=false;document.body.classList.add('invitation-visible');if(withMusic&&!musicOn)toggleMusic();setTimeout(()=>{$('opening').hidden=true},1000)}
-document.querySelector('main').inert=true;document.querySelector('header').inert=true;
-$('openInvite').addEventListener('click',()=>finishIntro(true));
-$('opening').addEventListener('keydown',e=>{if(e.key==='Escape')finishIntro()});
-let introTimer;function startIntro(){document.body.classList.add('intro-running');if(!reducedMotion)introTimer=setTimeout(()=>finishIntro(),7200)}
-const scene=new Image();scene.onload=startIntro;scene.onerror=startIntro;scene.src='palace.png';
-setTimeout(()=>{if(!document.body.classList.contains('intro-running'))startIntro()},2000);
-if(!matchMedia('(prefers-reduced-motion: reduce)').matches)for(let i=0;i<13;i++){const p=document.createElement('span');p.className='petal';p.style.left=(i*7.7)+'%';p.style.animationDelay=(-i*1.7)+'s';p.style.animationDuration=(12+i%5*2)+'s';p.style.opacity='.45';$('petals').append(p)}
-function countdown(){let seconds=Math.max(0,Math.floor((new Date('2027-02-14T20:00:00+05:30')-Date.now())/1000));for(const[id,divisor]of[['days',86400],['hours',3600],['minutes',60],['seconds',1]]){const value=Math.floor(seconds/divisor);$(id).textContent=String(value).padStart(2,'0');seconds%=divisor}}countdown();setInterval(countdown,1000);
-const canvas=$('scratch'),ctx=canvas.getContext('2d');let scratched=false,down=false,lastPoint,strokes=0;
-function paintScratch(){if(scratched)return;const rect=canvas.getBoundingClientRect();const ratio=devicePixelRatio||1;canvas.width=rect.width*ratio;canvas.height=rect.height*ratio;ctx.scale(ratio,ratio);ctx.globalCompositeOperation='source-over';const gradient=ctx.createLinearGradient(0,0,rect.width,rect.height);gradient.addColorStop(0,'#9d7750');gradient.addColorStop(.5,'#d2b78d');gradient.addColorStop(1,'#a58359');ctx.fillStyle=gradient;ctx.fillRect(0,0,rect.width,rect.height);ctx.fillStyle='#fff9ed';ctx.textAlign='center';ctx.font='24px Georgia';ctx.fillText('A little surprise awaits',rect.width/2,rect.height/2-3);ctx.font='9px Arial';ctx.fillText('SCRATCH TO REVEAL OUR DATE',rect.width/2,rect.height/2+24)}
-function reveal(){if(scratched)return;scratched=true;canvas.classList.add('done');$('revealDate').textContent='14 February 2027 · Save the date ♡';$('revealMessage').textContent="We can't wait to celebrate with you."}
-canvas.addEventListener('pointerdown',e=>{down=true;lastPoint=null;canvas.setPointerCapture(e.pointerId);scratch(e)});canvas.addEventListener('pointermove',e=>{if(down)scratch(e)});canvas.addEventListener('pointerup',()=>{down=false;lastPoint=null});canvas.addEventListener('pointercancel',()=>{down=false});
-function scratch(e){if(scratched)return;const r=canvas.getBoundingClientRect();const x=e.clientX-r.left,y=e.clientY-r.top;ctx.globalCompositeOperation='destination-out';ctx.lineWidth=42;ctx.lineCap='round';ctx.beginPath();ctx.moveTo(lastPoint?.x??x,lastPoint?.y??y);ctx.lineTo(x,y);ctx.stroke();ctx.beginPath();ctx.arc(x,y,21,0,Math.PI*2);ctx.fill();lastPoint={x,y};if(++strokes%12===0){const data=ctx.getImageData(0,0,canvas.width,canvas.height).data;let transparent=0,total=0;for(let i=3;i<data.length;i+=80){total++;if(data[i]<128)transparent++}if(transparent/total>.35)reveal()}}
-$('revealDate').addEventListener('click',reveal);paintScratch();window.addEventListener('resize',paintScratch);
-$('calendar').addEventListener('click',()=>{const content='BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Ayaan Inaya//Invitation//EN\r\nBEGIN:VEVENT\r\nUID:ayaan-inaya-20270214\r\nDTSTAMP:20261023T000000Z\r\nDTSTART:20270214T133000Z\r\nDTEND:20270214T173000Z\r\nSUMMARY:Ayaan & Inaya - Wedding celebration\r\nLOCATION:The Rose Palace Jaipur India\r\nDESCRIPTION:Join us to celebrate the wedding of Ayaan and Inaya.\r\nEND:VEVENT\r\nEND:VCALENDAR';const url=URL.createObjectURL(new Blob([content],{type:'text/calendar;charset=utf-8'}));const a=document.createElement('a');a.href=url;a.download='Ayaan-Inaya-Save-the-Date.ics';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000)});
-$('share').addEventListener('click',async()=>{const url=location.href.split('#')[0];try{if(navigator.share){await navigator.share({title:'Ayaan & Inaya · Wedding Invitation',text:"You're invited to a celebration of forever. Join us for our wedding celebration.",url})}else if(navigator.clipboard){await navigator.clipboard.writeText(url);$('shareStatus').textContent='Link copied! Share it with someone you love.'}else{$('shareStatus').textContent=url}}catch(e){if(e.name!=='AbortError')$('shareStatus').textContent='Copy the link from your browser to share this invitation.'}});
-const openButton = document.getElementById('openInvitation');
-if (openButton) openButton.addEventListener('click', () => {
-  document.getElementById('opening')?.classList.add('opened');
-});
+
+const $ = (id) => document.getElementById(id);
+
+// Open the wedding invitation
+const openButton = $("openInvitation");
+const opening = $("opening");
+const invitation = $("invitation");
+
+if (openButton && opening && invitation) {
+  openButton.addEventListener("click", () => {
+    invitation.hidden = false;
+    opening.classList.add("hide");
+    document.body.style.overflow = "auto";
+
+    setTimeout(() => {
+      opening.style.display = "none";
+    }, 950);
+
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
+}
+
+// Gentle background music using browser-generated notes
+let audioContext;
+let musicTimer;
+let musicOn = false;
+let activeNotes = [];
+
+const melody = [
+  261.63, 329.63, 392.00, 329.63,
+  293.66, 349.23, 440.00, 392.00,
+  261.63, 329.63, 392.00, 523.25,
+  440.00, 392.00, 329.63, 293.66
+];
+
+let noteIndex = 0;
+
+function playNote() {
+  if (!audioContext || !musicOn) return;
+
+  const oscillator = audioContext.createOscillator();
+  const gain = audioContext.createGain();
+  const now = audioContext.currentTime;
+
+  oscillator.type = "sine";
+  oscillator.frequency.value = melody[noteIndex % melody.length];
+  noteIndex++;
+
+  gain.gain.setValueAtTime(0.0001, now);
+  gain.gain.linearRampToValueAtTime(0.045, now + 0.08);
+  gain.gain.exponentialRampToValueAtTime(0.0001, now + 1.8);
+
+  oscillator.connect(gain);
+  gain.connect(audioContext.destination);
+
+  oscillator.start(now);
+  oscillator.stop(now + 1.9);
+
+  activeNotes.push(oscillator);
+
+  oscillator.onended = () => {
+    activeNotes = activeNotes.filter((note) => note !== oscillator);
+  };
+}
+
+async function toggleMusic() {
+  const musicButton = $("music");
+  if (!musicButton) return;
+
+  try {
+    if (!audioContext) {
+      audioContext = new (
+        window.AudioContext || window.webkitAudioContext
+      )();
+    }
+
+    await audioContext.resume();
+    musicOn = !musicOn;
+
+    if (musicOn) {
+      playNote();
+      musicTimer = setInterval(playNote, 850);
+      musicButton.textContent = "Ⅱ";
+      musicButton.setAttribute("aria-label", "Pause music");
+      musicButton.setAttribute("aria-pressed", "true");
+    } else {
+      clearInterval(musicTimer);
+      activeNotes.forEach((note) => {
+        try {
+          note.stop();
+        } catch (error) {
+          // Note has already stopped.
+        }
+      });
+
+      activeNotes = [];
+      musicButton.textContent = "♫";
+      musicButton.setAttribute("aria-label", "Play music");
+      musicButton.setAttribute("aria-pressed", "false");
+    }
+  } catch (error) {
+    musicButton.textContent = "♫";
+    musicButton.setAttribute("aria-label", "Music unavailable");
+  }
+}
+
+const musicButton = $("music");
+
+if (musicButton) {
+  musicButton.addEventListener("click", toggleMusic);
+}
