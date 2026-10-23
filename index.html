@@ -45,97 +45,8 @@
         }
     </script>
 
-    <style>
-        body {
-            font-family: 'Montserrat', sans-serif;
-            background-color: #f2f7fc;
-            color: #0f1e2e;
-            overflow-x: hidden;
-        }
-
-        .font-script-dec { 
-            font-family: 'Cinzel Decorative', serif; 
-        }
-
-        .font-serif { 
-            font-family: 'Cinzel', serif; 
-        }
-
-        .font-editorial { 
-            font-family: 'Cormorant Garamond', serif; 
-        }
-
-        .font-playfair { 
-            font-family: 'Playfair Display', serif; 
-        }
-
-        /* Cinematic Video-like Motion Effect */
-        @keyframes heroMotion {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.06); }
-            100% { transform: scale(1); }
-        }
-
-        .animate-hero-motion {
-            animation: heroMotion 18s ease-in-out infinite alternate;
-        }
-
-        /* Text Legibility Glow Backdrop */
-        .text-glow {
-            text-shadow: 0 1px 12px rgba(255, 255, 255, 0.95), 0 1px 4px rgba(255, 255, 255, 0.9);
-        }
-
-        /* Floating Petals */
-        @keyframes floatPetals {
-            0% { 
-                transform: translateY(-10vh) translateX(0) rotate(0deg); 
-                opacity: 0; 
-            }
-            20% { 
-                opacity: 0.85; 
-            }
-            80% { 
-                opacity: 0.85; 
-            }
-            100% { 
-                transform: translateY(110vh) translateX(50px) rotate(360deg); 
-                opacity: 0; 
-            }
-        }
-
-        .petal {
-            position: absolute;
-            background: rgba(255, 255, 255, 0.9);
-            border-radius: 150% 0 150% 0;
-            animation: floatPetals linear infinite;
-            pointer-events: none;
-        }
-
-        /* Envelope Mechanics */
-        #envelope-screen {
-            transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .envelope-open .flap {
-            transform: rotateX(180deg);
-            z-index: 10;
-        }
-
-        .envelope-open .seal-btn {
-            transform: scale(0);
-            opacity: 0;
-        }
-
-        .flap {
-            transition: transform 0.6s ease-in-out;
-            transform-origin: top;
-        }
-
-        #scratch-canvas {
-            touch-action: none;
-            cursor: crosshair;
-        }
-    </style>
+    <!-- External Stylesheet -->
+    <link rel="stylesheet" href="style.css">
 </head>
 <body class="antialiased selection:bg-powder-dark selection:text-navy">
 
@@ -187,18 +98,18 @@
         <!-- Header / Category Navigation -->
         <header class="fixed top-0 left-0 w-full z-40 bg-white/90 backdrop-blur-md border-b border-navy/10 px-6 py-4 flex items-center justify-between shadow-sm">
             <span class="font-serif font-bold text-lg tracking-widest text-navy">S & S</span>
-            <nav class="flex items-center space-x-4 md:space-x-8 font-serif text-[10px] md:text-[11px] tracking-[0.2em] text-navy uppercase font-semibold">
+            <nav class="flex items-center space-x-3 md:space-x-8 font-serif text-[10px] md:text-[11px] tracking-[0.2em] text-navy uppercase font-semibold">
                 <a href="#hero" class="hover:text-navy-muted transition">The Date</a>
                 <a href="#itinerary" class="hover:text-navy-muted transition">Celebrations</a>
+                <a href="#wardrobe" class="hover:text-navy-muted transition">Wardrobe</a>
                 <a href="#venue" class="hover:text-navy-muted transition">Venue Guide</a>
                 <a href="#rsvp" class="hover:text-navy-muted transition border-b border-navy pb-0.5">RSVP</a>
             </nav>
         </header>
 
-        <!-- Slide 1: Full Background Video-like Motion Hero with High-Contrast Text -->
+        <!-- Slide 1: Full Background Video-like Motion Hero -->
         <section id="hero" class="relative min-h-screen flex flex-col items-center justify-between text-center px-6 pt-28 pb-12 overflow-hidden">
             <div class="absolute inset-0 bg-cover bg-center animate-hero-motion scale-105" style="background-image: url('goa-opening.png.png');"></div>
-            <!-- Refined gradient overlay for superior text contrast -->
             <div class="absolute inset-0 bg-gradient-to-b from-white/70 via-white/40 to-white/75"></div>
 
             <div class="relative z-10 max-w-3xl mx-auto space-y-4 my-auto pt-6">
@@ -206,7 +117,7 @@
                 
                 <p class="font-editorial italic text-2xl md:text-3xl text-navy font-medium text-glow">With love and joy,</p>
                 
-                <h2 class="font-script-dec text-5xl md:text-7xl text-navy font-bold tracking-tight drop-shadow-md py-3 leading-tight text-glow">
+                <h2 class="font-script-dec text-5xl md:text-7xl text-navy font-bold tracking-tight drop-shadow-sm py-3 leading-tight text-glow">
                     Shreya <span class="font-editorial italic font-normal text-3xl md:text-5xl text-navy/80">&</span> Sahil
                 </h2>
                 
@@ -276,7 +187,7 @@
             </div>
         </section>
 
-        <!-- Decorated Event Itinerary -->
+        <!-- Event Itinerary -->
         <section id="itinerary" class="py-24 px-6 bg-white border-t border-powder-dark/30">
             <div class="max-w-4xl mx-auto space-y-12">
                 
@@ -383,8 +294,40 @@
             </div>
         </section>
 
+        <!-- Wardrobe / Attire Guide Section -->
+        <section id="wardrobe" class="py-24 px-6 bg-powder-light border-t border-powder-dark/30">
+            <div class="max-w-4xl mx-auto space-y-12">
+                <div class="text-center space-y-3">
+                    <p class="font-serif text-xs tracking-[0.25em] text-navy-muted uppercase">Style & Palette</p>
+                    <h3 class="font-serif text-3xl md:text-4xl text-navy">Wardrobe Guide</h3>
+                    <p class="font-editorial text-lg italic text-navy/80">A curation of recommended attire and color themes for our celebrations.</p>
+                    <div class="w-12 h-0.5 bg-navy/20 mx-auto mt-4"></div>
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-6">
+                    <div class="bg-white p-6 rounded-2xl border border-powder-dark/60 shadow-sm space-y-3 text-center">
+                        <span class="font-serif text-xs tracking-[0.2em] text-navy-muted uppercase block">Haldi (Day 1)</span>
+                        <h4 class="font-serif text-xl text-navy font-bold">Beachside Festive Chic</h4>
+                        <p class="font-sans text-sm text-navy/80">Bright yellows, whites, and breezy floral linens suited for the coastal breeze.</p>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-2xl border border-powder-dark/60 shadow-sm space-y-3 text-center">
+                        <span class="font-serif text-xs tracking-[0.2em] text-navy-muted uppercase block">Cocktail (Day 1)</span>
+                        <h4 class="font-serif text-xl text-navy font-bold">Black Tie Glamour</h4>
+                        <p class="font-sans text-sm text-navy/80">Sophisticated evening gowns, sharp tuxedos, and sleek cocktail wear.</p>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-2xl border border-powder-dark/60 shadow-sm space-y-3 text-center">
+                        <span class="font-serif text-xs tracking-[0.2em] text-navy-muted uppercase block">Wedding & Pheras (Day 2)</span>
+                        <h4 class="font-serif text-xl text-navy font-bold">Ivory & Gold</h4>
+                        <p class="font-sans text-sm text-navy/80">Traditional elegance featuring ivory, gold, and pastel ethnic ensembles.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <!-- Venue Guide -->
-        <section id="venue" class="py-24 px-6 bg-powder-light border-t border-powder-dark/30">
+        <section id="venue" class="py-24 px-6 bg-white border-t border-powder-dark/30">
             <div class="max-w-3xl mx-auto text-center space-y-8">
                 <div>
                     <p class="font-serif text-xs tracking-[0.25em] text-navy-muted uppercase mb-2">Destination</p>
@@ -405,7 +348,7 @@
         </section>
 
         <!-- RSVP Section -->
-        <section id="rsvp" class="py-24 px-6 bg-white border-t border-powder-dark/30">
+        <section id="rsvp" class="py-24 px-6 bg-powder-light border-t border-powder-dark/30">
             <div class="max-w-xl mx-auto text-center space-y-8">
                 <div>
                     <p class="font-serif text-xs tracking-[0.25em] text-navy-muted uppercase mb-2">Be Our Guest</p>
@@ -413,7 +356,7 @@
                     <p class="font-sans text-sm text-navy/80 mt-3">Please confirm your gracious presence by reaching out directly via WhatsApp.</p>
                 </div>
 
-                <div class="bg-powder-light p-8 rounded-3xl border border-powder-dark/50 shadow-sm space-y-6">
+                <div class="bg-white p-8 rounded-3xl border border-powder-dark/50 shadow-sm space-y-6">
                     <div>
                         <span class="font-serif text-xs tracking-[0.2em] text-navy-muted uppercase block mb-1">Contact Number</span>
                         <span class="font-serif text-2xl font-bold text-navy tracking-wide">+91 92177 99674</span>
@@ -438,196 +381,7 @@
 
     </main>
 
-    <!-- JavaScript logic -->
-    <script>
-        function createPetals() {
-            const container = document.getElementById('petals-container');
-            if (!container) return;
-            const count = 25;
-            for (let i = 0; i < count; i++) {
-                const petal = document.createElement('div');
-                petal.className = 'petal';
-                const size = Math.random() * 10 + 8;
-                petal.style.width = `${size}px`;
-                petal.style.height = `${size * 1.4}px`;
-                petal.style.left = `${Math.random() * 100}%`;
-                petal.style.top = `-10%`;
-                petal.style.animationDuration = `${Math.random() * 6 + 6}s`;
-                petal.style.animationDelay = `${Math.random() * 5}s`;
-                container.appendChild(petal);
-            }
-        }
-
-        const bgMusic = document.getElementById('bg-music');
-        const audioToggle = document.getElementById('audio-toggle');
-        const iconPlay = document.getElementById('audio-icon-play');
-        const iconPause = document.getElementById('audio-icon-pause');
-        let isPlaying = false;
-
-        function toggleAudio() {
-            if (isPlaying) {
-                if (bgMusic) bgMusic.pause();
-                if (iconPlay) iconPlay.classList.remove('hidden');
-                if (iconPause) iconPause.classList.add('hidden');
-                isPlaying = false;
-            } else {
-                if (bgMusic) {
-                    bgMusic.play().then(() => {
-                        if (iconPlay) iconPlay.classList.add('hidden');
-                        if (iconPause) iconPause.classList.remove('hidden');
-                        isPlaying = true;
-                    }).catch(e => console.log("Audio playback prevented:", e));
-                }
-            }
-        }
-
-        function openEnvelope() {
-            const envelopeScreen = document.getElementById('envelope-screen');
-            const envelopeBox = document.getElementById('envelope-box');
-            const mainInvitation = document.getElementById('main-invitation');
-
-            if (!isPlaying && bgMusic) {
-                bgMusic.play().then(() => {
-                    if (iconPlay) iconPlay.classList.add('hidden');
-                    if (iconPause) iconPause.classList.remove('hidden');
-                    isPlaying = true;
-                }).catch(e => console.log("Audio playback prevented:", e));
-            }
-
-            if (envelopeBox) envelopeBox.classList.add('envelope-open');
-
-            setTimeout(() => {
-                if (envelopeScreen) envelopeScreen.style.opacity = '0';
-                setTimeout(() => {
-                    if (envelopeScreen) envelopeScreen.style.display = 'none';
-                    if (mainInvitation) mainInvitation.classList.remove('opacity-0', 'pointer-events-none');
-                    initScratchCard();
-                }, 800);
-            }, 900);
-        }
-
-        function switchDay(day) {
-            const tab1 = document.getElementById('tab-day1');
-            const tab2 = document.getElementById('tab-day2');
-            const content1 = document.getElementById('content-day1');
-            const content2 = document.getElementById('content-day2');
-
-            if (day === 1) {
-                if (tab1) tab1.className = "px-8 py-3 font-serif text-xs tracking-[0.2em] uppercase rounded-full bg-navy text-white shadow-md transition-all duration-300";
-                if (tab2) tab2.className = "px-8 py-3 font-serif text-xs tracking-[0.2em] uppercase rounded-full bg-powder-light text-navy-muted hover:text-navy transition-all duration-300";
-                if (content1) content1.classList.remove('hidden');
-                if (content2) content2.classList.add('hidden');
-            } else {
-                if (tab2) tab2.className = "px-8 py-3 font-serif text-xs tracking-[0.2em] uppercase rounded-full bg-navy text-white shadow-md transition-all duration-300";
-                if (tab1) tab1.className = "px-8 py-3 font-serif text-xs tracking-[0.2em] uppercase rounded-full bg-powder-light text-navy-muted hover:text-navy transition-all duration-300";
-                if (content2) content2.classList.remove('hidden');
-                if (content1) content1.classList.add('hidden');
-            }
-        }
-
-        function initScratchCard() {
-            const canvas = document.getElementById('scratch-canvas');
-            if (!canvas) return;
-            const ctx = canvas.getContext('2d');
-            
-            canvas.width = canvas.offsetWidth;
-            canvas.height = canvas.offsetHeight;
-
-            ctx.fillStyle = '#c4d7ec';
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-            ctx.fillStyle = '#0f1e2e';
-            ctx.font = '13px Montserrat, sans-serif';
-            ctx.textAlign = 'center';
-            ctx.fillText('Scratch or drag across to reveal', canvas.width / 2, canvas.height / 2 + 5);
-
-            let isDrawing = false;
-
-            function scratch(e) {
-                if (!isDrawing) return;
-                const rect = canvas.getBoundingClientRect();
-                const x = (e.clientX || (e.touches && e.touches[0].clientX)) - rect.left;
-                const y = (e.clientY || (e.touches && e.touches[0].clientY)) - rect.top;
-
-                ctx.globalCompositeOperation = 'destination-out';
-                ctx.beginPath();
-                ctx.arc(x, y, 30, 0, Math.PI * 2, false);
-                ctx.fill();
-
-                checkScratchPercentage();
-            }
-
-            canvas.addEventListener('mousedown', () => isDrawing = true);
-            canvas.addEventListener('mousemove', scratch);
-            window.addEventListener('mouseup', () => isDrawing = false);
-
-            canvas.addEventListener('touchstart', () => isDrawing = true);
-            canvas.addEventListener('touchmove', scratch);
-            window.addEventListener('touchend', () => isDrawing = false);
-        }
-
-        function checkScratchPercentage() {
-            const canvas = document.getElementById('scratch-canvas');
-            if (!canvas) return;
-            const ctx = canvas.getContext('2d');
-            const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-            let cleared = 0;
-            for (let i = 3; i < imageData.data.length; i += 4) {
-                if (imageData.data[i] === 0) cleared++;
-            }
-            if (cleared > (imageData.data.length / 4) * 0.4) {
-                canvas.style.transition = 'opacity 0.6s ease';
-                canvas.style.opacity = '0';
-                setTimeout(() => canvas.style.display = 'none', 600);
-            }
-        }
-
-        function revealDateDirectly() {
-            const canvas = document.getElementById('scratch-canvas');
-            if (canvas) {
-                canvas.style.transition = 'opacity 0.6s ease';
-                canvas.style.opacity = '0';
-                setTimeout(() => canvas.style.display = 'none', 600);
-            }
-        }
-
-        const weddingDate = new Date('2027-01-31T00:00:00+05:30').getTime();
-
-        function updateCountdown() {
-            const now = new Date().getTime();
-            const distance = weddingDate - now;
-
-            const daysElem = document.getElementById('days');
-            const hoursElem = document.getElementById('hours');
-            const minutesElem = document.getElementById('minutes');
-
-            if (distance < 0) {
-                if (daysElem) daysElem.innerText = '00';
-                if (hoursElem) hoursElem.innerText = '00';
-                if (minutesElem) minutesElem.innerText = '00';
-                return;
-            }
-
-            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-
-            if (daysElem) daysElem.innerText = String(days).padStart(2, '0');
-            if (hoursElem) hoursElem.innerText = String(hours).padStart(2, '0');
-            if (minutesElem) minutesElem.innerText = String(minutes).padStart(2, '0');
-        }
-
-        function sendWhatsAppRSVP() {
-            const phoneNumber = '919217799674';
-            const message = encodeURIComponent("Hello! I would like to RSVP for Shreya & Sahil's wedding celebrations on 30–31 January 2027 in Goa.");
-            window.open(`https://wa.me/${phoneNumber}?text=${message}`, '_blank');
-        }
-
-        document.addEventListener('DOMContentLoaded', () => {
-            createPetals();
-            setInterval(updateCountdown, 1000);
-            updateCountdown();
-        });
-    </script>
+    <!-- External Script -->
+    <script src="app.js"></script>
 </body>
 </html>
