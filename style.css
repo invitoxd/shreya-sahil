@@ -46,7 +46,7 @@ button {
       rgba(247, 243, 235, 0.35),
       rgba(247, 243, 235, 0.55)
     ),
-    url("goa-opening.png") center center / cover no-repeat;
+    url("goa-opening.png.png") center center / cover no-repeat;
   transition: opacity .9s ease, visibility .9s ease;
 }
 
