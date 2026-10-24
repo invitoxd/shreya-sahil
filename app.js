@@ -1,196 +1,205 @@
-// Floating Petals Generator
-function createPetals() {
-    const container = document.getElementById('petals-container');
-    if (!container) return;
-    const count = 25;
-    for (let i = 0; i < count; i++) {
-        const petal = document.createElement('div');
-        petal.className = 'petal';
-        const size = Math.random() * 10 + 8;
-        petal.style.width = `${size}px`;
-        petal.style.height = `${size * 1.4}px`;
-        petal.style.left = `${Math.random() * 100}%`;
-        petal.style.top = `-10%`;
-        petal.style.animationDuration = `${Math.random() * 6 + 6}s`;
-        petal.style.animationDelay = `${Math.random() * 5}s`;
-        container.appendChild(petal);
-    }
+
+const $ = (selector) => document.querySelector(selector);
+const $$ = (selector) => [...document.querySelectorAll(selector)];
+
+const envelope = $("#envelope");
+const openButton = $("#openInvite");
+const tapNote = $("#tapNote");
+
+function openInvitation() {
+  envelope.classList.add("open");
+  tapNote.textContent = "YOUR STORY BY THE SEA AWAITS";
+  openButton.setAttribute("aria-label", "Invitation opened");
+  setTimeout(() => {
+    $("#hero").scrollIntoView({ behavior: "smooth" });
+  }, 1500);
 }
 
-// Background Audio Controls
-const bgMusic = document.getElementById('bg-music');
-const audioToggle = document.getElementById('audio-toggle');
-const iconPlay = document.getElementById('audio-icon-play');
-const iconPause = document.getElementById('audio-icon-pause');
-let isPlaying = false;
+openButton.addEventListener("click", openInvitation);
+$("#skipIntro").addEventListener("click", () => {
+  $("#hero").scrollIntoView({ behavior: "smooth" });
+});
 
-function toggleAudio() {
-    if (isPlaying) {
-        if (bgMusic) bgMusic.pause();
-        if (iconPlay) iconPlay.classList.remove('hidden');
-        if (iconPause) iconPause.classList.add('hidden');
-        isPlaying = false;
-    } else {
-        if (bgMusic) {
-            bgMusic.play().then(() => {
-                if (iconPlay) iconPlay.classList.add('hidden');
-                if (iconPause) iconPause.classList.remove('hidden');
-                isPlaying = true;
-            }).catch(e => console.log("Audio playback prevented:", e));
-        }
-    }
+// Reveal content as it enters the screen.
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) entry.target.classList.add("visible");
+  });
+}, { threshold: 0.15 });
+
+$$(".reveal").forEach(element => observer.observe(element));
+
+// Event information: only use confirmed details.
+const events = {
+  haldi: {
+    date: "SATURDAY · 30 JANUARY",
+    title: "Haldi",
+    time: "1 PM onwards",
+    location: "Coconut Grove · Caravela Beach Resort",
+    dress: "DRESS CODE · BEACHSIDE FESTIVE CHIC"
+  },
+  cocktail: {
+    date: "SATURDAY · 30 JANUARY",
+    title: "Cocktail",
+    time: "6:30 PM onwards",
+    location: "Varca Ballroom · Caravela Beach Resort",
+    dress: "DRESS CODE · BLACK TIE GLAMOUR"
+  },
+  chooda: {
+    date: "SUNDAY · 31 JANUARY",
+    title: "Chooda Ceremony",
+    time: "10 AM onwards",
+    location: "Lawns · Caravela Beach Resort",
+    dress: "A MORNING WITH FAMILY"
+  },
+  sehra: {
+    date: "SUNDAY · 31 JANUARY",
+    title: "Sehrabandi",
+    time: "11 AM",
+    location: "Lawns · Caravela Beach Resort",
+    dress: "A MOMENT BEFORE THE CELEBRATIONS"
+  },
+  baraat: {
+    date: "SUNDAY · 31 JANUARY",
+    title: "Baraat",
+    time: "12 PM",
+    location: "Venue to be confirmed",
+    dress: "LET THE CELEBRATION BEGIN"
+  },
+  wedding: {
+    date: "SUNDAY · 31 JANUARY",
+    title: "The Wedding",
+    time: "2 PM onwards",
+    location: "Beach venue · exact location to be confirmed",
+    dress: "DRESS CODE · IVORY & GOLD"
+  },
+  after: {
+    date: "SUNDAY · 31 JANUARY",
+    title: "Afterparty",
+    time: "7 PM onwards",
+    location: "Varca Ballroom · Caravela Beach Resort",
+    dress: "DRESS CODE · BOLLYWOOD AFTER-DARK GLAM"
+  }
+};
+
+function showEvent(key) {
+  const event = events[key];
+  if (!event) return;
+
+  $("#eventDate").textContent = event.date;
+  $("#eventTitle").textContent = event.title;
+  $("#eventTime").textContent = event.time;
+  $("#eventLocation").textContent = event.location;
+  $("#eventDress").textContent = event.dress;
+
+  const overlay = $("#eventOverlay");
+  overlay.classList.add("visible");
+  overlay.setAttribute("aria-hidden", "false");
+  $("#closeEvent").focus();
+  document.body.style.overflow = "hidden";
 }
 
-// Open Envelope Animation
-function openEnvelope() {
-    const envelopeScreen = document.getElementById('envelope-screen');
-    const envelopeBox = document.getElementById('envelope-box');
-    const mainInvitation = document.getElementById('main-invitation');
-
-    if (!isPlaying && bgMusic) {
-        bgMusic.play().then(() => {
-            if (iconPlay) iconPlay.classList.add('hidden');
-            if (iconPause) iconPause.classList.remove('hidden');
-            isPlaying = true;
-        }).catch(e => console.log("Audio playback prevented:", e));
-    }
-
-    if (envelopeBox) envelopeBox.classList.add('envelope-open');
-
-    setTimeout(() => {
-        if (envelopeScreen) envelopeScreen.style.opacity = '0';
-        setTimeout(() => {
-            if (envelopeScreen) envelopeScreen.style.display = 'none';
-            if (mainInvitation) mainInvitation.classList.remove('opacity-0', 'pointer-events-none');
-            initScratchCard();
-        }, 800);
-    }, 900);
+function closeEvent() {
+  const overlay = $("#eventOverlay");
+  overlay.classList.remove("visible");
+  overlay.setAttribute("aria-hidden", "true");
+  document.body.style.overflow = "";
 }
 
-// Day Selector Tabs
-function switchDay(day) {
-    const tab1 = document.getElementById('tab-day1');
-    const tab2 = document.getElementById('tab-day2');
-    const content1 = document.getElementById('content-day1');
-    const content2 = document.getElementById('content-day2');
+$$(".event-point").forEach(button => {
+  button.addEventListener("click", () => showEvent(button.dataset.event));
+});
+$("#closeEvent").addEventListener("click", closeEvent);
+$("#eventOverlay").addEventListener("click", event => {
+  if (event.target.id === "eventOverlay") closeEvent();
+});
+document.addEventListener("keydown", event => {
+  if (event.key === "Escape") closeEvent();
+});
 
-    if (day === 1) {
-        if (tab1) tab1.className = "px-8 py-3 font-serif text-xs tracking-[0.2em] uppercase rounded-full bg-navy text-white shadow-md transition-all duration-300";
-        if (tab2) tab2.className = "px-8 py-3 font-serif text-xs tracking-[0.2em] uppercase rounded-full bg-powder-light text-navy-muted hover:text-navy transition-all duration-300";
-        if (content1) content1.classList.remove('hidden');
-        if (content2) content2.classList.add('hidden');
-    } else {
-        if (tab2) tab2.className = "px-8 py-3 font-serif text-xs tracking-[0.2em] uppercase rounded-full bg-navy text-white shadow-md transition-all duration-300";
-        if (tab1) tab1.className = "px-8 py-3 font-serif text-xs tracking-[0.2em] uppercase rounded-full bg-powder-light text-navy-muted hover:text-navy transition-all duration-300";
-        if (content2) content2.classList.remove('hidden');
-        if (content1) content1.classList.add('hidden');
-    }
-}
+// Dress-code visual selector.
+const dressDetails = {
+  haldi: {
+    label: "BEACHSIDE FESTIVE CHIC",
+    background: "linear-gradient(145deg, #f7e6a7, #e9b88e 55%, #a8cdd7)",
+    flower: "#d49b42"
+  },
+  cocktail: {
+    label: "BLACK TIE GLAMOUR",
+    background: "linear-gradient(145deg, #253b4b, #56697b 55%, #c8a879)",
+    flower: "#e6c58b"
+  },
+  wedding: {
+    label: "IVORY & GOLD",
+    background: "linear-gradient(145deg, #f7f0df, #dfd2b8 55%, #c9aa79)",
+    flower: "#c7a15c"
+  },
+  after: {
+    label: "BOLLYWOOD AFTER-DARK GLAM",
+    background: "linear-gradient(145deg, #332943, #7b496c 55%, #d08c82)",
+    flower: "#e7b6b9"
+  }
+};
 
-// Scratch Card Canvas
-function initScratchCard() {
-    const canvas = document.getElementById('scratch-canvas');
-    if (!canvas) return;
-    const ctx = canvas.getContext('2d');
-    
-    canvas.width = canvas.offsetWidth;
-    canvas.height = canvas.offsetHeight;
+$$(".dress-option").forEach(button => {
+  button.addEventListener("click", () => {
+    $$(".dress-option").forEach(option => option.classList.remove("active"));
+    button.classList.add("active");
 
-    ctx.fillStyle = '#c4d7ec';
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    const details = dressDetails[button.dataset.dress];
+    $("#fabricLabel").textContent = details.label;
+    $("#fabricArt").style.background = details.background;
+    $(".fabric-flower").style.color = details.flower;
+  });
+});
 
-    ctx.fillStyle = '#0f1e2e';
-    ctx.font = '13px Montserrat, sans-serif';
-    ctx.textAlign = 'center';
-    ctx.fillText('Scratch or drag across to reveal', canvas.width / 2, canvas.height / 2 + 5);
-
-    let isDrawing = false;
-
-    function scratch(e) {
-        if (!isDrawing) return;
-        const rect = canvas.getBoundingClientRect();
-        const x = (e.clientX || (e.touches && e.touches[0].clientX)) - rect.left;
-        const y = (e.clientY || (e.touches && e.touches[0].clientY)) - rect.top;
-
-        ctx.globalCompositeOperation = 'destination-out';
-        ctx.beginPath();
-        ctx.arc(x, y, 30, 0, Math.PI * 2, false);
-        ctx.fill();
-
-        checkScratchPercentage();
-    }
-
-    canvas.addEventListener('mousedown', () => isDrawing = true);
-    canvas.addEventListener('mousemove', scratch);
-    window.addEventListener('mouseup', () => isDrawing = false);
-
-    canvas.addEventListener('touchstart', () => isDrawing = true);
-    canvas.addEventListener('touchmove', scratch);
-    window.addEventListener('touchend', () => isDrawing = false);
-}
-
-function checkScratchPercentage() {
-    const canvas = document.getElementById('scratch-canvas');
-    if (!canvas) return;
-    const ctx = canvas.getContext('2d');
-    const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-    let cleared = 0;
-    for (let i = 3; i < imageData.data.length; i += 4) {
-        if (imageData.data[i] === 0) cleared++;
-    }
-    if (cleared > (imageData.data.length / 4) * 0.4) {
-        canvas.style.transition = 'opacity 0.6s ease';
-        canvas.style.opacity = '0';
-        setTimeout(() => canvas.style.display = 'none', 600);
-    }
-}
-
-function revealDateDirectly() {
-    const canvas = document.getElementById('scratch-canvas');
-    if (canvas) {
-        canvas.style.transition = 'opacity 0.6s ease';
-        canvas.style.opacity = '0';
-        setTimeout(() => canvas.style.display = 'none', 600);
-    }
-}
-
-// Live IST Countdown Timer (Days, Hours, Minutes)
-const weddingDate = new Date('2027-01-31T00:00:00+05:30').getTime();
-
+// Countdown to the first day of celebrations.
 function updateCountdown() {
-    const now = new Date().getTime();
-    const distance = weddingDate - now;
+  const target = new Date("2027-01-30T13:00:00+05:30").getTime();
+  const remaining = Math.max(0, target - Date.now());
+  const second = 1000;
+  const minute = second * 60;
+  const hour = minute * 60;
+  const day = hour * 24;
 
-    const daysElem = document.getElementById('days');
-    const hoursElem = document.getElementById('hours');
-    const minutesElem = document.getElementById('minutes');
+  $("#days").textContent = String(Math.floor(remaining / day)).padStart(3, "0");
+  $("#hours").textContent = String(Math.floor((remaining % day) / hour)).padStart(2, "0");
+  $("#minutes").textContent = String(Math.floor((remaining % hour) / minute)).padStart(2, "0");
+  $("#seconds").textContent = String(Math.floor((remaining % minute) / second)).padStart(2, "0");
+}
 
-    if (distance < 0) {
-        if (daysElem) daysElem.innerText = '00';
-        if (hoursElem) hoursElem.innerText = '00';
-        if (minutesElem) minutesElem.innerText = '00';
-        return;
+updateCountdown();
+setInterval(updateCountdown, 1000);
+
+// WhatsApp RSVP with a prefilled message.
+const phone = "919217799674";
+const message = encodeURIComponent(
+  "Hello Shreya and Sahil! I’m reaching out regarding your wedding celebrations in Goa on 30–31 January 2027. Please count me in for the celebrations!"
+);
+$("#rsvpLink").href = `https://wa.me/${phone}?text=${message}`;
+
+// Scroll progress indicator.
+window.addEventListener("scroll", () => {
+  const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+  const progress = scrollable > 0 ? (window.scrollY / scrollable) * 100 : 0;
+  $("#progress").style.width = `${progress}%`;
+}, { passive: true });
+
+// Optional music: add your licensed audio file as assets/music.mp3.
+const music = $("#music");
+music.src = "assets/music.mp3";
+const musicButton = $("#musicToggle");
+
+musicButton.addEventListener("click", async () => {
+  if (music.paused) {
+    try {
+      await music.play();
+      musicButton.innerHTML = "♫ <span>Music on</span>";
+    } catch {
+      musicButton.innerHTML = "♫ <span>Add music file</span>";
     }
-
-    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-
-    if (daysElem) daysElem.innerText = String(days).padStart(2, '0');
-    if (hoursElem) hoursElem.innerText = String(hours).padStart(2, '0');
-    if (minutesElem) minutesElem.innerText = String(minutes).padStart(2, '0');
-}
-
-// Direct WhatsApp RSVP Handler
-function sendWhatsAppRSVP() {
-    const phoneNumber = '919217799674';
-    const message = encodeURIComponent("Hello! I would like to RSVP for Shreya & Sahil's wedding celebrations on 30–31 January 2027 in Goa.");
-    window.open(`https://wa.me/${phoneNumber}?text=${message}`, '_blank');
-}
-
-// Initialize on Load
-document.addEventListener('DOMContentLoaded', () => {
-    createPetals();
-    setInterval(updateCountdown, 1000);
-    updateCountdown();
+  } else {
+    music.pause();
+    musicButton.innerHTML = "♫ <span>Music off</span>";
+  }
 });
