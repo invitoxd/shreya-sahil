@@ -58,7 +58,6 @@
         .font-editorial { font-family: 'Cormorant Garamond', serif; }
         .font-playfair { font-family: 'Playfair Display', serif; }
 
-        /* Rich Navy-to-Muted Blue Gradient Text for Names */
         .cool-gradient-text {
             background: linear-gradient(135deg, #0f1e2e 0%, #1e3a5f 50%, #2b4c7e 100%);
             -webkit-background-clip: text;
@@ -66,7 +65,6 @@
             filter: drop-shadow(0 2px 4px rgba(255, 255, 255, 0.9));
         }
 
-        /* Cinematic Motion Effect */
         @keyframes heroMotion {
             0% { transform: scale(1); }
             50% { transform: scale(1.05); }
@@ -77,7 +75,6 @@
             animation: heroMotion 20s ease-in-out infinite alternate;
         }
 
-        /* Glassmorphism Cards */
         .glass-card {
             background: rgba(255, 255, 255, 0.88);
             backdrop-filter: blur(12px);
@@ -89,7 +86,6 @@
             text-shadow: 0 1px 12px rgba(255, 255, 255, 0.95), 0 1px 4px rgba(255, 255, 255, 0.9);
         }
 
-        /* Floating Petal Animation */
         @keyframes floatPetals {
             0% { transform: translateY(-10vh) translateX(0) rotate(0deg); opacity: 0; }
             20% { opacity: 0.85; }
@@ -106,7 +102,6 @@
             z-index: 10;
         }
 
-        /* Exact Textured Paper Envelope Design */
         #envelope-screen {
             position: fixed;
             inset: 0;
@@ -116,7 +111,7 @@
             justify-content: center;
             overflow: hidden;
             background-color: #f7f7f5;
-            transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: opacity 0.8s ease, visibility 0.8s ease;
         }
 
         .paper-texture {
@@ -154,7 +149,7 @@
 <body class="antialiased selection:bg-powder-dark selection:text-navy">
 
     <!-- Background Audio -->
-    <audio id="bg-music" loop>
+    <audio id="bg-music" loop preload="none">
         <source src="https://assets.mixkit.co/music/preview/mixkit-serene-view-443.mp3" type="audio/mpeg">
     </audio>
 
@@ -164,13 +159,13 @@
         <svg id="audio-icon-pause" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 9v6m4-6v6m7-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
     </button>
 
-    <!-- OPENING ENVELOPE SCREEN (With Petals) -->
+    <!-- OPENING ENVELOPE SCREEN -->
     <div id="envelope-screen" class="paper-texture" onclick="openEnvelope()">
         <div id="envelope-petals" class="absolute inset-0 overflow-hidden pointer-events-none"></div>
 
-        <div class="relative z-20 w-full max-w-lg h-full flex flex-col items-center justify-center px-6">
+        <div class="relative z-20 w-full max-w-lg h-full flex flex-col items-center justify-center px-6 pointer-events-none">
             
-            <div id="envelope-box" class="relative w-full max-w-md aspect-[4/3] bg-white shadow-2xl rounded-lg border border-neutral-200 flex flex-col items-center justify-center cursor-pointer overflow-hidden transition-transform duration-500 hover:scale-[1.01]">
+            <div id="envelope-box" class="relative w-full max-w-md aspect-[4/3] bg-white shadow-2xl rounded-lg border border-neutral-200 flex flex-col items-center justify-center cursor-pointer overflow-hidden transition-transform duration-500 hover:scale-[1.01] pointer-events-auto">
                 
                 <div class="envelope-flap absolute top-0 left-0 w-full h-1/2 bg-[#f4f4f2] origin-top border-b border-neutral-200 shadow-sm" style="clip-path: polygon(0 0, 50% 100%, 100% 0);"></div>
 
@@ -190,7 +185,7 @@
     <!-- MAIN INVITATION PAGE -->
     <main id="main-invitation" class="opacity-0 pointer-events-none transition-opacity duration-1000 min-h-screen bg-powder-light text-navy relative overflow-x-hidden">
 
-        <!-- Header / Category Navigation -->
+        <!-- Navigation Header -->
         <header class="fixed top-0 left-0 w-full z-40 bg-white/95 backdrop-blur-md border-b border-gold/30 px-6 py-4 flex items-center justify-between shadow-md">
             <span class="font-serif font-bold text-lg tracking-widest text-navy bg-gradient-to-r from-navy to-blue-900 bg-clip-text text-transparent">S & S</span>
             <nav class="flex items-center space-x-3 md:space-x-8 font-serif text-[10px] md:text-[11px] tracking-[0.2em] text-navy uppercase font-semibold">
@@ -202,7 +197,7 @@
             </nav>
         </header>
 
-        <!-- Slide 1: Top Hero Slide (With Petals) -->
+        <!-- Slide 1: Hero Section -->
         <section id="hero" class="relative min-h-screen flex flex-col items-center justify-between text-center px-6 pt-28 pb-12 overflow-hidden">
             <div id="hero-petals" class="absolute inset-0 overflow-hidden pointer-events-none z-10"></div>
             <div class="absolute inset-0 bg-cover bg-center animate-hero-motion scale-105" style="background-image: url('goa-opening.png.png');"></div>
@@ -210,7 +205,6 @@
 
             <div class="relative z-20 max-w-3xl mx-auto space-y-5 my-auto pt-6">
                 <p class="font-serif text-xs md:text-sm tracking-[0.35em] text-navy uppercase font-bold text-glow">TWO HEARTS · ONE BEAUTIFUL BEGINNING</p>
-                
                 <p class="font-editorial italic text-2xl md:text-3xl text-navy font-medium text-glow">With love and joy,</p>
                 
                 <h2 class="font-script-dec text-5xl md:text-7xl cool-gradient-text font-bold tracking-tight py-2 leading-tight">
@@ -286,14 +280,12 @@
         <!-- Event Itinerary -->
         <section id="itinerary" class="py-24 px-6 bg-white border-t border-gold/20">
             <div class="max-w-4xl mx-auto space-y-12">
-                
                 <div class="text-center space-y-3">
                     <p class="font-serif text-xs tracking-[0.25em] text-gold-dark uppercase font-semibold">Celebration Schedule</p>
                     <h3 class="font-serif text-3xl md:text-4xl text-navy font-bold">Event Itinerary</h3>
                     <div class="w-16 h-0.5 bg-gold mx-auto mt-4"></div>
                 </div>
 
-                <!-- Day Selector Tabs -->
                 <div class="flex justify-center space-x-4 border-b border-navy/10 pb-4">
                     <button onclick="switchDay(1)" id="tab-day1" class="px-8 py-3 font-serif text-xs tracking-[0.2em] uppercase rounded-full bg-navy text-white shadow-lg transition-all duration-300 font-bold border border-gold/30">
                         Day 1 — 30 Jan
@@ -303,7 +295,6 @@
                     </button>
                 </div>
 
-                <!-- Day 1 Content -->
                 <div id="content-day1" class="space-y-8 transition-all duration-500">
                     <div class="text-center pb-2">
                         <h4 class="font-serif text-2xl text-navy font-bold">Day 1 Celebrations</h4>
@@ -339,7 +330,6 @@
                     </div>
                 </div>
 
-                <!-- Day 2 Content -->
                 <div id="content-day2" class="hidden space-y-8 transition-all duration-500">
                     <div class="text-center pb-2">
                         <h4 class="font-serif text-2xl text-navy font-bold">The Wedding Day</h4>
@@ -390,7 +380,7 @@
             </div>
         </section>
 
-        <!-- Wardrobe / Attire Guide Section -->
+        <!-- Wardrobe Guide Section -->
         <section id="wardrobe" class="py-24 px-6 bg-powder-light border-t border-gold/20">
             <div class="max-w-4xl mx-auto space-y-12">
                 <div class="text-center space-y-3">
@@ -428,7 +418,7 @@
             </div>
         </section>
 
-        <!-- Venue Guide (Updated with Caravela Resort.avif) -->
+        <!-- Venue Guide -->
         <section id="venue" class="py-24 px-6 bg-white border-t border-gold/20">
             <div class="max-w-3xl mx-auto space-y-10">
                 <div class="text-center space-y-3">
@@ -442,9 +432,4 @@
                         </div>
                         <div class="space-y-1">
                             <h4 class="font-serif text-2xl text-navy font-bold">Caravela Beach Resort</h4>
-                            <p class="font-sans text-sm text-navy/70 uppercase tracking-widest font-semibold">Address: Varca Beach, Salcete, Goa, India</p>
-                        </div>
-                    </div>
-
-                    <!-- Updated Venue Picture with your AVIF file -->
-                    <div class="relative w-full h-[380px] md:h-
+                            <p class="font-sans text-sm text-navy/70 uppercase tracking-widest font-semibold">Address
