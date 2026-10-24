@@ -1,427 +1,60 @@
-<!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shreya Maini & Sahil Suneja — Luxury Destination Wedding</title>
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..700;1,6..96,400&family=Great+Vibes&family=Italiana&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
-    
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        powderBlue: '#d4e3f0',
-                        powderDark: '#b2cce2',
-                        ivory: '#FAF8F5',
-                        oceanDark: '#2C4C63',
-                        goldAccent: '#C5A059',
-                        textDark: '#2C3539'
-                    },
-                    fontFamily: {
-                        bodoni: ['"Bodoni Moda"', 'serif'],
-                        italiana: ['"Italiana"', 'serif'],
-                        script: ['"Great Vibes"', 'cursive'],
-                        sans: ['"Montserrat"', 'sans-serif'],
-                    }
-                }
-            }
-        }
-    </script>
+YOU ARE CORDIALLY INVITEDShreya & SahilGOA · 30—31 JANUARY 2027
+✦
+A little note from us Tap to open
 
-    <style>
-        body {
-            font-family: 'Montserrat', sans-serif;
-            background-color: #f2f7fc;
-            color: #2C3539;
-            overflow-x: hidden;
-        }
+OPEN INVITATION ↗A CELEBRATION BY THE SEA
+⌁⌁
+WITH LOVE & THE BLESSINGS OF OUR FAMILIES
 
-        .font-script { font-family: 'Great Vibes', cursive; }
-        .font-bodoni { font-family: 'Bodoni Moda', serif; }
-        .font-italiana { font-family: 'Italiana', serif; }
+Shreya Maini &
+Sahil Suneja
+invite you to join them
 
-        /* Watercolor Beach Background */
-        .watercolor-beach {
-            background: linear-gradient(to bottom, #d4e6f1 0%, #ebf5fb 40%, #fef9e7 80%, #f5efe6 100%);
-            background-image: 
-                radial-gradient(circle at 50% 10%, rgba(255,255,255,0.6) 0%, transparent 60%),
-                linear-gradient(to bottom, #d4e6f1 0%, #f7f4ee 100%);
-        }
+30—31JANUARY2027
+GOA, INDIA · TWO DAYS BY THE SEA
 
-        /* Envelope / Opening Gatefolds */
-        #envelope-screen {
-            position: fixed;
-            inset: 0;
-            z-index: 100;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background-color: #c4d7ec;
-            background-image: 
-                linear-gradient(135deg, rgba(255,255,255,0.4) 0%, transparent 50%),
-                radial-gradient(circle at 50% 50%, #d4e3f0 0%, #a9c6e2 100%);
-            transition: opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1), visibility 1.2s ease;
-        }
+SCROLL TO WANDER ↓
+A LITTLE TIME TOGETHER
 
-        .envelope-flap-top {
-            position: absolute;
-            top: 0;
-            width: 100%;
-            height: 50%;
-            background: #b2cce2;
-            clip-path: polygon(0 0, 100% 0, 50% 100%);
-            transform-origin: top;
-            transition: transform 1s cubic-bezier(0.77, 0, 0.175, 1);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-            z-index: 25;
-        }
+Our days in Goa
+Sunlit afternoons, golden evenings, and the people we love most.
 
-        .envelope-open .envelope-flap-top {
-            transform: rotateX(180deg);
-            opacity: 0.1;
-        }
+✿01Halditap to unfold ✧02Cocktailtap to unfold ❀03Choodatap to unfold ✦04The Weddingtap to unfold ☾05Afterpartytap to unfold
+Touch a little detail to discover what awaits
 
-        .envelope-open .envelope-body {
-            transform: scale(1.1);
-            opacity: 0;
-            pointer-events: none;
-        }
+OUR LITTLE CORNER OF THE COAST
 
-        /* Gold Starfish Seal */
-        .starfish-seal {
-            position: absolute;
-            z-index: 35;
-            cursor: pointer;
-            transition: transform 0.4s ease, opacity 0.5s ease;
-        }
+Meet us
+by the sea.
+Caravela Beach Resort
 
-        .envelope-open .starfish-seal {
-            transform: scale(0) rotate(180deg);
-            opacity: 0;
-            pointer-events: none;
-        }
+Varca Beach, Goa, India
 
-        /* Stationery Card */
-        .stationery-card {
-            background: #FAF8F5;
-            border: 1px solid rgba(197, 160, 89, 0.3);
-            box-shadow: 0 20px 45px rgba(44, 53, 57, 0.1);
-            background-image: radial-gradient(#f0ece1 0.75px, transparent 0.75px);
-            background-size: 24px 24px;
-        }
+FIND YOUR WAY HERE ↗
+SALT AIR · SOFT SKIES · OUR FAVOURITE PEOPLE
+A LITTLE NOTE ON WHAT TO WEAR
 
-        /* Subtle Wave & Cloud Animations */
-        @keyframes drift {
-            0% { transform: translateX(-20px); }
-            50% { transform: translateX(20px); }
-            100% { transform: translateX(-20px); }
-        }
-        .animate-drift {
-            animation: drift 15s ease-in-out infinite;
-        }
-    </style>
-</head>
-<body class="antialiased watercolor-beach">
+Come as
+the celebration.
+Choose a celebration to discover its mood.
 
-    <!-- Background Audio -->
-    <audio id="bg-music" loop preload="none">
-        <source src="https://assets.mixkit.co/music/preview/mixkit-serene-view-443.mp3" type="audio/mpeg">
-    </audio>
+HaldiCocktailWeddingAfterparty
+Beachside Festive Chic
+Airy fabrics, joyful color, and a little sunshine.
 
-    <!-- Audio Control Button -->
-    <button id="audio-toggle" onclick="toggleAudio()" class="fixed bottom-6 right-6 z-50 w-12 h-12 bg-white/90 hover:bg-white text-oceanDark rounded-full flex items-center justify-center shadow-xl border border-goldAccent/40 transition">
-        <svg id="audio-icon-play" class="w-5 h-5 ml-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-        <svg id="audio-icon-pause" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M10 9v6m4-6v6m7-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-    </button>
+❀✿
+UNTIL THE WAVES BRING US TOGETHER
 
-    <!-- ENVELOPE OPENING SCREEN -->
-    <div id="envelope-screen" class="envelope-body">
-        <div class="envelope-flap-top"></div>
-        
-        <!-- Center Envelope Pocket & Card Preview -->
-        <div class="relative z-20 w-11/12 max-w-md aspect-[4/5] bg-[#dce7f3] rounded-2xl shadow-2xl border border-white/60 flex flex-col items-center justify-center p-8 text-center">
-            <span class="font-italiana text-xs tracking-[0.4em] text-oceanDark uppercase mb-2">You Are Invited</span>
-            <h2 class="font-bodoni text-3xl text-oceanDark italic">Shreya & Sahil</h2>
-            <p class="font-italiana text-xs tracking-[0.25em] text-textDark/70 mt-2">30–31 January 2027 · Goa</p>
-        </div>
+We can't wait
+to celebrate with you.
+000DAYS
+:
+00HOURS
+:
+00MINUTES
+:
+00SECONDS
+KINDLY REPLY ↗
+With love, Shreya & Sahil
 
-        <!-- Gold Starfish Seal Button -->
-        <div class="starfish-seal flex flex-col items-center" onclick="openEnvelope()">
-            <div class="w-20 h-20 md:w-24 md:h-24 bg-gradient-to-br from-[#dfc179] via-[#C5A059] to-[#9a7836] rounded-full flex items-center justify-center shadow-2xl border-4 border-[#FAF8F5] transform hover:scale-110 transition duration-300 ring-8 ring-white/30">
-                <svg class="w-12 h-12 text-[#FAF8F5] drop-shadow-md animate-pulse" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M12 2l2.4 7.4h7.6l-6.2 4.5 2.4 7.4-6.2-4.5-6.2 4.5 2.4-7.4-6.2-4.5h7.6z"/>
-                </svg>
-            </div>
-            <span class="mt-4 font-italiana text-xs md:text-sm tracking-[0.3em] text-oceanDark uppercase bg-white/90 px-6 py-2 rounded-full shadow-lg border border-goldAccent/40">
-                Tap to Open
-            </span>
-        </div>
-    </div>
-
-    <!-- MAIN INVITATION CONTENT -->
-    <main id="main-invitation" class="opacity-0 pointer-events-none transition-opacity duration-1000 min-h-screen relative">
-
-        <!-- Navigation Header -->
-        <header class="fixed top-0 left-0 w-full z-40 bg-ivory/90 backdrop-blur-md border-b border-goldAccent/20 px-6 py-4 flex items-center justify-between shadow-sm">
-            <span class="font-bodoni text-lg tracking-widest text-oceanDark font-medium">S & S</span>
-            <nav class="flex items-center space-x-4 md:space-x-8 font-italiana text-[11px] md:text-xs tracking-[0.25em] text-oceanDark uppercase">
-                <a href="#hero" class="hover:text-goldAccent transition">Welcome</a>
-                <a href="#itinerary" class="hover:text-goldAccent transition">Events</a>
-                <a href="#venue" class="hover:text-goldAccent transition">Venue</a>
-                <a href="#rsvp" class="hover:text-goldAccent transition text-goldAccent font-bold">RSVP</a>
-            </nav>
-        </header>
-
-        <!-- Hero Watercolor Beach Scene -->
-        <section id="hero" class="relative min-h-screen flex flex-col items-center justify-center text-center px-6 pt-24 pb-12 overflow-hidden watercolor-beach">
-            <!-- Drifting Clouds Atmosphere -->
-            <div class="absolute top-12 left-10 w-48 h-16 bg-white/40 rounded-full blur-xl animate-drift pointer-events-none"></div>
-            <div class="absolute top-24 right-16 w-64 h-20 bg-white/30 rounded-full blur-xl animate-drift pointer-events-none" style="animation-delay: -5s;"></div>
-
-            <div class="relative z-10 stationery-card p-10 md:p-16 rounded-3xl max-w-2xl mx-auto space-y-6">
-                <p class="font-italiana text-xs tracking-[0.4em] text-goldAccent uppercase">Destination Wedding · Goa</p>
-                
-                <h1 class="font-script text-6xl md:text-8xl text-oceanDark drop-shadow-sm py-2">
-                    Shreya Maini <span class="font-bodoni italic text-2xl md:text-4xl text-goldAccent">&</span> Sahil Suneja
-                </h1>
-
-                <div class="w-16 h-0.5 bg-goldAccent/50 mx-auto"></div>
-
-                <p class="font-bodoni text-xs md:text-sm tracking-[0.3em] text-oceanDark uppercase font-medium">
-                    30–31 January 2027 · Goa, India
-                </p>
-                <p class="font-italiana text-sm text-textDark/80 italic">
-                    Together with their families, inviting you to celebrate by the sea.
-                </p>
-            </div>
-        </section>
-
-        <!-- Countdown Timer -->
-        <section class="py-16 px-6 bg-white/50 border-y border-goldAccent/20">
-            <div class="max-w-xl mx-auto text-center space-y-6">
-                <span class="font-italiana text-xs tracking-[0.3em] text-goldAccent uppercase block">Journey To Forever</span>
-                <div id="countdown-grid" class="flex justify-center space-x-6 md:space-x-12">
-                    <div class="stationery-card px-6 py-4 rounded-2xl">
-                        <span id="days" class="font-bodoni text-3xl md:text-4xl text-oceanDark block">00</span>
-                        <span class="font-italiana text-[10px] tracking-widest uppercase text-goldAccent">Days</span>
-                    </div>
-                    <div class="stationery-card px-6 py-4 rounded-2xl">
-                        <span id="hours" class="font-bodoni text-3xl md:text-4xl text-oceanDark block">00</span>
-                        <span class="font-italiana text-[10px] tracking-widest uppercase text-goldAccent">Hours</span>
-                    </div>
-                    <div class="stationery-card px-6 py-4 rounded-2xl">
-                        <span id="minutes" class="font-bodoni text-3xl md:text-4xl text-oceanDark block">00</span>
-                        <span class="font-italiana text-[10px] tracking-widest uppercase text-goldAccent">Mins</span>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Interactive Event Itinerary -->
-        <section id="itinerary" class="py-24 px-6 max-w-4xl mx-auto space-y-12">
-            <div class="text-center space-y-3">
-                <span class="font-italiana text-xs tracking-[0.3em] text-goldAccent uppercase block">Schedule of Events</span>
-                <h3 class="font-bodoni text-3xl md:text-4xl text-oceanDark italic">The Celebration Itinerary</h3>
-                <div class="w-12 h-0.5 bg-goldAccent mx-auto mt-2"></div>
-            </div>
-
-            <!-- Day Tabs -->
-            <div class="flex justify-center space-x-4 border-b border-goldAccent/20 pb-4">
-                <button onclick="switchDay(1)" id="tab-day1" class="px-8 py-2.5 font-italiana text-xs tracking-[0.25em] uppercase rounded-full bg-oceanDark text-white shadow-md transition">
-                    Day 1 — 30 Jan 2027
-                </button>
-                <button onclick="switchDay(2)" id="tab-day2" class="px-8 py-2.5 font-italiana text-xs tracking-[0.25em] uppercase rounded-full stationery-card text-oceanDark hover:text-goldAccent transition border border-goldAccent/30">
-                    Day 2 — 31 Jan 2027
-                </button>
-            </div>
-
-            <!-- Day 1 Content -->
-            <div id="content-day1" class="space-y-6">
-                <div class="grid md:grid-cols-2 gap-6">
-                    <div class="stationery-card p-8 rounded-3xl space-y-3">
-                        <span class="font-italiana text-xs tracking-[0.2em] text-goldAccent uppercase block">1:00 PM Onwards</span>
-                        <h4 class="font-bodoni text-2xl text-oceanDark italic">Haldi</h4>
-                        <p class="text-xs text-textDark/80"><strong>Venue:</strong> Coconut Grove</p>
-                        <p class="text-xs text-textDark/90 pt-2 border-t border-goldAccent/20"><strong>Dress Code:</strong> Beachside Festive Chic (Breezy Western, Indian, or Indo-Western)</p>
-                    </div>
-
-                    <div class="stationery-card p-8 rounded-3xl space-y-3">
-                        <span class="font-italiana text-xs tracking-[0.2em] text-goldAccent uppercase block">6:30 PM Onwards</span>
-                        <h4 class="font-bodoni text-2xl text-oceanDark italic">Cocktail</h4>
-                        <p class="text-xs text-textDark/80"><strong>Venue:</strong> Varca Ballroom</p>
-                        <p class="text-xs text-textDark/90 pt-2 border-t border-goldAccent/20"><strong>Dress Code:</strong> Black Tie Glamour (Gowns, Sarees, Tuxedos & Formal Suits)</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Day 2 Content -->
-            <div id="content-day2" class="hidden space-y-6">
-                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    <div class="stationery-card p-6 rounded-2xl space-y-2">
-                        <span class="font-italiana text-xs tracking-[0.2em] text-goldAccent uppercase block">10:00 AM Onwards</span>
-                        <h5 class="font-bodoni text-xl text-oceanDark italic">Chooda Ceremony</h5>
-                        <p class="text-xs text-textDark/80"><strong>Venue:</strong> Lawns</p>
-                    </div>
-                    <div class="stationery-card p-6 rounded-2xl space-y-2">
-                        <span class="font-italiana text-xs tracking-[0.2em] text-goldAccent uppercase block">11:00 AM</span>
-                        <h5 class="font-bodoni text-xl text-oceanDark italic">Sehrabandi</h5>
-                        <p class="text-xs text-textDark/80"><strong>Venue:</strong> Lawns</p>
-                    </div>
-                    <div class="stationery-card p-6 rounded-2xl space-y-2">
-                        <span class="font-italiana text-xs tracking-[0.2em] text-goldAccent uppercase block">12:00 PM</span>
-                        <h5 class="font-bodoni text-xl text-oceanDark italic">Baraat</h5>
-                        <p class="text-xs text-textDark/80"><strong>Venue:</strong> Resort Entrance</p>
-                    </div>
-                    <div class="stationery-card p-6 rounded-2xl space-y-2">
-                        <span class="font-italiana text-xs tracking-[0.2em] text-goldAccent uppercase block">2:00 PM Onwards</span>
-                        <h5 class="font-bodoni text-xl text-oceanDark italic">Wedding / Pheras</h5>
-                        <p class="text-xs text-textDark/80"><strong>Venue:</strong> Beach Venue</p>
-                        <p class="text-xs text-textDark/90 pt-1 border-t border-goldAccent/20"><strong>Dress Code:</strong> Ivory & Gold</p>
-                    </div>
-                    <div class="stationery-card p-6 rounded-2xl space-y-2 lg:col-span-2">
-                        <span class="font-italiana text-xs tracking-[0.2em] text-goldAccent uppercase block">7:00 PM Onwards</span>
-                        <h5 class="font-bodoni text-xl text-oceanDark italic">Afterparty</h5>
-                        <p class="text-xs text-textDark/80"><strong>Venue:</strong> Varca Ballroom</p>
-                        <p class="text-xs text-textDark/90 pt-1 border-t border-goldAccent/20"><strong>Dress Code:</strong> Bollywood After-Dark Glam</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Venue & Photography Section -->
-        <section id="venue" class="py-24 px-6 bg-white/60 border-t border-goldAccent/20 text-center space-y-8">
-            <div class="max-w-xl mx-auto space-y-3">
-                <span class="font-italiana text-xs tracking-[0.3em] text-goldAccent uppercase block">The Destination</span>
-                <h3 class="font-bodoni text-3xl md:text-4xl text-oceanDark italic">Caravela Beach Resort, Goa</h3>
-                <p class="font-italiana text-sm text-textDark/80">Varca Beach, Salcete, Goa, India</p>
-            </div>
-
-            <div class="max-w-3xl mx-auto rounded-3xl overflow-hidden stationery-card p-3 shadow-lg">
-                <img src="./Caravela%20Resort.avif" alt="Caravela Beach Resort Goa" class="w-full h-72 md:h-96 object-cover rounded-2xl">
-            </div>
-
-            <div>
-                <a href="https://maps.google.com/?q=Caravela+Beach+Resort+Goa" target="_blank" rel="noopener noreferrer" class="inline-block px-8 py-3.5 bg-oceanDark text-white font-italiana text-xs tracking-[0.25em] uppercase rounded-full shadow-lg hover:bg-goldAccent transition">
-                    Open in Google Maps
-                </a>
-            </div>
-        </section>
-
-        <!-- RSVP Section -->
-        <section id="rsvp" class="py-24 px-6 text-center space-y-8">
-            <div class="max-w-xl mx-auto space-y-3">
-                <span class="font-italiana text-xs tracking-[0.3em] text-goldAccent uppercase block">Be Our Guest</span>
-                <h3 class="font-bodoni text-3xl md:text-4xl text-oceanDark italic">RSVP</h3>
-                <p class="font-italiana text-sm text-textDark/80">Please confirm your presence by reaching out via WhatsApp.</p>
-            </div>
-
-            <div class="stationery-card p-8 rounded-3xl max-w-sm mx-auto space-y-6 shadow-md">
-                <div>
-                    <span class="font-italiana text-xs tracking-[0.2em] text-goldAccent uppercase block mb-1">Contact Number</span>
-                    <span class="font-bodoni text-2xl text-oceanDark font-bold">+91 92177 99674</span>
-                </div>
-
-                <button onclick="sendWhatsAppRSVP()" class="w-full py-4 bg-emerald-700 hover:bg-emerald-800 text-white font-italiana text-xs tracking-[0.2em] uppercase rounded-full shadow-lg flex items-center justify-center space-x-2 transition">
-                    <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
-                    <span>RSVP via WhatsApp</span>
-                </button>
-            </div>
-        </section>
-
-        <!-- Footer -->
-        <footer class="py-12 bg-oceanDark text-ivory text-center space-y-3">
-            <h4 class="font-script text-4xl text-goldAccent">Shreya Maini & Sahil Suneja</h4>
-            <p class="font-italiana text-xs tracking-[0.3em] uppercase text-ivory/80">30 – 31 January 2027 · Goa, India</p>
-        </footer>
-
-    </main>
-
-    <!-- JavaScript Interactions -->
-    <script>
-        let hasOpened = false;
-
-        function openEnvelope() {
-            if (hasOpened) return;
-            hasOpened = true;
-
-            const bgMusic = document.getElementById('bg-music');
-            if (bgMusic) {
-                bgMusic.play().then(() => {
-                    document.getElementById('audio-icon-play').classList.add('hidden');
-                    document.getElementById('audio-icon-pause').classList.remove('hidden');
-                }).catch(() => {});
-            }
-
-            const envScreen = document.getElementById('envelope-screen');
-            envScreen.classList.add('envelope-open');
-
-            setTimeout(() => {
-                envScreen.style.display = 'none';
-                const main = document.getElementById('main-invitation');
-                main.classList.remove('opacity-0', 'pointer-events-none');
-            }, 1000);
-        }
-
-        function switchDay(day) {
-            const t1 = document.getElementById('tab-day1');
-            const t2 = document.getElementById('tab-day2');
-            const c1 = document.getElementById('content-day1');
-            const c2 = document.getElementById('content-day2');
-
-            if (day === 1) {
-                t1.className = "px-8 py-2.5 font-italiana text-xs tracking-[0.25em] uppercase rounded-full bg-oceanDark text-white shadow-md transition";
-                t2.className = "px-8 py-2.5 font-italiana text-xs tracking-[0.25em] uppercase rounded-full stationery-card text-oceanDark hover:text-goldAccent transition border border-goldAccent/30";
-                c1.classList.remove('hidden');
-                c2.classList.add('hidden');
-            } else {
-                t2.className = "px-8 py-2.5 font-italiana text-xs tracking-[0.25em] uppercase rounded-full bg-oceanDark text-white shadow-md transition";
-                t1.className = "px-8 py-2.5 font-italiana text-xs tracking-[0.25em] uppercase rounded-full stationery-card text-oceanDark hover:text-goldAccent transition border border-goldAccent/30";
-                c2.classList.remove('hidden');
-                c1.classList.add('hidden');
-            }
-        }
-
-        const weddingDate = new Date('2027-01-31T00:00:00+05:30').getTime();
-
-        function updateCountdown() {
-            const now = new Date().getTime();
-            const distance = weddingDate - now;
-
-            if (distance < 0) return;
-
-            document.getElementById('days').innerText = String(Math.floor(distance / (1000 * 60 * 60 * 24))).padStart(2, '0');
-            document.getElementById('hours').innerText = String(Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))).padStart(2, '0');
-            document.getElementById('minutes').innerText = String(Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60))).padStart(2, '0');
-        }
-
-        function sendWhatsAppRSVP() {
-            const msg = encodeURIComponent("Hello! I would like to RSVP for Shreya Maini & Sahil Suneja's wedding celebrations on 30–31 January 2027 in Goa.");
-            window.open(`https://wa.me/919217799674?text=${msg}`, '_blank');
-        }
-
-        function toggleAudio() {
-            const m = document.getElementById('bg-music');
-            const play = document.getElementById('audio-icon-play');
-            const pause = document.getElementById('audio-icon-pause');
-            if (m.paused) {
-                m.play();
-                play.classList.add('hidden');
-                pause.classList.remove('hidden');
-            } else {
-                m.pause();
-                pause.classList.add('hidden');
-                play.classList.remove('hidden');
-            }
-        }
-
-        setInterval(updateCountdown, 1000);
-        updateCountdown();
-    </script>
-</body>
-</html>
+MADE WITH LOVE · GOA · JANUARY 2027
