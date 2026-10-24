@@ -136,11 +136,13 @@
         .envelope-open .seal-container {
             transform: scale(0);
             opacity: 0;
+            pointer-events: none;
         }
 
         .envelope-flap {
             transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
             transform-origin: top;
+            pointer-events: none;
         }
 
         #scratch-canvas {
@@ -163,22 +165,22 @@
     </button>
 
     <!-- OPENING ENVELOPE SCREEN (With Petals) -->
-    <div id="envelope-screen" class="paper-texture">
+    <div id="envelope-screen" class="paper-texture" onclick="openEnvelope()">
         <div id="envelope-petals" class="absolute inset-0 overflow-hidden pointer-events-none"></div>
 
         <div class="relative z-20 w-full max-w-lg h-full flex flex-col items-center justify-center px-6">
             
-            <div id="envelope-box" class="relative w-full max-w-md aspect-[4/3] bg-white shadow-2xl rounded-lg border border-neutral-200 flex flex-col items-center justify-center cursor-pointer overflow-hidden transition-transform duration-500 hover:scale-[1.01]" onclick="openEnvelope()">
+            <div id="envelope-box" class="relative w-full max-w-md aspect-[4/3] bg-white shadow-2xl rounded-lg border border-neutral-200 flex flex-col items-center justify-center cursor-pointer overflow-hidden transition-transform duration-500 hover:scale-[1.01]">
                 
                 <div class="envelope-flap absolute top-0 left-0 w-full h-1/2 bg-[#f4f4f2] origin-top border-b border-neutral-200 shadow-sm" style="clip-path: polygon(0 0, 50% 100%, 100% 0);"></div>
 
                 <div class="seal-container absolute z-30 flex flex-col items-center" style="top: 42%;">
-                    <div class="w-16 h-16 md:w-20 md:h-20 bg-gradient-to-br from-[#f3e0aa] via-[#d4af37] to-[#aa8c2c] rounded-full flex items-center justify-center shadow-xl border-2 border-[#fff3cd] ring-4 ring-gold/20 transform hover:scale-105 transition">
+                    <div class="w-16 h-16 md:w-20 md:h-20 bg-gradient-to-br from-[#f3e0aa] via-[#d4af37] to-[#aa8c2c] rounded-full flex items-center justify-center shadow-xl border-2 border-[#fff3cd] ring-4 ring-gold/20 transform hover:scale-105 transition pointer-events-none">
                         <svg class="w-8 h-8 md:w-10 md:h-10 text-[#5c4a1e] drop-shadow-sm" fill="currentColor" viewBox="0 0 24 24">
                             <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
                         </svg>
                     </div>
-                    <span class="mt-3 font-editorial italic text-base md:text-lg text-navy-muted tracking-wider bg-white/90 px-4 py-0.5 rounded-full shadow-sm animate-pulse font-medium">Click to open</span>
+                    <span class="mt-3 font-editorial italic text-base md:text-lg text-navy-muted tracking-wider bg-white/90 px-4 py-0.5 rounded-full shadow-sm animate-pulse font-medium pointer-events-none">Click to open</span>
                 </div>
 
             </div>
@@ -590,4 +592,88 @@
                 if (!isDrawing) return;
                 const rect = canvas.getBoundingClientRect();
                 const x = (e.clientX || (e.touches && e.touches[0].clientX)) - rect.left;
-                
+                const y = (e.clientY || (e.touches && e.touches[0].clientY)) - rect.top;
+
+                ctx.globalCompositeOperation = 'destination-out';
+                ctx.beginPath();
+                ctx.arc(x, y, 30, 0, Math.PI * 2, false);
+                ctx.fill();
+
+                checkScratchPercentage();
+            }
+
+            canvas.addEventListener('mousedown', () => isDrawing = true);
+            canvas.addEventListener('mousemove', scratch);
+            window.addEventListener('mouseup', () => isDrawing = false);
+
+            canvas.addEventListener('touchstart', () => isDrawing = true);
+            canvas.addEventListener('touchmove', scratch);
+            window.addEventListener('touchend', () => isDrawing = false);
+        }
+
+        function checkScratchPercentage() {
+            const canvas = document.getElementById('scratch-canvas');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+            let cleared = 0;
+            for (let i = 3; i < imageData.data.length; i += 4) {
+                if (imageData.data[i] === 0) cleared++;
+            }
+            if (cleared > (imageData.data.length / 4) * 0.4) {
+                canvas.style.transition = 'opacity 0.6s ease';
+                canvas.style.opacity = '0';
+                setTimeout(() => canvas.style.display = 'none', 600);
+            }
+        }
+
+        function revealDateDirectly() {
+            const canvas = document.getElementById('scratch-canvas');
+            if (canvas) {
+                canvas.style.transition = 'opacity 0.6s ease';
+                canvas.style.opacity = '0';
+                setTimeout(() => canvas.style.display = 'none', 600);
+            }
+        }
+
+        const weddingDate = new Date('2027-01-31T00:00:00+05:30').getTime();
+
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const distance = weddingDate - now;
+
+            const daysElem = document.getElementById('days');
+            const hoursElem = document.getElementById('hours');
+            const minutesElem = document.getElementById('minutes');
+
+            if (distance < 0) {
+                if (daysElem) daysElem.innerText = '00';
+                if (hoursElem) hoursElem.innerText = '00';
+                if (minutesElem) minutesElem.innerText = '00';
+                return;
+            }
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+
+            if (daysElem) daysElem.innerText = String(days).padStart(2, '0');
+            if (hoursElem) hoursElem.innerText = String(hours).padStart(2, '0');
+            if (minutesElem) minutesElem.innerText = String(minutes).padStart(2, '0');
+        }
+
+        function sendWhatsAppRSVP() {
+            const phoneNumber = '919217799674';
+            const message = encodeURIComponent("Hello! I would like to RSVP for Shreya & Sahil's wedding celebrations on 30–31 January 2027 in Goa.");
+            window.open(`https://wa.me/${phoneNumber}?text=${message}`, '_blank');
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            createPetals('envelope-petals');
+            createPetals('hero-petals');
+            setInterval(updateCountdown, 1000);
+            updateCountdown();
+        });
+    </script>
+</body>
+</html>
