@@ -58,6 +58,7 @@
         .font-editorial { font-family: 'Cormorant Garamond', serif; }
         .font-playfair { font-family: 'Playfair Display', serif; }
 
+        /* Rich Navy-to-Muted Blue Gradient Text for Names */
         .cool-gradient-text {
             background: linear-gradient(135deg, #0f1e2e 0%, #1e3a5f 50%, #2b4c7e 100%);
             -webkit-background-clip: text;
@@ -65,6 +66,7 @@
             filter: drop-shadow(0 2px 4px rgba(255, 255, 255, 0.9));
         }
 
+        /* Cinematic Motion Effect */
         @keyframes heroMotion {
             0% { transform: scale(1); }
             50% { transform: scale(1.05); }
@@ -75,6 +77,7 @@
             animation: heroMotion 20s ease-in-out infinite alternate;
         }
 
+        /* Glassmorphism Cards */
         .glass-card {
             background: rgba(255, 255, 255, 0.88);
             backdrop-filter: blur(12px);
@@ -86,6 +89,7 @@
             text-shadow: 0 1px 12px rgba(255, 255, 255, 0.95), 0 1px 4px rgba(255, 255, 255, 0.9);
         }
 
+        /* Floating Petal Animation */
         @keyframes floatPetals {
             0% { transform: translateY(-10vh) translateX(0) rotate(0deg); opacity: 0; }
             20% { opacity: 0.85; }
@@ -102,6 +106,7 @@
             z-index: 10;
         }
 
+        /* Exact Textured Paper Envelope Design */
         #envelope-screen {
             position: fixed;
             inset: 0;
@@ -111,7 +116,7 @@
             justify-content: center;
             overflow: hidden;
             background-color: #f7f7f5;
-            transition: opacity 0.8s ease, visibility 0.8s ease;
+            transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .paper-texture {
@@ -149,7 +154,7 @@
 <body class="antialiased selection:bg-powder-dark selection:text-navy">
 
     <!-- Background Audio -->
-    <audio id="bg-music" loop preload="none">
+    <audio id="bg-music" loop>
         <source src="https://assets.mixkit.co/music/preview/mixkit-serene-view-443.mp3" type="audio/mpeg">
     </audio>
 
@@ -159,13 +164,13 @@
         <svg id="audio-icon-pause" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 9v6m4-6v6m7-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
     </button>
 
-    <!-- OPENING ENVELOPE SCREEN -->
+    <!-- OPENING ENVELOPE SCREEN (With Petals) -->
     <div id="envelope-screen" class="paper-texture" onclick="openEnvelope()">
         <div id="envelope-petals" class="absolute inset-0 overflow-hidden pointer-events-none"></div>
 
-        <div class="relative z-20 w-full max-w-lg h-full flex flex-col items-center justify-center px-6 pointer-events-none">
+        <div class="relative z-20 w-full max-w-lg h-full flex flex-col items-center justify-center px-6">
             
-            <div id="envelope-box" class="relative w-full max-w-md aspect-[4/3] bg-white shadow-2xl rounded-lg border border-neutral-200 flex flex-col items-center justify-center cursor-pointer overflow-hidden transition-transform duration-500 hover:scale-[1.01] pointer-events-auto">
+            <div id="envelope-box" class="relative w-full max-w-md aspect-[4/3] bg-white shadow-2xl rounded-lg border border-neutral-200 flex flex-col items-center justify-center cursor-pointer overflow-hidden transition-transform duration-500 hover:scale-[1.01]">
                 
                 <div class="envelope-flap absolute top-0 left-0 w-full h-1/2 bg-[#f4f4f2] origin-top border-b border-neutral-200 shadow-sm" style="clip-path: polygon(0 0, 50% 100%, 100% 0);"></div>
 
@@ -185,7 +190,7 @@
     <!-- MAIN INVITATION PAGE -->
     <main id="main-invitation" class="opacity-0 pointer-events-none transition-opacity duration-1000 min-h-screen bg-powder-light text-navy relative overflow-x-hidden">
 
-        <!-- Navigation Header -->
+        <!-- Header / Category Navigation -->
         <header class="fixed top-0 left-0 w-full z-40 bg-white/95 backdrop-blur-md border-b border-gold/30 px-6 py-4 flex items-center justify-between shadow-md">
             <span class="font-serif font-bold text-lg tracking-widest text-navy bg-gradient-to-r from-navy to-blue-900 bg-clip-text text-transparent">S & S</span>
             <nav class="flex items-center space-x-3 md:space-x-8 font-serif text-[10px] md:text-[11px] tracking-[0.2em] text-navy uppercase font-semibold">
@@ -197,7 +202,7 @@
             </nav>
         </header>
 
-        <!-- Slide 1: Hero Section -->
+        <!-- Slide 1: Top Hero Slide (With Petals) -->
         <section id="hero" class="relative min-h-screen flex flex-col items-center justify-between text-center px-6 pt-28 pb-12 overflow-hidden">
             <div id="hero-petals" class="absolute inset-0 overflow-hidden pointer-events-none z-10"></div>
             <div class="absolute inset-0 bg-cover bg-center animate-hero-motion scale-105" style="background-image: url('goa-opening.png.png');"></div>
@@ -205,6 +210,7 @@
 
             <div class="relative z-20 max-w-3xl mx-auto space-y-5 my-auto pt-6">
                 <p class="font-serif text-xs md:text-sm tracking-[0.35em] text-navy uppercase font-bold text-glow">TWO HEARTS · ONE BEAUTIFUL BEGINNING</p>
+                
                 <p class="font-editorial italic text-2xl md:text-3xl text-navy font-medium text-glow">With love and joy,</p>
                 
                 <h2 class="font-script-dec text-5xl md:text-7xl cool-gradient-text font-bold tracking-tight py-2 leading-tight">
@@ -280,12 +286,14 @@
         <!-- Event Itinerary -->
         <section id="itinerary" class="py-24 px-6 bg-white border-t border-gold/20">
             <div class="max-w-4xl mx-auto space-y-12">
+                
                 <div class="text-center space-y-3">
                     <p class="font-serif text-xs tracking-[0.25em] text-gold-dark uppercase font-semibold">Celebration Schedule</p>
                     <h3 class="font-serif text-3xl md:text-4xl text-navy font-bold">Event Itinerary</h3>
                     <div class="w-16 h-0.5 bg-gold mx-auto mt-4"></div>
                 </div>
 
+                <!-- Day Selector Tabs -->
                 <div class="flex justify-center space-x-4 border-b border-navy/10 pb-4">
                     <button onclick="switchDay(1)" id="tab-day1" class="px-8 py-3 font-serif text-xs tracking-[0.2em] uppercase rounded-full bg-navy text-white shadow-lg transition-all duration-300 font-bold border border-gold/30">
                         Day 1 — 30 Jan
@@ -295,6 +303,7 @@
                     </button>
                 </div>
 
+                <!-- Day 1 Content -->
                 <div id="content-day1" class="space-y-8 transition-all duration-500">
                     <div class="text-center pb-2">
                         <h4 class="font-serif text-2xl text-navy font-bold">Day 1 Celebrations</h4>
@@ -330,6 +339,7 @@
                     </div>
                 </div>
 
+                <!-- Day 2 Content -->
                 <div id="content-day2" class="hidden space-y-8 transition-all duration-500">
                     <div class="text-center pb-2">
                         <h4 class="font-serif text-2xl text-navy font-bold">The Wedding Day</h4>
@@ -380,7 +390,7 @@
             </div>
         </section>
 
-        <!-- Wardrobe Guide Section -->
+        <!-- Wardrobe / Attire Guide Section -->
         <section id="wardrobe" class="py-24 px-6 bg-powder-light border-t border-gold/20">
             <div class="max-w-4xl mx-auto space-y-12">
                 <div class="text-center space-y-3">
@@ -420,16 +430,250 @@
 
         <!-- Venue Guide -->
         <section id="venue" class="py-24 px-6 bg-white border-t border-gold/20">
-            <div class="max-w-3xl mx-auto space-y-10">
-                <div class="text-center space-y-3">
-                    <h3 class="font-script-dec text-3xl md:text-4xl text-navy font-bold">Wedding Venue</h3>
+            <div class="max-w-3xl mx-auto text-center space-y-8">
+                <div>
+                    <p class="font-serif text-xs tracking-[0.25em] text-gold-dark uppercase mb-2 font-semibold">Destination</p>
+                    <h3 class="font-serif text-3xl md:text-4xl text-navy font-bold">Caravela Beach Resort, Goa</h3>
+                    <p class="font-editorial text-xl italic text-navy/80 mt-2">Where coastal elegance meets timeless celebration.</p>
                 </div>
 
-                <div class="glass-card rounded-3xl overflow-hidden border border-gold/30 shadow-xl">
-                    <div class="p-8 pb-6 flex items-start space-x-4">
-                        <div class="w-12 h-12 bg-powder rounded-full flex items-center justify-center shrink-0 border border-gold/40 text-navy shadow-sm mt-1">
-                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
-                        </div>
-                        <div class="space-y-1">
-                            <h4 class="font-serif text-2xl text-navy font-bold">Caravela Beach Resort</h4>
-                            <p class="font-sans text-sm text-navy/70 uppercase tracking-widest font-semibold">Address
+                <p class="font-sans text-sm md:text-base text-navy/80 leading-relaxed max-w-xl mx-auto">
+                    We are thrilled to host our wedding celebrations at the magnificent Caravela Beach Resort in Goa. We look forward to creating unforgettable memories by the sea with our dearest family and friends.
+                </p>
+
+                <div class="pt-2">
+                    <a href="https://maps.google.com/?q=Caravela+Beach+Resort+Goa" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center px-8 py-3.5 bg-navy text-white font-serif text-xs tracking-[0.2em] uppercase rounded-full hover:bg-navy-light transition shadow-lg border border-gold/40 font-bold">
+                        Open in Google Maps
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- RSVP Section -->
+        <section id="rsvp" class="py-24 px-6 bg-powder-light border-t border-gold/20">
+            <div class="max-w-xl mx-auto text-center space-y-8">
+                <div>
+                    <p class="font-serif text-xs tracking-[0.25em] text-gold-dark uppercase mb-2 font-semibold">Be Our Guest</p>
+                    <h3 class="font-serif text-3xl md:text-4xl text-navy font-bold">RSVP</h3>
+                    <p class="font-sans text-sm text-navy/80 mt-3">Please confirm your gracious presence by reaching out directly via WhatsApp.</p>
+                </div>
+
+                <div class="glass-card p-8 rounded-3xl border border-gold/40 shadow-lg space-y-6">
+                    <div>
+                        <span class="font-serif text-xs tracking-[0.2em] text-navy-muted uppercase block mb-1 font-semibold">Contact Number</span>
+                        <span class="font-serif text-2xl font-bold text-navy tracking-wide">+91 92177 99674</span>
+                    </div>
+
+                    <div>
+                        <button onclick="sendWhatsAppRSVP()" class="w-full py-4 bg-emerald-600 hover:bg-emerald-700 text-white font-serif text-xs tracking-[0.2em] uppercase rounded-xl transition shadow-lg flex items-center justify-center space-x-2 font-bold border border-emerald-400">
+                            <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+                            <span>RSVP via WhatsApp</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="py-12 bg-navy text-powder text-center space-y-4 border-t border-gold/30">
+            <h4 class="font-script-dec text-3xl text-white">Shreya & Sahil</h4>
+            <p class="font-serif text-xs tracking-[0.25em] uppercase text-gold-light">30 – 31 January 2027 · Goa</p>
+            <p class="font-sans text-xs text-powder/60 pt-4">© 2027 Shreya & Sahil. All rights reserved.</p>
+        </footer>
+
+    </main>
+
+    <!-- JavaScript logic -->
+    <script>
+        function createPetals(containerId) {
+            const container = document.getElementById(containerId);
+            if (!container) return;
+            const count = 20;
+            for (let i = 0; i < count; i++) {
+                const petal = document.createElement('div');
+                petal.className = 'petal';
+                const size = Math.random() * 10 + 8;
+                petal.style.width = `${size}px`;
+                petal.style.height = `${size * 1.4}px`;
+                petal.style.left = `${Math.random() * 100}%`;
+                petal.style.top = `-10%`;
+                petal.style.animationDuration = `${Math.random() * 6 + 6}s`;
+                petal.style.animationDelay = `${Math.random() * 5}s`;
+                container.appendChild(petal);
+            }
+        }
+
+        const bgMusic = document.getElementById('bg-music');
+        const audioToggle = document.getElementById('audio-toggle');
+        const iconPlay = document.getElementById('audio-icon-play');
+        const iconPause = document.getElementById('audio-icon-pause');
+        let isPlaying = false;
+
+        function toggleAudio() {
+            if (isPlaying) {
+                if (bgMusic) bgMusic.pause();
+                if (iconPlay) iconPlay.classList.remove('hidden');
+                if (iconPause) iconPause.classList.add('hidden');
+                isPlaying = false;
+            } else {
+                if (bgMusic) {
+                    bgMusic.play().then(() => {
+                        if (iconPlay) iconPlay.classList.add('hidden');
+                        if (iconPause) iconPause.classList.remove('hidden');
+                        isPlaying = true;
+                    }).catch(e => console.log("Audio playback prevented:", e));
+                }
+            }
+        }
+
+        function openEnvelope() {
+            const envelopeScreen = document.getElementById('envelope-screen');
+            const envelopeBox = document.getElementById('envelope-box');
+            const mainInvitation = document.getElementById('main-invitation');
+
+            if (!isPlaying && bgMusic) {
+                bgMusic.play().then(() => {
+                    if (iconPlay) iconPlay.classList.add('hidden');
+                    if (iconPause) iconPause.classList.remove('hidden');
+                    isPlaying = true;
+                }).catch(e => console.log("Audio playback prevented:", e));
+            }
+
+            if (envelopeBox) envelopeBox.classList.add('envelope-open');
+
+            setTimeout(() => {
+                if (envelopeScreen) envelopeScreen.style.opacity = '0';
+                setTimeout(() => {
+                    if (envelopeScreen) envelopeScreen.style.display = 'none';
+                    if (mainInvitation) mainInvitation.classList.remove('opacity-0', 'pointer-events-none');
+                    initScratchCard();
+                }, 800);
+            }, 900);
+        }
+
+        function switchDay(day) {
+            const tab1 = document.getElementById('tab-day1');
+            const tab2 = document.getElementById('tab-day2');
+            const content1 = document.getElementById('content-day1');
+            const content2 = document.getElementById('content-day2');
+
+            if (day === 1) {
+                if (tab1) tab1.className = "px-8 py-3 font-serif text-xs tracking-[0.2em] uppercase rounded-full bg-navy text-white shadow-lg transition-all duration-300 font-bold border border-gold/30";
+                if (tab2) tab2.className = "px-8 py-3 font-serif text-xs tracking-[0.2em] uppercase rounded-full bg-powder-light text-navy-muted hover:text-navy transition-all duration-300 font-semibold border border-powder-dark";
+                if (content1) content1.classList.remove('hidden');
+                if (content2) content2.classList.add('hidden');
+            } else {
+                if (tab2) tab2.className = "px-8 py-3 font-serif text-xs tracking-[0.2em] uppercase rounded-full bg-navy text-white shadow-lg transition-all duration-300 font-bold border border-gold/30";
+                if (tab1) tab1.className = "px-8 py-3 font-serif text-xs tracking-[0.2em] uppercase rounded-full bg-powder-light text-navy-muted hover:text-navy transition-all duration-300 font-semibold border border-powder-dark";
+                if (content2) content2.classList.remove('hidden');
+                if (content1) content1.classList.add('hidden');
+            }
+        }
+
+        function initScratchCard() {
+            const canvas = document.getElementById('scratch-canvas');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            
+            canvas.width = canvas.offsetWidth;
+            canvas.height = canvas.offsetHeight;
+
+            ctx.fillStyle = '#c4d7ec';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            ctx.fillStyle = '#0f1e2e';
+            ctx.font = '13px Montserrat, sans-serif';
+            ctx.textAlign = 'center';
+            ctx.fillText('Scratch or drag across to reveal', canvas.width / 2, canvas.height / 2 + 5);
+
+            let isDrawing = false;
+
+            function scratch(e) {
+                if (!isDrawing) return;
+                const rect = canvas.getBoundingClientRect();
+                const x = (e.clientX || (e.touches && e.touches[0].clientX)) - rect.left;
+                const y = (e.clientY || (e.touches && e.touches[0].clientY)) - rect.top;
+
+                ctx.globalCompositeOperation = 'destination-out';
+                ctx.beginPath();
+                ctx.arc(x, y, 30, 0, Math.PI * 2, false);
+                ctx.fill();
+
+                checkScratchPercentage();
+            }
+
+            canvas.addEventListener('mousedown', () => isDrawing = true);
+            canvas.addEventListener('mousemove', scratch);
+            window.addEventListener('mouseup', () => isDrawing = false);
+
+            canvas.addEventListener('touchstart', () => isDrawing = true);
+            canvas.addEventListener('touchmove', scratch);
+            window.addEventListener('touchend', () => isDrawing = false);
+        }
+
+        function checkScratchPercentage() {
+            const canvas = document.getElementById('scratch-canvas');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+            let cleared = 0;
+            for (let i = 3; i < imageData.data.length; i += 4) {
+                if (imageData.data[i] === 0) cleared++;
+            }
+            if (cleared > (imageData.data.length / 4) * 0.4) {
+                canvas.style.transition = 'opacity 0.6s ease';
+                canvas.style.opacity = '0';
+                setTimeout(() => canvas.style.display = 'none', 600);
+            }
+        }
+
+        function revealDateDirectly() {
+            const canvas = document.getElementById('scratch-canvas');
+            if (canvas) {
+                canvas.style.transition = 'opacity 0.6s ease';
+                canvas.style.opacity = '0';
+                setTimeout(() => canvas.style.display = 'none', 600);
+            }
+        }
+
+        const weddingDate = new Date('2027-01-31T00:00:00+05:30').getTime();
+
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const distance = weddingDate - now;
+
+            const daysElem = document.getElementById('days');
+            const hoursElem = document.getElementById('hours');
+            const minutesElem = document.getElementById('minutes');
+
+            if (distance < 0) {
+                if (daysElem) daysElem.innerText = '00';
+                if (hoursElem) hoursElem.innerText = '00';
+                if (minutesElem) minutesElem.innerText = '00';
+                return;
+            }
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+
+            if (daysElem) daysElem.innerText = String(days).padStart(2, '0');
+            if (hoursElem) hoursElem.innerText = String(hours).padStart(2, '0');
+            if (minutesElem) minutesElem.innerText = String(minutes).padStart(2, '0');
+        }
+
+        function sendWhatsAppRSVP() {
+            const phoneNumber = '919217799674';
+            const message = encodeURIComponent("Hello! I would like to RSVP for Shreya & Sahil's wedding celebrations on 30–31 January 2027 in Goa.");
+            window.open(`https://wa.me/${phoneNumber}?text=${message}`, '_blank');
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            createPetals('envelope-petals');
+            createPetals('hero-petals');
+            setInterval(updateCountdown, 1000);
+            updateCountdown();
+        });
+    </script>
+</body>
+</html>
