@@ -82,30 +82,79 @@ section {
 .ev.l.rv { transform: translateX(-40px); }
 .ev.rv.in { transform: none; }
 
-/* HERO */
+/* ================= HERO ================= */
 #hero {
   min-height: 100vh;
   min-height: 100svh;
   display: grid;
-  align-content: center;
-  padding: 0 1rem;
+  place-items: center;
+  padding: 0;
   overflow: hidden;
   position: relative;
   isolation: isolate;
-  background:
-    linear-gradient(to bottom,transparent 78%,var(--bg)),
-    url("images/hero.jpg") center/cover no-repeat,
-    linear-gradient(to bottom,#c7dceb,#dce5e8 60%,#a9c3d1);
+  background: linear-gradient(to bottom,#c7dceb,#dce5e8 60%,#a9c3d1);
+}
+
+/* soft blurred copy of the photo, so wide screens never show empty sides */
+#hero::before {
+  content: "";
+  position: absolute;
+  inset: -5%;
+  background: url("images/hero.jpg") center/cover no-repeat;
+  filter: blur(30px) saturate(1.05);
+  opacity: .9;
+}
+
+/* fades the bottom of the hero into the page */
+#hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom,transparent 84%,var(--bg));
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* The scene keeps the photo's exact proportions, so the sun, glow and
+   reflection always line up with the arch, hills and lake. */
+.scene {
+  position: relative;
+  height: 100vh;
+  height: 100svh;
+  aspect-ratio: 941/1672;
+  flex: none;
+  overflow: hidden;
+}
+
+.himg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  z-index: 0;
+}
+
+.atmos { position: absolute; inset: 0; pointer-events: none; }
+
+/* names and tagline sit in the open sky */
+.copy {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 25.5%;
+  z-index: 3;
+  padding: 0 3%;
 }
 
 #hero h1 {
   font-family: var(--script);
   font-weight: 400;
-  font-size: clamp(3rem,11vw,5.2rem);
+  font-size: clamp(2.6rem,min(11.5vw,6.4svh),5.2rem);
   line-height: 1.15;
   letter-spacing: .015em;
   margin: 0 auto;
-  max-width: 95vw;
+  white-space: nowrap;
 }
 
 #hero h1,
@@ -117,7 +166,7 @@ section {
 
 #hero p {
   font-family: var(--body);
-  font-size: clamp(1.4rem,6vw,1.8rem);
+  font-size: clamp(1.3rem,min(5.4vw,3.2svh),1.8rem);
   margin-top: .2rem;
   opacity: 0;
   animation: fade 1.2s ease forwards 1.3s;
@@ -138,142 +187,115 @@ section {
 
 @keyframes fade { to { opacity: 1; } }
 
-/* Sunset layers */
-#sunset-scene {
-  position: absolute;
-  inset: 0;
-  overflow: hidden;
-  pointer-events: none;
-  z-index: 1;
+/* ---------- Sunset ----------
+   One 25 second timeline drives everything, so the light follows the sun:
+   0-5s    powder-blue sky, natural blue lake, sun high behind "Shreya"
+   5-15s   lavender, blush and peach; sun sinks; reflection warms
+   15-25s  champagne and peach at the horizon; sun meets the water line;
+           the reflection widens and glows across the lake            */
+.lyr { position: absolute; inset: 0; opacity: 0; z-index: 1; will-change: opacity; }
+
+/* Tints the sky and lake only, so greenery and stone stay natural */
+.tint {
+  -webkit-mask-image: radial-gradient(ellipse 40% 36% at 52% 34%,#000 62%,transparent 100%),linear-gradient(to right,transparent 9%,#000 16%,#000 84%,transparent 92%),linear-gradient(to bottom,transparent 55%,#000 62%,#000 74%,transparent 79%);
+          mask-image: radial-gradient(ellipse 40% 36% at 52% 34%,#000 62%,transparent 100%),linear-gradient(to right,transparent 9%,#000 16%,#000 84%,transparent 92%),linear-gradient(to bottom,transparent 55%,#000 62%,#000 74%,transparent 79%);
+  mix-blend-mode: color;
 }
 
-.sunset-sky {
-  position: absolute;
-  inset: 0;
-  opacity: 0;
-  background: linear-gradient(
-    to bottom,
-    rgba(116,161,204,.25),
-    rgba(211,174,196,.18) 42%,
-    rgba(255,190,164,.45) 75%,
-    rgba(247,204,176,.55)
-  );
+.skyA { background: linear-gradient(180deg,#a99be0 0%,#c9a6dc 20%,#eeb0cc 40%,#f7bcc0 56%,#f3c0c4 66%,#d9b0cf 78%); }
+.skyB { background: linear-gradient(180deg,rgba(255,190,150,0) 0%,rgba(255,190,150,.35) 30%,#ffc59c 48%,#ffd9ae 58%,#f9c8a4 68%,#e6b4b0 78%); }
+.warm { background: linear-gradient(180deg,#d8c4ee 0%,#f7cdc7 45%,#ffd9ae 75%,#ffe8c8 100%); mix-blend-mode: soft-light; }
+.glow {
+  background:
+    radial-gradient(ellipse 70% 13% at 28% 57.5%,rgba(255,216,168,.85) 0%,rgba(255,190,140,.4) 45%,transparent 75%),
+    radial-gradient(ellipse 95% 24% at 28% 58%,rgba(255,200,170,.32) 0%,transparent 70%);
   mix-blend-mode: screen;
-  animation: skySunset 54s ease-in-out forwards;
 }
+.dusk { background: radial-gradient(ellipse 85% 70% at 50% 45%,transparent 55%,rgba(150,128,178,.4) 100%); mix-blend-mode: multiply; z-index: 1; }
 
-.sunset-haze {
+/* Sun, halo and reflection share the same left/top values and timing */
+.sun,.halo,.rc {
   position: absolute;
-  inset: 25% 0 10%;
-  opacity: 0;
-  background: linear-gradient(
-    to bottom,
-    transparent,
-    rgba(246,190,187,.18),
-    rgba(255,211,177,.35),
-    transparent
-  );
-  mix-blend-mode: screen;
-  animation: hazeSunset 54s ease-in-out forwards;
-}
-
-.sunset-sun {
-  position: absolute;
-  left: 68%;
-  top: 24%;
-  width: clamp(38px,6vw,76px);
-  aspect-ratio: 1;
-  border-radius: 50%;
-  opacity: 0;
-  background: radial-gradient(
-    circle at 35% 30%,
-    #fffbea,
-    #ffe4bc 48%,
-    #f2b9a3 80%,
-    rgba(242,185,163,.5)
-  );
-  box-shadow:
-    0 0 30px 12px rgba(255,220,183,.28),
-    0 0 80px 32px rgba(255,185,170,.16);
+  left: 20%;
+  top: 30%;
   transform: translate(-50%,-50%);
-  animation: sunDescend 54s cubic-bezier(.35,.02,.65,1) forwards;
+  pointer-events: none;
 }
 
-.sunset-reflection {
+.halo { width: 88%; aspect-ratio: 1; border-radius: 50%; z-index: 1; mix-blend-mode: screen; }
+.hd { width: 125%; background: radial-gradient(circle,rgba(255,252,240,.95) 0%,rgba(255,244,214,.45) 16%,rgba(255,236,200,.15) 36%,transparent 58%); opacity: .8; }
+.hs { background: radial-gradient(circle,rgba(255,214,160,.95) 0%,rgba(255,170,130,.5) 18%,rgba(255,150,150,.2) 38%,transparent 60%); opacity: 0; }
+
+/* the sun sets behind the horizon: everything below the hills is hidden */
+.sunclip { position: absolute; inset: 0; z-index: 1; pointer-events: none; -webkit-mask-image: linear-gradient(to bottom,#000 55.6%,transparent 57.8%); mask-image: linear-gradient(to bottom,#000 55.6%,transparent 57.8%); }
+.sun { width: 15%; aspect-ratio: 1; border-radius: 50%; filter: blur(1px); }
+.sa { background: radial-gradient(circle,#fff 0,#fffdf6 30%,rgba(255,246,224,.85) 50%,rgba(255,240,210,0) 72%); opacity: 1; }
+.sb { background: radial-gradient(circle,#fff6dc 0,#ffe3b0 32%,rgba(255,190,130,.9) 54%,rgba(255,170,120,0) 74%); opacity: 0; }
+
+/* reflection on the lake */
+.reflect {
   position: absolute;
-  left: 68%;
-  top: 48%;
-  width: clamp(45px,8vw,110px);
-  height: 40%;
-  opacity: 0;
+  left: 0;
+  right: 0;
+  top: 63%;
+  height: 12.5%;
+  overflow: hidden;
+  z-index: 1;
+  pointer-events: none;
+  mix-blend-mode: screen;
+  -webkit-mask-image: linear-gradient(to bottom,#000 0%,#000 50%,transparent 100%);
+          mask-image: linear-gradient(to bottom,#000 0%,#000 50%,transparent 100%);
+}
+
+.rc {
+  top: 0;
+  height: 100%;
   transform: translateX(-50%);
-  background: linear-gradient(
-    to bottom,
-    rgba(255,239,205,.7),
-    rgba(255,210,181,.4) 35%,
-    rgba(255,214,190,.12) 75%,
-    transparent
-  );
-  filter: blur(7px);
-  clip-path: polygon(35% 0,65% 0,100% 100%,0 100%);
-  animation: reflectionGlow 54s ease-in-out forwards;
+  background-size: 100% 10px,100% 100%;
+  -webkit-mask-image: radial-gradient(ellipse 50% 100% at 50% 0%,#000 40%,transparent 100%);
+          mask-image: radial-gradient(ellipse 50% 100% at 50% 0%,#000 40%,transparent 100%);
+  filter: blur(1px);
 }
+.rd { width: 4%; opacity: .35; background-image: repeating-linear-gradient(180deg,transparent 0 4px,rgba(255,255,255,.75) 4px 6px),radial-gradient(ellipse 100% 100% at 50% 0%,rgba(255,255,255,.8),transparent 85%); }
+.rs { width: 6%; opacity: 0; background-image: repeating-linear-gradient(180deg,transparent 0 3px,rgba(255,244,226,.95) 3px 6px),radial-gradient(ellipse 100% 100% at 50% 0%,rgba(255,228,190,1),rgba(255,190,140,.8) 45%,transparent 92%); }
 
-.sunset-water {
-  position: absolute;
-  left: 35%;
-  right: 5%;
-  bottom: 15%;
-  height: 20%;
-  opacity: 0;
-  background: repeating-linear-gradient(
-    to bottom,
-    transparent 0 6px,
-    rgba(255,239,219,.38) 7px,
-    transparent 9px 14px
-  );
-  mask-image: linear-gradient(to right,transparent,#000 25%,#000 75%,transparent);
-  -webkit-mask-image: linear-gradient(to right,transparent,#000 25%,#000 75%,transparent);
-  filter: blur(1.5px);
-  animation: waterGlow 54s ease-in-out forwards;
-}
+/* start the timeline only once the photo has loaded */
+.play .skyA { animation: skyA 25s forwards; }
+.play .skyB { animation: skyB 25s forwards; }
+.play .warm { animation: warm 25s forwards; }
+.play .glow { animation: glow 25s forwards; }
+.play .dusk { animation: dusk 25s forwards; }
+.play .halo { animation: sunX 25s forwards,sunY 25s forwards; }
+.play .hd   { animation: sunX 25s forwards,sunY 25s forwards,hdO 25s forwards; }
+.play .hs   { animation: sunX 25s forwards,sunY 25s forwards,hsO 25s forwards; }
+.play .sun  { animation: sunX 25s forwards,sunY 25s forwards; }
+.play .sa   { animation: sunX 25s forwards,sunY 25s forwards,saO 25s forwards; }
+.play .sb   { animation: sunX 25s forwards,sunY 25s forwards,sbO 25s forwards; }
+.play .rd   { animation: sunX 25s forwards,rdW 25s forwards,rdO 25s forwards,shim 7s linear infinite; }
+.play .rs   { animation: sunX 25s forwards,rsW 25s forwards,rsO 25s forwards,shim 7s linear infinite; }
 
-@keyframes skySunset {
-  0%,8% { opacity: .04; }
-  25% { opacity: .22; }
-  52% { opacity: .55; }
-  78%,100% { opacity: .8; }
-}
+@keyframes skyA { 0%,20%{opacity:0;animation-timing-function:ease-in-out} 60%{opacity:.5;animation-timing-function:ease-in-out} 100%{opacity:.26} }
+@keyframes skyB { 0%,34%{opacity:0;animation-timing-function:ease-in-out} 100%{opacity:.75} }
+@keyframes warm { 0%,20%{opacity:0;animation-timing-function:ease-in-out} 100%{opacity:.5} }
+@keyframes glow { 0%,56%{opacity:0;animation-timing-function:ease-in-out} 100%{opacity:1} }
+@keyframes dusk { 0%,40%{opacity:0;animation-timing-function:ease-in-out} 100%{opacity:.14} }
 
-@keyframes hazeSunset {
-  0%,20% { opacity: 0; }
-  45% { opacity: .3; }
-  75%,100% { opacity: .65; }
-}
+/* sun path: starts behind "Shreya", sinks to the water line */
+@keyframes sunY { 0%{top:30%;animation-timing-function:ease-in-out} 20%{top:32%;animation-timing-function:linear} 60%{top:45%;animation-timing-function:ease-out} 100%{top:57.5%} }
+@keyframes sunX { 0%{left:20%;animation-timing-function:ease-in-out} 20%{left:21.5%;animation-timing-function:linear} 60%{left:29%;animation-timing-function:ease-out} 100%{left:36%} }
 
-@keyframes sunDescend {
-  0% { top: 24%; opacity: 0; }
-  8% { top: 27%; opacity: 1; }
-  45% { top: 39%; opacity: 1; }
-  72% { top: 52%; opacity: .95; }
-  91% { top: 64%; opacity: .35; }
-  100% { top: 72%; opacity: 0; }
-}
+/* light colour follows the sun: white to champagne to peach */
+@keyframes saO { 0%,15%{opacity:1} 65%,100%{opacity:0} }
+@keyframes sbO { 0%,15%{opacity:0} 70%,100%{opacity:1} }
+@keyframes hdO { 0%{opacity:.8} 60%{opacity:.15} 100%{opacity:0} }
+@keyframes hsO { 0%,10%{opacity:0} 60%{opacity:.7} 100%{opacity:1} }
 
-@keyframes reflectionGlow {
-  0%,10% { opacity: 0; }
-  35% { opacity: .18; }
-  58% { opacity: .7; }
-  78% { opacity: .5; }
-  100% { opacity: .05; }
-}
-
-@keyframes waterGlow {
-  0%,25% { opacity: 0; }
-  52% { opacity: .2; }
-  75% { opacity: .5; }
-  100% { opacity: .15; }
-}
+/* reflection widens and warms as the sun sinks */
+@keyframes rdW { 0%{width:4%} 100%{width:9%} }
+@keyframes rdO { 0%{opacity:.35} 55%{opacity:.18} 100%{opacity:.08} }
+@keyframes rsW { 0%{width:6%} 100%{width:30%} }
+@keyframes rsO { 0%,25%{opacity:0} 70%{opacity:.65} 100%{opacity:1} }
+@keyframes shim { from{background-position:0 0,0 0} to{background-position:0 10px,0 0} }
 
 .scrollcue {
   position: absolute;
@@ -308,7 +330,7 @@ section {
   100% { opacity: 0; }
 }
 
-/* Birds and petals */
+/* Birds, petals and clouds (all sized from the scene via --W / --H) */
 .fx {
   position: absolute;
   inset: 0;
@@ -317,50 +339,58 @@ section {
   z-index: 2;
 }
 
-.bird {
-  position: absolute;
-  left: 0;
-  width: var(--s,34px);
-  color: #64717b;
-  opacity: .75;
-  animation: fly var(--t,24s) linear infinite;
-  animation-delay: var(--dl,0s);
-  will-change: transform;
-}
-
+/* flocks cross the sky */
+.flock { position: absolute; left: 0; top: var(--y); animation: flockFly var(--t) linear infinite; animation-delay: var(--dl); will-change: transform; }
+.bird { position: absolute; left: var(--bx); top: var(--by); width: var(--s); color: #5a534c; opacity: .72; animation: bob var(--bt) ease-in-out infinite alternate; }
 .bird svg { display: block; width: 100%; height: auto; }
-.wing { transform-origin: 20px 12px; animation: flap .45s ease-in-out infinite alternate; }
+.wing { transform-origin: 20px 12px; animation: flap .5s ease-in-out infinite alternate; }
 
-@keyframes flap {
-  from { transform: scaleY(1); }
-  to { transform: scaleY(-.55); }
+@keyframes flockFly {
+  from { transform: translate3d(calc(var(--W)*-.3px),0,0); }
+  to { transform: translate3d(calc(var(--W)*1.15px),calc(var(--H)*var(--rise)*1px),0); }
+}
+@keyframes bob { from { transform: translateY(-5px); } to { transform: translateY(5px); } }
+@keyframes flap { from { transform: scaleY(1); } to { transform: scaleY(-.5); } }
+
+/* big soft petals drifting diagonally, top-left to bottom-right */
+.petal { position: absolute; left: 0; top: 0; opacity: 0; animation: petalFall var(--t) linear infinite; animation-delay: var(--dl); will-change: transform,opacity; }
+.petal i {
+  display: block;
+  width: var(--s);
+  height: calc(var(--s)*1.25);
+  border-radius: 78% 22% 78% 22% / 62% 38% 62% 38%;
+  background: radial-gradient(circle at 34% 28%,#fff,#fff7ef 55%,#f5e1d1);
+  box-shadow: inset -3px -4px 8px rgba(214,170,140,.28);
+  filter: blur(var(--b));
+  animation: flutter var(--ft) ease-in-out infinite alternate;
 }
 
-@keyframes fly {
-  0% { transform: translate(-15vw,0); }
-  50% { transform: translate(55vw,var(--dy,-6vh)); }
-  100% { transform: translate(120vw,var(--dy2,4vh)); }
+@keyframes petalFall {
+  0% { transform: translate3d(calc(var(--W)*var(--x0)*1px),calc(var(--H)*-.14px),0); opacity: 0; }
+  8% { opacity: .9; }
+  92% { opacity: .85; }
+  100% { transform: translate3d(calc(var(--W)*var(--x1)*1px),calc(var(--H)*1.08px),0); opacity: 0; }
+}
+@keyframes flutter {
+  0% { transform: rotate(-35deg) rotateY(0deg) translateX(-14px); }
+  100% { transform: rotate(45deg) rotateY(150deg) translateX(16px); }
 }
 
-.petal {
+/* clouds drift across the open sky only */
+.skyclouds {
   position: absolute;
-  top: 0;
-  width: var(--w,12px);
-  height: calc(var(--w,12px)*1.3);
-  border-radius: 80% 0 80% 0;
-  opacity: 0;
-  box-shadow: inset -2px -2px 4px rgba(190,110,90,.2);
-  animation: fall var(--t,12s) linear infinite;
-  animation-delay: var(--dl,0s);
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  overflow: hidden;
+  -webkit-mask-image: radial-gradient(ellipse 41% 37% at 51% 32%,#000 58%,transparent 100%);
+          mask-image: radial-gradient(ellipse 41% 37% at 51% 32%,#000 58%,transparent 100%);
 }
-
-@keyframes fall {
-  0% { transform: translate3d(0,-8vh,0) rotate(0); opacity: 0; }
-  8% { opacity: .8; }
-  30% { transform: translate3d(var(--x1),30vh,0) rotate(140deg); }
-  60% { transform: translate3d(var(--x2),65vh,0) rotate(330deg); }
-  92% { opacity: .75; }
-  100% { transform: translate3d(var(--x3),108vh,0) rotate(560deg); opacity: 0; }
+.cl { position: absolute; left: 0; top: var(--y); width: var(--w); opacity: var(--o); filter: blur(5px); animation: cdrift var(--t) linear infinite; animation-delay: var(--dl); will-change: transform; }
+.cl svg { display: block; width: 100%; height: auto; }
+@keyframes cdrift {
+  from { transform: translate3d(calc(var(--W)*-.55px),0,0); }
+  to { transform: translate3d(calc(var(--W)*1.1px),0,0); }
 }
 
 /* Date and countdown */
@@ -713,10 +743,12 @@ section {
   .card,.photo { transform: none; clip-path: none; }
   .art,.info > * { opacity: 1; transform: none; }
   .fx { display: none; }
-  .sunset-sky { opacity: .25; }
-  .sunset-haze { opacity: .2; }
-  .sunset-sun { top: 50%; opacity: .6; }
-  .sunset-reflection,.sunset-water { opacity: .2; }
+  /* show the finished sunset, with no movement */
+  .skyA { opacity: .26; } .skyB { opacity: .75; } .warm { opacity: .5; } .glow { opacity: 1; } .dusk { opacity: .14; }
+  .sun,.halo { left: 36%; top: 57.5%; }
+  .rc { left: 36%; }
+  .hd,.sa { opacity: 0; } .hs,.sb { opacity: 1; }
+  .rd { width: 9%; opacity: .08; } .rs { width: 30%; opacity: 1; }
 }
 </style>
 </head>
@@ -725,16 +757,36 @@ section {
 <div id="bar"></div>
 
 <header id="hero">
-  <div id="sunset-scene" aria-hidden="true">
-    <div class="sunset-sky"></div>
-    <div class="sunset-haze"></div>
-    <div class="sunset-sun"></div>
-    <div class="sunset-reflection"></div>
-    <div class="sunset-water"></div>
+  <div class="scene" id="scene">
+    <img class="himg" id="bg" src="images/hero.jpg" alt="" width="941" height="1672" fetchpriority="high">
+
+    <div class="atmos" aria-hidden="true">
+      <div class="skyclouds" id="hc"></div>
+      <div class="lyr tint skyA"></div>
+      <div class="lyr tint skyB"></div>
+      <div class="lyr warm"></div>
+      <div class="lyr glow"></div>
+      <div class="halo hd"></div>
+      <div class="halo hs"></div>
+      <div class="sunclip">
+        <div class="sun sa"></div>
+        <div class="sun sb"></div>
+      </div>
+      <div class="reflect">
+        <div class="rc rd"></div>
+        <div class="rc rs"></div>
+      </div>
+      <div class="lyr dusk"></div>
+    </div>
+
+    <div class="fx" id="fx" aria-hidden="true"></div>
+
+    <div class="copy">
+      <h1 id="names"></h1>
+      <p>are getting married!</p>
+    </div>
   </div>
-  <div class="fx" id="fx" aria-hidden="true"></div>
-  <h1 id="names"></h1>
-  <p>are getting married!</p>
+
   <div class="scrollcue" aria-hidden="true"></div>
 </header>
 
@@ -948,6 +1000,13 @@ $("names").innerHTML = C.names.split(" ").map((w,i) =>
   `<span class="w" style="--i:${i}">${w}</span>`
 ).join(" ");
 
+/* Start the 25 second sunset once the hero photo is ready */
+(function() {
+  const hero = $("hero"), bg = $("bg");
+  const go = () => hero.classList.add("play");
+  (bg.decode ? bg.decode() : Promise.resolve()).catch(() => {}).then(go);
+})();
+
 $("lt").innerHTML = C.letter.map((t,i) =>
   `<p class="${i > 1 ? "sign" : ""}">${t}</p>`
 ).join("");
@@ -1067,26 +1126,52 @@ const io = "IntersectionObserver" in window
 
 document.querySelectorAll(".rv,.photo").forEach(el => io.observe(el));
 
-/* Flying birds and petals */
+/* Hero life: flocks of birds, diagonal petals, drifting clouds */
 (function() {
-  const fx = $("fx");
-  const bird = '<svg viewBox="0 0 40 20"><path class="wing" d="M20 12Q10 0 0 6Q10 6 20 12Q30 6 40 6Q30 0 20 12Z" fill="currentColor"/></svg>';
+  const scene = $("scene"), fx = $("fx"), hc = $("hc");
+  const size = () => {
+    scene.style.setProperty("--W", scene.clientWidth);
+    scene.style.setProperty("--H", scene.clientHeight);
+  };
+  size();
+  addEventListener("resize", size);
 
-  for (let i=0;i<6;i++) {
-    const b = document.createElement("div");
-    b.className = "bird";
-    b.innerHTML = bird;
-    b.style.cssText = `top:${rnd(8,42)}%;--s:${rnd(22,44)}px;--t:${rnd(18,32)}s;--dl:-${rnd(0,30)}s;--dy:${rnd(-9,3)}vh;--dy2:${rnd(-4,8)}vh`;
-    b.firstChild.firstChild.style.animationDuration = rnd(.35,.6)+"s";
-    fx.appendChild(b);
+  /* clouds */
+  const cloud = '<svg viewBox="0 0 220 90" aria-hidden="true"><g fill="#fff"><ellipse cx="58" cy="60" rx="54" ry="22"/><ellipse cx="108" cy="42" rx="48" ry="33"/><ellipse cx="160" cy="58" rx="48" ry="23"/><ellipse cx="128" cy="30" rx="26" ry="18"/></g></svg>';
+  for (let i=0;i<(small?4:5);i++) {
+    const c = document.createElement("div");
+    const t = rnd(75,130);
+    c.className = "cl";
+    c.style.cssText = `--y:${rnd(10,48).toFixed(1)}%;--w:${rnd(26,46).toFixed(0)}%;--o:${rnd(.45,.75).toFixed(2)};--t:${t.toFixed(0)}s;--dl:-${rnd(0,t).toFixed(0)}s`;
+    c.innerHTML = cloud;
+    hc.appendChild(c);
   }
 
-  const cols = ["#f7d2c4","#f2b8a5","#fde3d6","#efa995","#fbe9e1"];
+  /* birds fly in loose flocks */
+  const bird = '<svg viewBox="0 0 40 20"><path class="wing" d="M20 12Q10 0 0 6Q10 6 20 12Q30 6 40 6Q30 0 20 12Z" fill="currentColor"/></svg>';
+  const shape = [[0,0],[28,12],[-24,16],[56,-6],[-50,30],[84,10],[16,-22]];
+  [[26,30,-12,-.05],[16,44,-30,-.08]].forEach(([y,t,dl,rise],k) => {
+    const f = document.createElement("div");
+    f.className = "flock";
+    f.style.cssText = `--y:${y}%;--t:${t}s;--dl:${dl}s;--rise:${rise}`;
+    shape.slice(0,k ? 5 : 7).forEach(([x,yy]) => {
+      const b = document.createElement("div");
+      b.className = "bird";
+      b.style.cssText = `--bx:${x}px;--by:${yy}px;--s:${rnd(16,28).toFixed(0)}px;--bt:${rnd(1.6,2.8).toFixed(1)}s`;
+      b.innerHTML = bird;
+      b.querySelector(".wing").style.animationDuration = rnd(.4,.62).toFixed(2)+"s";
+      f.appendChild(b);
+    });
+    fx.appendChild(f);
+  });
 
-  for (let i=0;i<(small?14:24);i++) {
-    const p = document.createElement("i");
+  /* petals: large and soft, falling on a diagonal */
+  for (let i=0;i<(small?10:15);i++) {
+    const s = rnd(20,66), x0 = rnd(-.25,.65), t = rnd(15,28);
+    const p = document.createElement("div");
     p.className = "petal";
-    p.style.cssText = `left:${rnd(0,100)}%;--w:${rnd(9,17)}px;--t:${rnd(9,17)}s;--dl:-${rnd(0,17)}s;--x1:${rnd(-40,40)}px;--x2:${rnd(-60,60)}px;--x3:${rnd(-80,80)}px;background:${cols[i%cols.length]}`;
+    p.style.cssText = `--s:${s.toFixed(0)}px;--b:${(s/30).toFixed(1)}px;--x0:${x0.toFixed(2)};--x1:${(x0+rnd(.5,.8)).toFixed(2)};--t:${t.toFixed(0)}s;--dl:-${rnd(0,t).toFixed(0)}s;--ft:${rnd(2.4,5).toFixed(1)}s`;
+    p.innerHTML = "<i></i>";
     fx.appendChild(p);
   }
 })();
