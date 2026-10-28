@@ -145,3 +145,368 @@ section{padding:5.5rem 1.2rem;position:relative}
 .wr.in .sw i{animation:pop .6s var(--ease) backwards;animation-delay:calc(1.2s + var(--k)*.1s)}
 @keyframes pop{from{transform:scale(0)}}
 @media(min-width:640px){
+  .wr,.wr.rt{flex-direction:row;align-items:center;gap:2.2rem}
+  .wr.rt{flex-direction:row-reverse}
+  .art{flex:none;width:52%}
+  .info{margin:0;flex:1}
+}
+
+/* music button */
+#play{position:fixed;right:1.3rem;bottom:1.3rem;width:62px;height:62px;border-radius:50%;border:0;background:var(--blue);
+  display:grid;place-items:center;box-shadow:0 6px 18px rgba(0,0,0,.25);cursor:pointer;z-index:10;transition:transform .25s}
+#play:hover{transform:scale(1.08)}
+#play:before{content:"";position:absolute;inset:0;border-radius:50%;border:2px solid var(--blue);animation:ring 2.4s ease-out infinite}
+@keyframes ring{from{transform:scale(1);opacity:.8}to{transform:scale(1.6);opacity:0}}
+#play svg{width:26px;fill:#fff}
+
+@media(prefers-reduced-motion:reduce){
+  *,*:before,*:after{transition:none!important;animation:none!important}
+  .rv,.w,#hero p,.scrollcue{opacity:1;transform:none;filter:none}
+  .card,.photo{transform:none;clip-path:none}
+  .art,.info>*{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+<div id="bar"></div>
+
+<header id="hero">
+  <div class="sky" id="sky1"></div>
+  <h1 id="names"></h1>
+  <p>are getting married!</p>
+  <div class="scrollcue" aria-hidden="true"></div>
+</header>
+
+<section id="date">
+  <h2 class="rv">The Date</h2>
+  <p class="hint rv" style="--d:.1s">✦ Save the date ✦</p>
+  <div class="cards">
+    <div class="cell rv" style="--d:0s"><div class="card" id="cd"></div><span>DAY</span></div>
+    <div class="cell rv" style="--d:.2s"><div class="card" id="cm"></div><span>MONTH</span></div>
+    <div class="cell rv" style="--d:.4s"><div class="card" id="cy"></div><span>YEAR</span></div>
+  </div>
+  <div class="count rv" id="count" aria-live="off"></div>
+  <p id="invited" class="rv">You're invited!</p>
+
+  <svg class="hearts" id="hearts" viewBox="0 0 90 80" fill="none" stroke="#79b3d3" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="Tap for hearts">
+    <path d="M30 62C10 46 6 28 18 18c7-5 13-1 14 6 2-9 11-14 17-7 8 10-3 28-19 45z"/>
+    <path d="M64 70C54 62 52 54 58 50c4-2 6 0 7 3 1-4 6-6 9-2 4 5-1 13-10 19z"/>
+  </svg>
+  <div class="env">
+    <svg class="back" viewBox="0 0 1060 1275" aria-hidden="true">
+      <defs>
+        <linearGradient id="fg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#c3deec"/><stop offset=".45" stop-color="#bad9e8"/><stop offset="1" stop-color="#a9cade"/></linearGradient>
+        <path id="lf" d="M0 0C18-24 52-24 66 0 52 24 18 24 0 0Z"/>
+      </defs>
+      <path d="M22 527L503 20Q530-4 557 20L1038 527Q1060 560 1060 605V1253Q1060 1274 1039 1274H21Q0 1274 0 1253V605Q0 560 22 527Z" fill="url(#fg)" stroke="rgba(90,120,140,.35)" stroke-width="2"/>
+      <g fill="none" stroke="#a5c6da" stroke-width="3" stroke-linecap="round" opacity=".7">
+        <path d="M330 500C300 400 320 290 400 200"/><path d="M730 500C760 400 740 290 660 200"/>
+        <path d="M530 470C525 380 530 280 530 200"/>
+      </g>
+      <g fill="#b0cfe1" opacity=".75">
+        <use href="#lf" transform="translate(318 440) rotate(-70)"/><use href="#lf" transform="translate(312 360) rotate(-120) scale(.9)"/>
+        <use href="#lf" transform="translate(340 300) rotate(-40) scale(.9)"/><use href="#lf" transform="translate(380 225) rotate(-100) scale(.8)"/>
+        <use href="#lf" transform="translate(742 440) rotate(-110)"/><use href="#lf" transform="translate(748 360) rotate(-60) scale(.9)"/>
+        <use href="#lf" transform="translate(720 300) rotate(-140) scale(.9)"/><use href="#lf" transform="translate(680 225) rotate(-80) scale(.8)"/>
+        <use href="#lf" transform="translate(528 400) rotate(-60) scale(.8)"/><use href="#lf" transform="translate(532 320) rotate(-120) scale(.8)"/>
+      </g>
+    </svg>
+    <div class="letter">
+      <h3>Dear friends and family,</h3>
+      <div id="lt"></div>
+    </div>
+    <svg class="front" viewBox="0 0 1060 750" preserveAspectRatio="none" aria-hidden="true">
+      <defs>
+        <linearGradient id="pg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#cfe5f0"/><stop offset=".5" stop-color="#bad9e8"/><stop offset="1" stop-color="#a9cade"/></linearGradient>
+      </defs>
+      <path d="M-1 0L372 322Q530 306 688 322L1061 0V729Q1061 751 1039 751H21Q-1 751-1 729Z" fill="url(#pg)"/>
+      <path d="M0 0L372 322Q530 306 688 322L1060 0" fill="none" stroke="rgba(255,255,255,.85)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+      <g class="seal">
+        <circle cx="530" cy="318" r="40" fill="#64a0bd"/>
+        <circle cx="530" cy="318" r="33" fill="none" stroke="rgba(255,255,255,.45)" stroke-width="2"/>
+        <path d="M530 336C514 325 509 315 515 309c4-4 11-2 15 4 4-6 11-8 15-4 6 6 1 16-15 27z" fill="#fff"/>
+      </g>
+    </svg>
+  </div>
+</section>
+
+<section id="schedule">
+  <div class="sky" id="sky2"></div>
+  <h2 class="rv">Schedule of Events</h2>
+  <div class="tl" id="tl"></div>
+</section>
+
+<section id="venue">
+  <h2 class="rv">Wedding Venue</h2>
+  <div class="venue rv">
+    <svg viewBox="0 0 52 70" aria-hidden="true"><path d="M26 0C12 0 0 11 0 25c0 18 26 45 26 45s26-27 26-45C52 11 40 0 26 0z" fill="#64a0bd"/><path d="M26 36C16 29 14 22 19 19c3-2 6 0 7 2 1-2 4-4 7-2 5 3 3 10-7 17z" fill="#fff"/></svg>
+    <div><b id="vname"></b><span id="vaddr"></span></div>
+  </div>
+  <img class="photo" id="vimg" alt="The wedding venue">
+</section>
+
+<section id="dress">
+  <h2 class="rv">Wardrobe Planner</h2>
+  <p class="hint rv">What to wear, event by event · tap a rack</p>
+  <div id="wp"></div>
+</section>
+
+<button id="play" aria-label="Play music"><svg viewBox="0 0 24 24"><path d="M7 4l13 8-13 8z"/></svg></button>
+<audio id="music" loop></audio>
+
+<script>
+/* ===== EDIT YOUR DETAILS HERE ===== */
+const C = {
+  names: "Shreya & Sahil",
+  full: "Shreya Maini & Sahil Suneja",
+  date: { day: "30", month: "January", year: "2027" },
+  time: "13:00:00", // used for the countdown
+  letter: [
+    "As Shreya and Sahil begin this beautiful new chapter, we can’t imagine celebrating it without the people who mean so much to us.",
+    "Your love has been a part of our journey, and having you by our side as we begin our forever would make this moment even more special.",
+    "With all our love,",
+    "Shreya & Sahil ♡"
+  ],
+  days: [
+    { title: "Day 1", sub: "30th January 2027", items: [
+      ["1 PM", "Haldi", "Coconut Grove"],
+      ["6:30 PM", "Cocktail", "Varca Ballroom"] ]},
+    { title: "Day 2", sub: "31st January 2027", items: [
+      ["10 AM", "Chooda Ceremony", "The lawns"],
+      ["11 AM", "Sehrabandi", "Same venue as Chooda"],
+      ["12 PM", "Baraat", ""],
+      ["2 PM", "Pheras", "Beach venue"],
+      ["7 PM", "Afterparty", "Varca Ballroom"] ]}
+  ],
+  venue: { name: "Caravela Resort", address: "Goa", image: "images/venue.jpg" },
+  dress: [
+    { name: "Haldi", when: "Day 1 · 1 PM", code: "Beachside Festive Chic",
+      note: "All silhouettes are welcome. Think breezy outfits: western, Indian or Indo-western.",
+      pal: ["#f2b83c", "#f4a58a", "#a7d8cc", "#fffaf0"],
+      items: [["kurta", "#f2b83c", "#fff4d6"], ["gown", "#a7d8cc", "#fffaf0"], ["saree", "#f4a58a", "#e0b04a"]] },
+    { name: "Cocktail", when: "Day 1 · 6:30 PM", code: "Black Tie Glamour",
+      note: "Gowns, dresses or even sarees for women. Tuxedos and formal suits for men.",
+      pal: ["#1c1c24", "#2e3a5c", "#c8b79a", "#d9dde3"],
+      items: [["jacket", "#1c1c24", "#ffffff", "#2e3a5c"], ["gown", "#2e3a5c", "#c8b79a"], ["saree", "#d8c7a3", "#8c7b55"]] },
+    { name: "Pheras", when: "Day 2 · 2 PM", code: "A palette of Ivory and Gold",
+      note: "All silhouettes are welcome.",
+      pal: ["#f7f0e3", "#e9d9b4", "#c9a24a", "#a98532"],
+      items: [["kurta", "#f3ead6", "#c9a24a"], ["saree", "#efe3c6", "#c9a24a"], ["gown", "#f7f0e3", "#c9a24a"]] },
+    { name: "Afterparty", when: "Day 2 · 7 PM", code: "Bollywood After-Dark Glam",
+      note: "Indo-western outfits, mini dresses, statement sets and comfortable shoes.",
+      pal: ["#7a1f3d", "#d6336c", "#1f6f6b", "#2b2b3a"],
+      items: [["jacket", "#2b2b3a", "#f7dbe6", "#d6336c"], ["mini", "#d6336c", "#ffd9e6"], ["saree", "#1f6f6b", "#e9c46a"]] }
+  ],
+  music: "" // e.g. "audio/song.mp3"
+};
+/* ================================== */
+const $ = id => document.getElementById(id);
+const still = matchMedia("(prefers-reduced-motion: reduce)").matches;
+const clamp01 = v => Math.min(1, Math.max(0, v));
+
+document.title = C.full + " are getting married";
+$("names").innerHTML = C.names.split(" ").map((w, i) => `<span class="w" style="--i:${i}">${w}</span>`).join(" ");
+$("lt").innerHTML = C.letter.map((t, i) => `<p class="${i > 1 ? "sign" : ""}">${t}</p>`).join("");
+$("vname").textContent = C.venue.name; $("vaddr").textContent = "Address: " + C.venue.address;
+$("vimg").classList.add("rv-photo");
+$("vimg").onerror = e => {
+  const d = document.createElement("div"); d.className = e.target.className; e.target.replaceWith(d); io.observe(d);
+};
+$("vimg").src = C.venue.image;
+$("tl").innerHTML = C.days.map(d =>
+  `<div class="dayh rv"><h3>${d.title}</h3><small>${d.sub}</small></div>` +
+  d.items.map(([t, n, p], i) =>
+    `<div class="ev rv ${i % 2 ? "l" : "r"}"><b>${t}</b><span>${n}</span>${p ? `<em>${p}</em>` : ""}</div>`).join("")
+).join("");
+/* ---------- wardrobe planner: hand-built outfit racks ---------- */
+let gk = 0;
+const shade = (hex, a) => {
+  const n = parseInt(hex.slice(1), 16), t = a < 0 ? 0 : 255, p = Math.abs(a);
+  return "#" + [n >> 16 & 255, n >> 8 & 255, n & 255].map(v => Math.round((t - v) * p + v).toString(16).padStart(2, "0")).join("");
+};
+const GARMENT = {
+  kurta: (c, t, o, B) => B("M-13 32L-44 44L-56 188L-40 190L-36 84L-40 232L40 232L36 84L40 190L56 188L44 44L13 32Q0 46 -13 32Z") +
+    `<path d="M-13 32Q0 47 13 32L13 40Q0 55 -13 40Z" fill="${t}"/>
+     <path d="M0 52V124" stroke="${shade(c, -.3)}" stroke-width="1.2" fill="none"/>
+     ${[66, 86, 106].map(y => `<circle cx="0" cy="${y}" r="2.2" fill="${t}"/>`).join("")}
+     <path d="M-56 178L-40 180L-40 190L-56 188ZM56 178L40 180L40 190L56 188Z" fill="${t}"/>
+     <path d="M-40 224H40" stroke="${t}" stroke-width="3" fill="none"/>
+     <path d="M-20 110L-24 230M18 110L22 230" stroke="${shade(c, -.25)}" stroke-width="1" opacity=".35" fill="none"/>`,
+  gown: (c, t, o, B) => B("M-16 34L-20 62L-18 108L-58 250Q0 264 58 250L18 108L20 62L16 34L10 34Q0 64 -10 34Z") +
+    `<path d="M-10 34Q0 64 10 34" stroke="${t}" stroke-width="2" fill="none"/>
+     <path d="M-18 100L18 100L19 110L-19 110Z" fill="${t}"/>
+     <path d="M-58 250Q0 264 58 250" stroke="${t}" stroke-width="3.5" fill="none"/>
+     <path d="M-8 112L-26 252M8 112L26 252M0 112V260" stroke="${shade(c, -.25)}" stroke-width="1" opacity=".35" fill="none"/>`,
+  mini: (c, t, o, B) => B("M-16 34L-20 62L-18 108L-42 172Q0 182 42 172L18 108L20 62L16 34L10 34Q0 64 -10 34Z") +
+    `<path d="M-10 34Q0 64 10 34" stroke="${t}" stroke-width="2" fill="none"/>
+     <path d="M-18 100L18 100L19 110L-19 110Z" fill="${t}"/>
+     <path d="M-42 172Q0 182 42 172" stroke="${t}" stroke-width="3.5" fill="none"/>
+     <path d="M-6 112L-18 174M8 112L20 174" stroke="${shade(c, -.25)}" stroke-width="1" opacity=".35" fill="none"/>`,
+  jacket: (c, t, o, B) => B("M-13 32L-46 44L-58 168L-42 170L-38 88L-42 196L42 196L38 88L42 170L58 168L46 44L13 32L0 112Z") +
+    `<path d="M-13 32L13 32L0 112Z" fill="${t}"/>
+     <path d="M-13 32L0 112L-12 102L-32 60ZM13 32L0 112L12 102L32 60Z" fill="${shade(c, .2)}"/>
+     <path d="M-4 38L4 38L6 58L0 100L-6 58Z" fill="${o}"/>
+     <path d="M0 112V196" stroke="${shade(c, -.3)}" stroke-width="1" fill="none"/>
+     <circle cx="0" cy="130" r="2.2" fill="${shade(c, .3)}"/>`,
+  saree: (c, t, o, B) => B("M-26 36L26 36L64 262Q0 276 -64 262Z") +
+    [-4, -3, -2, -1, 0, 1, 2, 3, 4].map(k => `<path d="M${k * 5.5} 52L${k * 12.5} 266" stroke="${shade(c, -.28)}" stroke-width=".8" opacity=".5" fill="none"/>`).join("") +
+    `<path d="M-26 36L-8 36L66 262L40 268Z" fill="${t}" opacity=".95"/>
+     <path d="M-8 36L66 262" stroke="${shade(t, .35)}" stroke-width="1.6" fill="none"/>
+     <path d="M-64 262Q0 276 64 262" stroke="${t}" stroke-width="9" fill="none"/>`
+};
+
+function cart(items) {
+  const k = ++gk; let defs = "", g = "";
+  const xs = [122, 200, 278];
+  [0, 2, 1].filter(i => i < items.length).forEach(i => {
+    const [type, c, t, o] = items[i], id = `gf${k}_${i}`;
+    defs += `<linearGradient id="${id}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${shade(c, .16)}"/><stop offset=".55" stop-color="${c}"/><stop offset="1" stop-color="${shade(c, -.14)}"/></linearGradient>`;
+    const B = d => `<path d="${d}" fill="url(#${id})" stroke="${shade(c, -.35)}" stroke-width=".9" stroke-linejoin="round"/>`;
+    g += `<g transform="translate(${xs[i]} 152) scale(.86)"><g class="garm" style="--sd:${(-i * 1.4).toFixed(1)}s">
+      <path d="M0 20V5C0 -9 13 -9 13 -1" fill="none" stroke="#c7a15f" stroke-width="2.6" stroke-linecap="round"/>
+      <path d="M-42 38L0 19L42 38" fill="none" stroke="#b98d52" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/>
+      ${GARMENT[type](c, t, o || t, B)}</g></g>`;
+  });
+  let s = k * 9301 + 49297; const rnd = () => (s = (s * 9301 + 49297) % 233280) / 233280;
+  let dots = "";
+  for (let i = 0; i < 16; i++) dots += `<circle cx="${(rnd() * 390 + 5).toFixed(0)}" cy="${(rnd() * 470 + 15).toFixed(0)}" r="${(rnd() * 2.2 + .7).toFixed(1)}" fill="#d4a94a" opacity="${(rnd() * .45 + .25).toFixed(2)}"/>`;
+  const stack = items.slice(0, 3).map((it, j) => `<rect x="70" y="${414 - 10 * j}" width="${62 - j * 4}" height="10" rx="2.5" fill="${it[1]}" stroke="${shade(it[1], -.3)}" stroke-width=".7"/>`).join("");
+  return `<svg viewBox="0 0 400 530" aria-hidden="true"><defs>
+    <linearGradient id="au${k}" gradientUnits="userSpaceOnUse" x1="50" y1="0" x2="350" y2="0"><stop offset="0" stop-color="#9c6f1e"/><stop offset=".18" stop-color="#ebc96e"/><stop offset=".4" stop-color="#b98a2b"/><stop offset=".7" stop-color="#f3d98f"/><stop offset="1" stop-color="#8d6217"/></linearGradient>
+    <linearGradient id="as${k}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f3d98f"/><stop offset=".5" stop-color="#d9a940"/><stop offset="1" stop-color="#a97b22"/></linearGradient>
+    <radialGradient id="ab${k}" cx=".35" cy=".3" r=".8"><stop offset="0" stop-color="#fdeeb8"/><stop offset="1" stop-color="#b98a2b"/></radialGradient>${defs}</defs>
+    ${dots}
+    <ellipse cx="200" cy="514" rx="150" ry="9" fill="#6b5226" opacity=".14"/>
+    <circle cx="142" cy="490" r="17" fill="#34302b"/><circle cx="142" cy="490" r="6" fill="url(#ab${k})"/>
+    <circle cx="258" cy="490" r="17" fill="#34302b"/><circle cx="258" cy="490" r="6" fill="url(#ab${k})"/>
+    <path d="M62 424V212C62 118 130 84 200 84S338 118 338 212V424" fill="none" stroke="url(#au${k})" stroke-width="9" stroke-linecap="round"/>
+    <path d="M75 424V214C75 130 134 99 200 99S325 130 325 214V424" fill="none" stroke="url(#au${k})" stroke-width="2.5" opacity=".55"/>
+    <rect x="191" y="76" width="18" height="12" rx="3" fill="url(#as${k})"/><rect x="197" y="62" width="6" height="16" fill="url(#as${k})"/>
+    <circle cx="200" cy="54" r="13" fill="url(#ab${k})"/>
+    <path d="M70 152H330" stroke="url(#au${k})" stroke-width="6" stroke-linecap="round"/>
+    ${g}
+    ${stack}
+    <rect x="42" y="424" width="316" height="22" rx="7" fill="url(#as${k})"/>
+    <rect x="42" y="440" width="316" height="9" rx="4.5" fill="#8d6217" opacity=".85"/>
+    <rect x="90" y="448" width="14" height="22" fill="url(#as${k})"/><rect x="296" y="448" width="14" height="22" fill="url(#as${k})"/>
+    <circle cx="97" cy="482" r="27" fill="#2a2622"/><circle cx="97" cy="482" r="10" fill="url(#ab${k})"/>
+    <circle cx="303" cy="482" r="27" fill="#2a2622"/><circle cx="303" cy="482" r="10" fill="url(#ab${k})"/>
+  </svg>`;
+}
+
+$("wp").innerHTML = C.dress.map((e, i) => `
+  <article class="wr ${i % 2 ? "rt" : "lt"}">
+    <div class="art" role="img" aria-label="${e.name} outfit rack" tabindex="0">${cart(e.items)}</div>
+    <div class="info">
+      <small>${e.when}</small><h3>${e.name}</h3><b>${e.code}</b><span>${e.note}</span>
+      <div class="sw" aria-label="Suggested palette">${e.pal.map((c, k) => `<i style="background:${c};--k:${k}"></i>`).join("")}</div>
+    </div>
+  </article>`).join("");
+document.querySelectorAll(".art").forEach(a => {
+  const go = (x, y) => { a.classList.add("swing"); clearTimeout(a._t); a._t = setTimeout(() => a.classList.remove("swing"), 3200); burst(x, y); };
+  a.addEventListener("click", e => go(e.clientX, e.clientY));
+  a.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); const r = a.getBoundingClientRect(); go(r.left + r.width / 2, r.top + r.height / 2); } });
+});
+
+[["cd", C.date.day], ["cm", C.date.month], ["cy", C.date.year]].forEach(([id, v]) => $(id).textContent = v);
+
+/* ---------- reveal on scroll ---------- */
+const io = "IntersectionObserver" in window
+  ? new IntersectionObserver(es => es.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); }
+    }), { threshold: .18, rootMargin: "0px 0px -6% 0px" })
+  : { observe: el => el.classList.add("in"), unobserve() {} };
+document.querySelectorAll(".rv, .photo, .wr").forEach(el => io.observe(el));
+
+/* ---------- soft drifting clouds ---------- */
+function sky(el, n, color, opacity) {
+  const shape = `<svg viewBox="0 0 220 90" aria-hidden="true"><g fill="${color}"><ellipse cx="60" cy="58" rx="52" ry="22"/><ellipse cx="112" cy="42" rx="46" ry="32"/><ellipse cx="160" cy="58" rx="46" ry="22"/></g></svg>`;
+  for (let i = 0; i < n; i++) {
+    const w = 130 + Math.random() * 190, dur = 70 + Math.random() * 70;
+    const cw = document.createElement("div"); cw.className = "cw";
+    cw.style.top = (4 + i * (88 / n) + Math.random() * 8) + "%";
+    cw.dataset.s = (.04 + Math.random() * .1).toFixed(3);   // parallax speed
+    cw.innerHTML = `<span class="cloud" style="width:${w}px;opacity:${opacity * (.6 + Math.random() * .4)};animation-duration:${dur}s;animation-delay:-${Math.random() * dur}s">${shape}</span>`;
+    el.appendChild(cw);
+  }
+}
+sky($("sky1"), 6, "#ffffff", .85);
+sky($("sky2"), 4, "#cfe2f0", .55);
+const clouds = [...document.querySelectorAll(".cw")];
+
+/* ---------- date countdown ---------- */
+const target = new Date(`${C.date.month} ${C.date.day}, ${C.date.year} ${C.time || "00:00:00"}`);
+function tick() {
+  const ms = target - Date.now();
+  if (isNaN(ms)) { $("count").hidden = true; return; }
+  if (ms <= 0) { $("count").innerHTML = `<div style="min-width:0"><b>Today's the day ♡</b></div>`; return; }
+  const s = Math.floor(ms / 1000);
+  const parts = [["Days", Math.floor(s / 86400)], ["Hours", Math.floor(s % 86400 / 3600)],
+                 ["Mins", Math.floor(s % 3600 / 60)], ["Secs", s % 60]];
+  $("count").innerHTML = parts.map(([l, v]) => `<div><b>${String(v).padStart(2, "0")}</b><small>${l}</small></div>`).join("");
+}
+tick(); setInterval(tick, 1000);
+
+/* ---------- hearts burst ---------- */
+function burst(x, y) {
+  if (still) return;
+  for (let i = 0; i < 16; i++) {
+    const s = document.createElement("span"), a = Math.PI * 2 * i / 16 + Math.random() * .4, d = 50 + Math.random() * 70;
+    s.textContent = "♥";
+    s.style.cssText = `position:fixed;left:${x}px;top:${y}px;color:var(--heart);font-size:${12 + Math.random() * 14}px;pointer-events:none;z-index:30`;
+    document.body.appendChild(s);
+    s.animate([
+      { transform: "translate(-50%,-50%) scale(.3)", opacity: 1 },
+      { transform: `translate(calc(-50% + ${Math.cos(a) * d}px),calc(-50% + ${Math.sin(a) * d - 30}px)) scale(1)`, opacity: 0 }
+    ], { duration: 900 + Math.random() * 600, easing: "cubic-bezier(.2,.8,.2,1)" }).onfinish = () => s.remove();
+  }
+}
+$("hearts").addEventListener("click", e => { const r = e.currentTarget.getBoundingClientRect(); burst(r.left + r.width / 2, r.top + r.height / 2); });
+
+/* ---------- scroll-driven bits ---------- */
+const env = document.querySelector(".env"), letter = document.querySelector(".letter"), tl = $("tl"), bar = $("bar");
+function frame() {
+  ticking = false;
+  const y = scrollY, H = innerHeight;
+
+  // progress bar
+  bar.style.transform = `scaleX(${clamp01(y / (document.documentElement.scrollHeight - H))})`;
+
+  // letter slides up out of the envelope, far enough that its full-width text clears the pocket
+  const r = env.getBoundingClientRect(), h = letter.offsetHeight, eh = env.clientHeight;
+  const p2 = letter.querySelector("#lt p:nth-child(2)") || letter.querySelector("#lt p");
+  const textBottom = eh - (letter.offsetTop + p2.offsetTop + p2.offsetHeight);   // distance from envelope bottom
+  const lift = Math.max(0, eh * .6 - textBottom) + 14;
+  env.style.marginTop = Math.max(0, h + lift - r.height * .78 + 24) + "px";
+  const p = still ? 1 : clamp01((H * .7 - r.top) / (r.height * 1.1 + lift));
+  const e = p * p * (3 - 2 * p);
+  letter.style.transform = `translateY(${(1 - e) * (h - r.height * .08) - e * lift}px)`;
+
+  // timeline line draws itself
+  const t = tl.getBoundingClientRect();
+  tl.style.setProperty("--p", still ? 1 : clamp01((H * .75 - t.top) / t.height));
+
+  // cloud parallax
+  if (!still) clouds.forEach(c => {
+    const host = c.parentElement.getBoundingClientRect();
+    c.style.transform = `translateY(${(host.top + host.height / 2 - H / 2) * -c.dataset.s}px)`;
+  });
+}
+let ticking = false;
+const queue = () => { if (!ticking) { ticking = true; requestAnimationFrame(frame); } };
+addEventListener("scroll", queue, { passive: true });
+addEventListener("resize", queue); addEventListener("load", queue); frame();
+
+/* ---------- music ---------- */
+const au = $("music"), play = $("play");
+const ICON_PLAY = '<path d="M7 4l13 8-13 8z"/>', ICON_PAUSE = '<path d="M6 4h4v16H6zM14 4h4v16h-4z"/>';
+if (C.music) au.src = C.music; else play.hidden = true;
+play.onclick = () => {
+  au.paused ? au.play() : au.pause();
+  play.querySelector("svg").innerHTML = au.paused ? ICON_PLAY : ICON_PAUSE;
+  play.setAttribute("aria-label", au.paused ? "Play music" : "Pause music");
+  const r = play.getBoundingClientRect(); burst(r.left + r.width / 2, r.top + r.height / 2);
+};
+</script>
+</body>
+</html>
