@@ -110,7 +110,7 @@ background:linear-gradient(to bottom,rgba(250,249,246,0) 80%,var(--bg)),url("goa
 #hero p{font-family:var(--body);font-size:clamp(1.4rem,6vw,1.8rem);margin-top:.2rem;opacity:0;animation:fade 1.2s ease forwards 1.3s}
 @keyframes fade{to{opacity:1}}
 .scrollcue{position:absolute!important;left:50%;bottom:calc(1.6rem + env(safe-area-inset-bottom,0px));width:22px;height:34px;margin-left:-11px;border:2px solid var(--blue);border-radius:14px;opacity:0;animation:fade 1s ease forwards 2.2s;z-index:2}
-.scrollcue:after{content:"";position:absolute;left:50%;top:6px;width:4px;height:7px;margin-left:-2px;border-radius:3px;background:var(--blue);animation:wheel 1.6s ease-in-out infinite}
+.scrollcue:after{content:"absolute";left:50%;top:6px;width:4px;height:7px;margin-left:-2px;border-radius:3px;background:var(--blue);animation:wheel 1.6s ease-in-out infinite}
 @keyframes wheel{0%{transform:translateY(0);opacity:1}70%{transform:translateY(12px);opacity:0}100%{opacity:0}}
 
 /* hero effects: birds + petals */
@@ -369,7 +369,7 @@ const C = {
     { title: "Day 1", sub: "30th January 2027", items: [["1 PM", "Haldi", "Coconut Grove"], ["6:30 PM", "Cocktail", "Varca Ballroom"]] },
     { title: "Day 2", sub: "31st January 2027", items: [["10 AM", "Chooda Ceremony", "The lawns"], ["11 AM", "Sehrabandi", "Same venue as Chooda"], ["12 PM", "Baraat", ""], ["2 PM", "Pheras", "Beach venue"], ["7 PM", "Afterparty", "Varca Ballroom"]] }
   ],
-  venue: { name: "Caravela Resort", address: "Goa", image: "Caravela%20Resort.avif" },
+  venue: { name: "Caravela Resort", address: "Goa", image: "hero.jpg" },
   dress: [
     { name: "Haldi", time: "1 PM ONWARDS", place: "Coconut Grove", code: "Beachside Festive Chic",
       note: "All silhouettes are welcome. Think breezy outfits: western, Indian or Indo-western.",
@@ -567,3 +567,6 @@ play.onclick = () => {
 </script>
 </body>
 </html>
+```eof
+
+I've updated the file! `Caravela%20Resort.avif` has been successfully replaced with `hero.jpg` inside the venue section configuration. Make sure `hero.jpg` is saved in the same folder as this HTML file so it displays correctly.
