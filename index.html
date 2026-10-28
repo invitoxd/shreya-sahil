@@ -6,16 +6,27 @@
 <title>We're getting married</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500&family=Gilda+Display&family=Pinyon+Script&family=Playfair+Display:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;1,6..96,400&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Pinyon+Script&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#fffdfb;--card:#fff;--text:#3a3a3a;--blue:#64a0bd;--blue-line:#92bbd0;--blue-soft:#7a9aaa;--heart:#79b3d3;
---script:"Pinyon Script",cursive;--hand:"Dancing Script",cursive;--serif:"Gilda Display",Georgia,serif;--num:"Playfair Display",Georgia,serif;--ease:cubic-bezier(.2,.8,.2,1)}
+:root{
+  --bg: #faf9f6; /* Ivory */
+  --card: #ffffff;
+  --text: #333333; /* Charcoal-grey */
+  --blue: #8ba9c1; /* Powder-blue */
+  --blue-line: #b3cddf;
+  --blue-soft: #a1b8c7;
+  --heart: #8ba9c1;
+  --script: "Pinyon Script", cursive;
+  --body: "Cormorant Garamond", serif;
+  --head: "Bodoni Moda", serif;
+  --ease: cubic-bezier(.2,.8,.2,1);
+}
 *{box-sizing:border-box;margin:0;-webkit-tap-highlight-color:transparent}
 html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
-body{background:var(--bg);color:var(--text);font-family:var(--serif);text-align:center;overflow-x:hidden;
+body{background:var(--bg);color:var(--text);font-family:var(--body);text-align:center;overflow-x:hidden;
 padding-left:env(safe-area-inset-left,0);padding-right:env(safe-area-inset-right,0)}
 h2{font-family:var(--script);font-weight:400;font-size:clamp(2.6rem,12vw,4rem);line-height:1.1}
-section{padding:5rem 1.1rem;position:relative}
+section{padding:4rem 1.1rem;position:relative}
 :focus-visible{outline:2px solid var(--blue);outline-offset:3px}
 
 /* scroll progress bar */
@@ -36,12 +47,13 @@ section{padding:5rem 1.1rem;position:relative}
 
 /* hero */
 #hero{min-height:100vh;min-height:100svh;display:grid;align-content:center;padding:0 1rem;overflow:hidden;position:relative;
-background:linear-gradient(to bottom,rgba(255,253,251,0) 82%,var(--bg)),url("images/hero.jpg") center/cover no-repeat,linear-gradient(#f9e3cf,#f7efe4)}
-#hero h1{font-family:var(--script);font-weight:400;font-size:clamp(3.2rem,15vw,6rem);line-height:1.1}
-#hero h1,#hero p{position:relative;z-index:2;text-shadow:0 1px 16px rgba(255,255,255,.75)}
+/* Cooler lake water, pale sky, and sage greenery fallbacks */
+background:linear-gradient(to bottom,rgba(250,249,246,0) 80%,var(--bg)),url("images/hero.jpg") center/cover no-repeat,linear-gradient(#d1e2eb,#e8eceb)}
+#hero h1{font-family:var(--script);font-weight:400;font-size:clamp(2.8rem,11vw,4.2rem);line-height:1.1;margin:0 auto;max-width:95vw;}
+#hero h1,#hero p{position:relative;z-index:2;text-shadow:0 1px 16px rgba(255,255,255,.85)}
 .w{display:inline-block;opacity:0;transform:translateY(22px);filter:blur(8px);animation:wi 1.2s var(--ease) forwards;animation-delay:calc(var(--i)*.28s + .2s)}
 @keyframes wi{to{opacity:1;transform:none;filter:none}}
-#hero p{font-size:clamp(1.7rem,8vw,2.6rem);margin-top:.2rem;opacity:0;animation:fade 1.2s ease forwards 1.3s}
+#hero p{font-family:var(--body);font-size:clamp(1.4rem,6vw,1.8rem);margin-top:.2rem;opacity:0;animation:fade 1.2s ease forwards 1.3s}
 @keyframes fade{to{opacity:1}}
 .scrollcue{position:absolute!important;left:50%;bottom:calc(1.6rem + env(safe-area-inset-bottom,0px));width:22px;height:34px;margin-left:-11px;border:2px solid var(--blue);border-radius:14px;opacity:0;animation:fade 1s ease forwards 2.2s;z-index:2}
 .scrollcue:after{content:"";position:absolute;left:50%;top:6px;width:4px;height:7px;margin-left:-2px;border-radius:3px;background:var(--blue);animation:wheel 1.6s ease-in-out infinite}
@@ -57,48 +69,53 @@ background:linear-gradient(to bottom,rgba(255,253,251,0) 82%,var(--bg)),url("ima
 .petal{position:absolute;top:0;width:var(--w,12px);height:calc(var(--w,12px)*1.3);border-radius:80% 0 80% 0;opacity:0;box-shadow:inset -2px -2px 4px rgba(190,110,90,.25);animation:fall var(--t,12s) linear infinite;animation-delay:var(--dl,0s);will-change:transform}
 @keyframes fall{0%{transform:translate3d(0,-8vh,0) rotate(0);opacity:0}8%{opacity:.9}30%{transform:translate3d(var(--x1),30vh,0) rotate(140deg)}60%{transform:translate3d(var(--x2),65vh,0) rotate(330deg)}92%{opacity:.85}100%{transform:translate3d(var(--x3),108vh,0) rotate(560deg);opacity:0}}
 
-/* the date */
-#date .hint{color:var(--blue-soft);font-size:clamp(1.3rem,6vw,2rem);margin:1.2rem 0 1.8rem}
-.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:.7rem;max-width:560px;margin:auto;perspective:900px}
-.cell span{display:block;font-size:.72rem;letter-spacing:.3em;color:var(--blue-soft);margin-top:.9rem;padding-left:.3em}
-.card{position:relative;aspect-ratio:7/8;background:var(--card);border-radius:22px;box-shadow:0 8px 28px rgba(150,120,100,.12);display:grid;place-items:center;
-font-family:var(--num);font-size:clamp(1.05rem,5.4vw,2rem);overflow:hidden;transform:rotateX(-85deg);transform-origin:top;transition:transform 1.1s var(--ease) calc(var(--d,0s) + .1s)}
+/* the date & countdown */
+#date .hint{color:var(--blue-soft);font-size:clamp(1.3rem,6vw,2rem);margin:1.2rem 0 1.5rem;font-family:var(--body);font-style:italic}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:.7rem;max-width:500px;margin:auto;perspective:900px}
+.cell span{display:block;font-size:.72rem;letter-spacing:.3em;color:var(--blue-soft);margin-top:.9rem;padding-left:.3em;font-family:var(--body);}
+.card{position:relative;aspect-ratio:7/8;background:var(--card);border-radius:22px;box-shadow:0 8px 28px rgba(150,120,100,.08);display:grid;place-items:center;
+font-family:var(--body);font-size:clamp(1.2rem,6vw,2.2rem);overflow:hidden;transform:rotateX(-85deg);transform-origin:top;transition:transform 1.1s var(--ease) calc(var(--d,0s) + .1s)}
 .cell.in .card{transform:none}
-#invited{font-family:var(--hand);font-size:clamp(2.4rem,11vw,3.6rem);margin:3rem 0 2.4rem}
+.count{display:flex;justify-content:center;gap:clamp(.8rem,4vw,1.6rem);margin-top:1.8rem;font-family:var(--body);}
+.count div{min-width:58px}
+.count b{display:block;font-weight:600;font-size:clamp(1.6rem,7vw,2.3rem);color:var(--blue)}
+.count small{font-size:.7rem;letter-spacing:.25em;color:var(--blue-soft);text-transform:uppercase;padding-left:.25em}
+#invited{font-family:var(--script);font-size:clamp(2.4rem,11vw,3.6rem);margin:2.5rem 0 2rem}
 
 /* envelope letter */
 .env{position:relative;max-width:540px;aspect-ratio:1060/1275;margin:0 auto;clip-path:inset(-300% -5% 0 -5%)}
 .env svg.back,.env svg.front{position:absolute;left:0;width:100%;display:block}
-.env svg.back{top:0;height:100%;z-index:0;filter:drop-shadow(0 10px 18px rgba(80,120,150,.22))}
-.env svg.front{bottom:-1px;height:calc(58.8% + 1px);z-index:2;filter:drop-shadow(0 -3px 6px rgba(80,120,150,.16))}
+.env svg.back{top:0;height:100%;z-index:0;filter:drop-shadow(0 10px 18px rgba(80,120,150,.18))}
+.env svg.front{bottom:-1px;height:calc(58.8% + 1px);z-index:2;filter:drop-shadow(0 -3px 6px rgba(80,120,150,.12))}
 .seal{transform-box:fill-box;transform-origin:center;animation:pulse 3s ease-in-out infinite}
 @keyframes pulse{50%{transform:scale(1.07)}}
-.letter{position:absolute;z-index:1;left:7%;right:7%;bottom:22%;will-change:transform;background:#fff;padding:1.6rem 1rem 3.6rem;box-shadow:0 6px 24px rgba(80,120,150,.14)}
-.letter h3{font-family:var(--script);font-weight:400;font-size:clamp(1.5rem,6.5vw,2.2rem);line-height:1.15;margin-bottom:.9rem}
-.letter p{font-size:clamp(.8rem,3.5vw,1.08rem);line-height:1.5;margin-bottom:.9rem}
+.letter{position:absolute;z-index:1;left:7%;right:7%;bottom:22%;will-change:transform;background:#fff;padding:1.6rem 1rem 3.6rem;box-shadow:0 6px 24px rgba(80,120,150,.10)}
+.letter h3{font-family:var(--script);font-weight:400;font-size:clamp(1.6rem,6.5vw,2.3rem);line-height:1.15;margin-bottom:.9rem;color:var(--text)}
+.letter p{font-size:clamp(.85rem,3.5vw,1.1rem);line-height:1.5;margin-bottom:.9rem;font-family:var(--body)}
 .letter .sign{margin-bottom:.2rem}.letter .sign+.sign{font-family:var(--script);font-size:clamp(1.6rem,7vw,2.2rem)}
-.hearts{display:block;margin:0 auto 2.4rem;width:90px;padding:8px;cursor:pointer;animation:bob 3.2s ease-in-out infinite}
+.hearts{display:block;margin:0 auto 1.5rem;width:80px;padding:8px;cursor:pointer;animation:bob 3.2s ease-in-out infinite}
 @keyframes bob{50%{transform:translateY(-8px) rotate(-3deg)}}
 
 /* schedule timeline: centred line, events alternate left / right */
-#schedule{overflow:hidden}#schedule h2{margin-bottom:2.6rem}
+#schedule{overflow:hidden}
+#schedule h2{margin-bottom:2.6rem}
 .tl{position:relative;max-width:520px;margin:auto;--p:0}
 .tl:before{content:"";position:absolute;left:50%;top:10px;bottom:10px;width:3px;background:var(--blue-line);transform:translateX(-50%) scaleY(var(--p));transform-origin:top}
 .ev{position:relative;width:50%;padding:0 1.2rem;margin-bottom:2.2rem;min-height:5.5rem}
 .ev:after{content:"";position:absolute;top:12px;width:16px;height:16px;background:var(--blue);transform:translateX(-50%) rotate(45deg) scale(0);transition:transform .7s var(--ease) .25s}
 .ev.in:after{transform:translateX(-50%) rotate(45deg) scale(1)}
-.ev b{display:block;font-weight:400;font-size:clamp(2rem,9vw,3.2rem);line-height:1}
-.ev em{display:block;font-style:normal;color:var(--blue-soft);font-size:1rem;margin-top:.3rem}
+.ev b{display:block;font-weight:500;font-size:clamp(1.8rem,8vw,2.8rem);line-height:1;font-family:var(--body)}
+.ev em{display:block;font-style:normal;color:var(--blue-soft);font-size:1rem;margin-top:.3rem;font-family:var(--body)}
 .dayh{position:relative;z-index:1;background:var(--bg);padding:1rem 0;margin:0 0 1.4rem}
 .dayh h3{font-family:var(--script);font-weight:400;font-size:clamp(2.4rem,10vw,3.2rem)}
-.dayh small{color:var(--blue-soft);font-size:1.1rem}
-.ev span{display:block;font-size:clamp(1.15rem,5vw,1.6rem);line-height:1.25;margin-top:.5rem}
+.dayh small{color:var(--blue-soft);font-size:1.1rem;font-family:var(--body)}
+.ev span{display:block;font-size:clamp(1.15rem,5vw,1.6rem);line-height:1.25;margin-top:.5rem;font-family:var(--body)}
 .ev.r{margin-left:50%}.ev.r:after{left:0}
 .ev.l{margin-right:50%}.ev.l:after{right:0;left:auto;transform:translateX(50%) rotate(45deg) scale(0)}
 .ev.l.in:after{transform:translateX(50%) rotate(45deg) scale(1)}
 @media(max-width:560px){
  .ev{padding:0 .8rem;margin-bottom:2rem}
- .ev b{font-size:clamp(1.7rem,8vw,2.4rem)}
+ .ev b{font-size:clamp(1.6rem,8vw,2.2rem)}
  .ev span{font-size:1.1rem}
  .ev em{font-size:.88rem;line-height:1.3}
 }
@@ -106,17 +123,17 @@ font-family:var(--num);font-size:clamp(1.05rem,5.4vw,2rem);overflow:hidden;trans
 /* venue */
 .venue{display:flex;gap:1rem;align-items:center;text-align:left;max-width:560px;margin:2.2rem auto 1.8rem}
 .venue svg{flex:none;width:46px;animation:bob 3s ease-in-out infinite}
-.venue b{display:block;font-weight:400;font-size:clamp(1.6rem,7vw,2.3rem)}
-.venue span{font-size:clamp(1.1rem,5vw,1.6rem)}
+.venue b{display:block;font-weight:500;font-size:clamp(1.6rem,7vw,2.3rem);font-family:var(--body)}
+.venue span{font-size:clamp(1.1rem,5vw,1.6rem);font-family:var(--body)}
 .photo{width:100%;max-width:640px;aspect-ratio:4/3;object-fit:cover;border-radius:0 0 40px 0;background:linear-gradient(#cfe0ea,#e8efe4);clip-path:inset(0 0 100% 0);transform:scale(1.08);transition:clip-path 1.4s var(--ease),transform 1.8s var(--ease)}
 .photo.in{clip-path:inset(0);transform:none}
 
 /* wardrobe planner */
 #dress{overflow:hidden}
-#dress .sub{font-size:.8rem;letter-spacing:.32em;color:var(--blue-soft);margin-top:.9rem;padding-left:.32em}
-#dress .date{font-size:.72rem;letter-spacing:.22em;color:var(--blue-soft);margin-top:.5rem;display:flex;align-items:center;justify-content:center;gap:.8rem}
+#dress .sub{font-size:.8rem;letter-spacing:.32em;color:var(--blue-soft);margin-top:.9rem;padding-left:.32em;font-family:var(--body)}
+#dress .date{font-size:.72rem;letter-spacing:.22em;color:var(--blue-soft);margin-top:.5rem;display:flex;align-items:center;justify-content:center;gap:.8rem;font-family:var(--body)}
 #dress .date:before,#dress .date:after{content:"";width:clamp(24px,10vw,70px);height:1px;background:var(--blue-line)}
-#dress .hint{color:var(--blue-soft);font-size:1.05rem;margin:1.4rem 0 2.6rem}
+#dress .hint{color:var(--blue-soft);font-size:1.05rem;margin:1.4rem 0 2.6rem;font-family:var(--body);font-style:italic}
 #wp{max-width:760px;margin:0 auto}
 .wr{display:grid;gap:.2rem;justify-items:center;margin-bottom:2.6rem}
 .wr:not(:last-child):after{content:"";width:9px;height:9px;background:var(--blue);transform:rotate(45deg);margin:1.2rem 0 0}
@@ -136,22 +153,35 @@ transform-origin:50% 0;animation:sway 5.5s ease-in-out infinite}
 .wr.in .info>:nth-child(1){transition-delay:.4s}.wr.in .info>:nth-child(2){transition-delay:.55s}.wr.in .info>:nth-child(3){transition-delay:.7s}.wr.in .info>:nth-child(4){transition-delay:.85s}.wr.in .info>:nth-child(5){transition-delay:1s}.wr.in .info>:nth-child(6){transition-delay:1.1s}
 .wr.in .sw i{animation:pop .6s var(--ease) backwards;animation-delay:calc(1.2s + var(--k)*.1s)}
 @keyframes pop{from{transform:scale(0)}}
-.info h3{font-family:var(--script);font-weight:400;font-size:clamp(2.5rem,11vw,3.4rem);line-height:1.1;margin-bottom:.7rem}
+.info h3{font-family:var(--script);font-weight:400;font-size:clamp(2.5rem,11vw,3.4rem);line-height:1.1;margin-bottom:.7rem;color:var(--text)}
 .ln{display:flex;gap:.8rem;align-items:flex-start;font-size:1.02rem;line-height:1.35;margin-top:.55rem}
 .ln svg{flex:none;width:20px;height:20px;margin-top:1px;fill:none;stroke:var(--blue);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
-.ln small{display:block;font-size:.72rem;letter-spacing:.24em;color:var(--blue-soft)}
-.info .code{font-family:var(--hand);color:var(--blue);font-size:1.3rem;line-height:1.2}
-.info .note{font-size:.95rem;line-height:1.5;color:#5a5a5a;margin-top:.9rem;padding-top:.8rem;border-top:1px solid rgba(146,187,208,.45)}
+.ln small{display:block;font-size:.72rem;letter-spacing:.24em;color:var(--blue-soft);font-family:var(--body)}
+.info .code{font-family:var(--body);color:var(--blue);font-size:1.3rem;line-height:1.2;font-weight:600}
+.info .note{font-size:.95rem;line-height:1.5;color:var(--text);margin-top:.9rem;padding-top:.8rem;border-top:1px solid rgba(146,187,208,.45);font-family:var(--body)}
 .sw{display:flex;gap:.55rem;margin-top:1rem}
-.sw i{width:28px;height:28px;border-radius:50%;border:2px solid #fff;box-shadow:0 2px 9px rgba(90,70,40,.22)}
+.sw i{width:28px;height:28px;border-radius:50%;border:2px solid #fff;box-shadow:0 2px 9px rgba(90,70,40,.12)}
 @media(min-width:760px){
  .wr{grid-template-columns:1fr 1fr;gap:2rem;align-items:center;justify-items:center}
  .wr:after{grid-column:1/-1}
  .wr.rt .art{order:2}.art{width:100%}
 }
 
-/* music button (stays hidden until you add a song) */
-#play{position:fixed;right:calc(1rem + env(safe-area-inset-right,0px));bottom:calc(1rem + env(safe-area-inset-bottom,0px));width:56px;height:56px;border-radius:50%;border:0;background:var(--blue);display:grid;place-items:center;box-shadow:0 6px 18px rgba(0,0,0,.25);cursor:pointer;z-index:10}
+/* RSVP Section */
+#rsvp { padding-bottom: 2rem; }
+#rsvp h2 { margin-bottom: 1rem; }
+.rv-text { font-family: var(--body); font-size: 1.2rem; margin-bottom: 2rem; color: var(--text); }
+.btn-rsvp { display: inline-block; background: var(--blue); color: #fff; text-decoration: none; padding: 12px 36px; border-radius: 30px; font-family: var(--body); font-size: 1.3rem; letter-spacing: .05em; transition: transform 0.3s var(--ease), background 0.3s; margin-top: 0.5rem; box-shadow:0 4px 14px rgba(139, 169, 193, 0.4)}
+.btn-rsvp:hover { transform: scale(1.04); background: var(--blue-soft); }
+
+/* Closing Section */
+#closing { padding: 3rem 1.1rem 6rem; }
+#closing h2 { margin-bottom: 0.8rem; }
+.closing-names { font-family: var(--body); font-size: 1.7rem; margin-bottom: 0.8rem; color: var(--text); }
+.closing-heart { font-size: 1.4rem; color: var(--heart); }
+
+/* music button */
+#play{position:fixed;right:calc(1rem + env(safe-area-inset-right,0px));bottom:calc(1rem + env(safe-area-inset-bottom,0px));width:56px;height:56px;border-radius:50%;border:0;background:var(--blue);display:grid;place-items:center;box-shadow:0 6px 18px rgba(0,0,0,.15);cursor:pointer;z-index:10}
 #play[hidden]{display:none}
 #play:before{content:"";position:absolute;inset:0;border-radius:50%;border:2px solid var(--blue);animation:ring 2.4s ease-out infinite}
 @keyframes ring{from{transform:scale(1);opacity:.8}to{transform:scale(1.6);opacity:0}}
@@ -184,8 +214,9 @@ transform-origin:50% 0;animation:sway 5.5s ease-in-out infinite}
     <div class="cell rv" style="--d:.2s"><div class="card" id="cm"></div><span>MONTH</span></div>
     <div class="cell rv" style="--d:.4s"><div class="card" id="cy"></div><span>YEAR</span></div>
   </div>
+  <div class="count rv" id="count" aria-live="off"></div>
   <p id="invited" class="rv">You’re invited!</p>
-  <svg class="hearts" id="hearts" viewBox="0 0 90 80" fill="none" stroke="#79b3d3" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="Tap for hearts">
+  <svg class="hearts" id="hearts" viewBox="0 0 90 80" fill="none" stroke="var(--heart)" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="Tap for hearts">
     <path d="M30 62C10 46 6 28 18 18c7-5 13-1 14 6 2-9 11-14 17-7 8 10-3 28-19 45z"/>
     <path d="M64 70C54 62 52 54 58 50c4-2 6 0 7 3 1-4 6-6 9-2 4 5-1 13-10 19z"/>
   </svg>
@@ -210,7 +241,7 @@ transform-origin:50% 0;animation:sway 5.5s ease-in-out infinite}
       <defs><linearGradient id="pg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#cfe5f0"/><stop offset=".5" stop-color="#bad9e8"/><stop offset="1" stop-color="#a9cade"/></linearGradient></defs>
       <path d="M-1 0L372 322Q530 306 688 322L1061 0V729Q1061 751 1039 751H21Q-1 751-1 729Z" fill="url(#pg)"/>
       <path d="M0 0L372 322Q530 306 688 322L1060 0" fill="none" stroke="rgba(255,255,255,.85)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
-      <g class="seal"><circle cx="530" cy="318" r="40" fill="#64a0bd"/><circle cx="530" cy="318" r="33" fill="none" stroke="rgba(255,255,255,.45)" stroke-width="2"/>
+      <g class="seal"><circle cx="530" cy="318" r="40" fill="var(--blue)"/><circle cx="530" cy="318" r="33" fill="none" stroke="rgba(255,255,255,.45)" stroke-width="2"/>
       <path d="M530 336C514 325 509 315 515 309c4-4 11-2 15 4 4-6 11-8 15-4 6 6 1 16-15 27z" fill="#fff"/></g>
     </svg>
   </div>
@@ -225,7 +256,7 @@ transform-origin:50% 0;animation:sway 5.5s ease-in-out infinite}
 <section id="venue">
   <h2 class="rv">Wedding Venue</h2>
   <div class="venue rv">
-    <svg viewBox="0 0 52 70" aria-hidden="true"><path d="M26 0C12 0 0 11 0 25c0 18 26 45 26 45s26-27 26-45C52 11 40 0 26 0z" fill="#64a0bd"/><path d="M26 36C16 29 14 22 19 19c3-2 6 0 7 2 1-2 4-4 7-2 5 3 3 10-7 17z" fill="#fff"/></svg>
+    <svg viewBox="0 0 52 70" aria-hidden="true"><path d="M26 0C12 0 0 11 0 25c0 18 26 45 26 45s26-27 26-45C52 11 40 0 26 0z" fill="var(--blue)"/><path d="M26 36C16 29 14 22 19 19c3-2 6 0 7 2 1-2 4-4 7-2 5 3 3 10-7 17z" fill="#fff"/></svg>
     <div><b id="vname"></b><span id="vaddr"></span></div>
   </div>
   <img class="photo" id="vimg" alt="The wedding venue">
@@ -239,6 +270,18 @@ transform-origin:50% 0;animation:sway 5.5s ease-in-out infinite}
   <div id="wp"></div>
 </section>
 
+<section id="rsvp" class="rv">
+  <h2>Confirm Your Attendance</h2>
+  <p class="rv-text">To help us prepare for a joyful celebration, kindly confirm your attendance.</p>
+  <a href="https://wa.me/919220398943?text=Hello%2C%20I%20would%20like%20to%20confirm%20my%20attendance%20for%20Shreya%20%26%20Sahil%E2%80%99s%20wedding.%20Please%20share%20the%20RSVP%20details." class="btn-rsvp rv" target="_blank" rel="noopener">RSVP</a>
+</section>
+
+<section id="closing" class="rv">
+  <h2>Hope to see you there!</h2>
+  <p class="closing-names">Shreya & Sahil</p>
+  <span class="closing-heart">♡</span>
+</section>
+
 <button id="play" aria-label="Play music" hidden><svg viewBox="0 0 24 24"><path d="M7 4l13 8-13 8z"/></svg></button>
 <audio id="music" loop></audio>
 
@@ -248,6 +291,7 @@ const C = {
   names: "Shreya & Sahil",
   full: "Shreya Maini & Sahil Suneja",
   date: { day: "30", month: "January", year: "2027" },
+  time: "13:00:00",
   letter: [
     "As Shreya and Sahil begin this beautiful new chapter, we can’t imagine celebrating it without the people who mean so much to us.",
     "Your love has been a part of our journey, and having you by our side as we begin our forever would make this moment even more special.",
@@ -296,6 +340,19 @@ $("tl").innerHTML = C.days.map(d =>
   `<div class="dayh rv"><h3>${d.title}</h3><small>${d.sub}</small></div>` +
   d.items.map(([t, n, p], i) => `<div class="ev rv ${i % 2 ? "l" : "r"}"><b>${t}</b><span>${n}</span>${p ? `<em>${p}</em>` : ""}</div>`).join("")
 ).join("");
+
+/* ---------- countdown timer restored ---------- */
+const target = new Date(`${C.date.month} ${C.date.day}, ${C.date.year} ${C.time || "00:00:00"}`);
+function tick() {
+  const ms = target - Date.now();
+  if (isNaN(ms)) { $("count").hidden = true; return; }
+  if (ms <= 0) { $("count").innerHTML = `<div style="min-width:0"><b>Today's the day ♡</b></div>`; return; }
+  const s = Math.floor(ms / 1000);
+  const parts = [["Days", Math.floor(s / 86400)], ["Hours", Math.floor(s % 86400 / 3600)],
+                 ["Mins", Math.floor(s % 3600 / 60)], ["Secs", s % 60]];
+  $("count").innerHTML = parts.map(([l, v]) => `<div><b>${String(v).padStart(2, "0")}</b><small>${l}</small></div>`).join("");
+}
+tick(); setInterval(tick, 1000);
 
 /* ---------- wardrobe planner ---------- */
 const IC = {
