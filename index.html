@@ -1,163 +1,280 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shreya & Sahil - Wedding Invitation</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="style.css">
-    <!-- Lucide Icons -->
-    <script src="https://unpkg.com/lucide@latest"></script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>We're getting married</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500&family=Gilda+Display&family=Pinyon+Script&family=Playfair+Display:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#fffdfb; --card:#ffffff; --text:#3a3a3a;
+  --blue:#64a0bd; --blue-line:#92bbd0; --blue-soft:#7a9aaa;
+  --env:#bad9e8; --heart:#79b3d3;
+  --script:"Pinyon Script",cursive; --hand:"Dancing Script",cursive;
+  --serif:"Gilda Display",Georgia,serif; --num:"Playfair Display",Georgia,serif;
+}
+*{box-sizing:border-box;margin:0}
+body{background:var(--bg);color:var(--text);font-family:var(--serif);text-align:center;overflow-x:hidden}
+h2{font-family:var(--script);font-weight:400;font-size:clamp(2.6rem,12vw,4rem);line-height:1.1}
+section{padding:4.5rem 1.2rem}
+:focus-visible{outline:2px solid var(--blue);outline-offset:3px}
+
+/* hero: replace images/hero.jpg with your own artwork */
+#hero{min-height:100svh;display:grid;align-content:center;padding:0 1rem;
+  background:linear-gradient(to bottom,rgba(255,253,251,0) 70%,var(--bg)),
+  url("images/hero.jpg") center/cover,linear-gradient(#dfe9f0,#f7efe4)}
+#hero h1{font-family:var(--script);font-weight:400;font-size:clamp(3.4rem,15vw,6rem);line-height:1.1}
+#hero p{font-size:clamp(1.8rem,8vw,2.6rem);margin-top:.2rem}
+
+/* date */
+#date .hint{color:var(--blue-soft);font-size:clamp(1.4rem,6vw,2rem);margin:1.4rem 0 2rem}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:.9rem;max-width:560px;margin:auto}
+.cell span{display:block;font-size:.8rem;letter-spacing:.35em;color:var(--blue-soft);margin-top:1rem;padding-left:.35em}
+.card{position:relative;aspect-ratio:7/8;background:var(--card);border-radius:26px;box-shadow:0 8px 28px rgba(150,120,100,.12);
+  display:grid;place-items:center;font-family:var(--num);font-size:clamp(1.3rem,6vw,2rem);overflow:hidden}
+#invited{font-family:var(--hand);font-size:clamp(2.6rem,11vw,3.6rem);margin:3.5rem 0 5rem}
+
+/* envelope letter */
+.env{position:relative;max-width:540px;aspect-ratio:1060/1275;margin:0 auto;clip-path:inset(-300% -5% 0 -5%)}
+.env svg.back,.env svg.front{position:absolute;left:0;width:100%;display:block}
+.env svg.back{top:0;height:100%;z-index:0;filter:drop-shadow(0 10px 18px rgba(80,120,150,.22))}
+.env svg.front{bottom:0;height:58.8%;z-index:2}
+.letter{position:absolute;z-index:1;left:13.5%;right:13.5%;bottom:22%;will-change:transform;background:#fff;
+  padding:2.4rem 1.3rem 5rem;box-shadow:0 6px 24px rgba(80,120,150,.14)}
+.letter h3{font-family:var(--script);font-weight:400;font-size:clamp(1.9rem,8vw,2.6rem);line-height:1.15;margin-bottom:1.1rem}
+.letter p{font-size:clamp(1rem,4.2vw,1.3rem);line-height:1.45;margin-bottom:1.1rem}
+.letter .sign{margin-bottom:.3rem}.letter .sign+.sign{font-family:var(--script);font-size:clamp(1.7rem,7vw,2.2rem)}
+.hearts{display:block;margin:0 auto 1.5rem;width:90px}
+
+/* timeline */
+#schedule h2{margin-bottom:3rem}
+.tl{position:relative;max-width:520px;margin:auto}
+.tl:before{content:"";position:absolute;left:50%;top:10px;bottom:10px;width:3px;background:var(--blue-line);transform:translateX(-50%)}
+.ev{position:relative;width:50%;padding:0 1.4rem;margin-bottom:2.4rem;min-height:5.5rem}
+.ev:after{content:"";position:absolute;top:12px;width:16px;height:16px;background:var(--blue);transform:translateX(-50%) rotate(45deg)}
+.ev b{display:block;font-weight:400;font-size:clamp(2.2rem,9vw,3.2rem);line-height:1}
+.ev em{display:block;font-style:normal;color:var(--blue-soft);font-size:1rem;margin-top:.3rem}
+.dayh{position:relative;z-index:1;background:var(--bg);padding:1rem 0;margin:0 0 1.5rem}
+.dayh h3{font-family:var(--script);font-weight:400;font-size:clamp(2.4rem,10vw,3.2rem)}
+.dayh small{color:var(--blue-soft);font-size:1.1rem}
+.ev span{display:block;font-size:clamp(1.15rem,5vw,1.6rem);line-height:1.25;margin-top:.5rem}
+.ev.r{margin-left:50%}.ev.r:after{left:0}
+.ev.l{margin-right:50%}.ev.l:after{right:0;left:auto;transform:translateX(50%) rotate(45deg)}
+
+/* clouds */
+#schedule{overflow:hidden}
+#tlwrap{position:relative;padding:1rem 0}
+.cloudlayer{position:absolute;left:calc(50% - 50vw);width:100vw;top:-50px;bottom:-40px;z-index:3;pointer-events:none;will-change:transform;
+  background-size:cover;background-position:center top}
+.cloudlayer svg,.wisps svg{width:100%;height:100%;display:block}
+.wisps{position:absolute;top:0;bottom:0;left:calc(50% - 50vw);width:100vw;z-index:4;pointer-events:none;opacity:0;transition:opacity .6s}
+#tlwrap.clear .wisps{opacity:1}
+/* venue */
+.venue{display:flex;gap:1.1rem;align-items:center;text-align:left;max-width:560px;margin:2.5rem auto 2rem}
+.venue svg{flex:none;width:52px}
+.venue b{display:block;font-weight:400;font-size:clamp(1.7rem,7vw,2.3rem)}
+.venue span{font-size:clamp(1.2rem,5vw,1.6rem)}
+.photo{width:100%;max-width:640px;aspect-ratio:3/4;object-fit:cover;border-radius:0 0 40px 0;background:linear-gradient(#cfe0ea,#e8efe4)}
+#dtext{max-width:520px;margin:2rem auto 0}
+.dc{margin-bottom:2rem}.dc small{display:block;color:var(--blue-soft);letter-spacing:.3em;font-size:.8rem;text-transform:uppercase}
+.dc b{display:block;font-weight:400;font-family:var(--script);font-size:clamp(2rem,8vw,2.6rem);line-height:1.2;margin:.3rem 0}
+.dc span{font-size:1.15rem;line-height:1.5}
+
+/* music button */
+#play{position:fixed;right:1.3rem;bottom:1.3rem;width:62px;height:62px;border-radius:50%;border:0;background:var(--blue);
+  display:grid;place-items:center;box-shadow:0 6px 18px rgba(0,0,0,.25);cursor:pointer;z-index:10}
+#play svg{width:26px;fill:#fff}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
 </head>
-<body class="bg-stone-100 antialiased selection:bg-teal-200">
+<body>
 
-    <!-- Envelope Screen -->
-    <div id="envelope-screen" class="min-h-screen flex items-center justify-center p-4">
-        <button id="open-btn" class="bg-teal-700/90 text-white px-8 py-4 rounded-sm tracking-widest uppercase text-sm shadow-xl transition-all hover:scale-105">
-            Open Invitation
-        </button>
+<header id="hero">
+  <h1 id="names"></h1>
+  <p>are getting married!</p>
+</header>
+
+<section id="date">
+  <h2>The Date</h2>
+  <p class="hint">✦ Save the date ✦</p>
+  <div class="cards">
+    <div class="cell"><div class="card" id="cd"></div><span>DAY</span></div>
+    <div class="cell"><div class="card" id="cm"></div><span>MONTH</span></div>
+    <div class="cell"><div class="card" id="cy"></div><span>YEAR</span></div>
+  </div>
+  <p id="invited">You're invited!</p>
+
+  <svg class="hearts" viewBox="0 0 90 80" fill="none" stroke="#79b3d3" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <path d="M30 62C10 46 6 28 18 18c7-5 13-1 14 6 2-9 11-14 17-7 8 10-3 28-19 45z"/>
+    <path d="M64 70C54 62 52 54 58 50c4-2 6 0 7 3 1-4 6-6 9-2 4 5-1 13-10 19z"/>
+  </svg>
+  <div class="env">
+    <svg class="back" viewBox="0 0 1060 1275" aria-hidden="true">
+      <defs>
+        <linearGradient id="fg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#c3deec"/><stop offset=".45" stop-color="#bad9e8"/><stop offset="1" stop-color="#a9cade"/></linearGradient>
+        <path id="lf" d="M0 0C18-24 52-24 66 0 52 24 18 24 0 0Z"/>
+      </defs>
+      <path d="M22 527L503 20Q530-4 557 20L1038 527Q1060 560 1060 605V1253Q1060 1274 1039 1274H21Q0 1274 0 1253V605Q0 560 22 527Z" fill="url(#fg)" stroke="rgba(90,120,140,.35)" stroke-width="2"/>
+      <g fill="none" stroke="#a5c6da" stroke-width="3" stroke-linecap="round" opacity=".7">
+        <path d="M330 500C300 400 320 290 400 200"/><path d="M730 500C760 400 740 290 660 200"/>
+        <path d="M530 470C525 380 530 280 530 200"/>
+      </g>
+      <g fill="#b0cfe1" opacity=".75">
+        <use href="#lf" transform="translate(318 440) rotate(-70)"/><use href="#lf" transform="translate(312 360) rotate(-120) scale(.9)"/>
+        <use href="#lf" transform="translate(340 300) rotate(-40) scale(.9)"/><use href="#lf" transform="translate(380 225) rotate(-100) scale(.8)"/>
+        <use href="#lf" transform="translate(742 440) rotate(-110)"/><use href="#lf" transform="translate(748 360) rotate(-60) scale(.9)"/>
+        <use href="#lf" transform="translate(720 300) rotate(-140) scale(.9)"/><use href="#lf" transform="translate(680 225) rotate(-80) scale(.8)"/>
+        <use href="#lf" transform="translate(528 400) rotate(-60) scale(.8)"/><use href="#lf" transform="translate(532 320) rotate(-120) scale(.8)"/>
+      </g>
+    </svg>
+    <div class="letter">
+      <h3>Dear friends and family,</h3>
+      <div id="lt"></div>
     </div>
+    <svg class="front" viewBox="0 0 1060 750" preserveAspectRatio="none" aria-hidden="true">
+      <path d="M0 0L372 322Q530 306 688 322L1060 0V729Q1060 750 1039 750H21Q0 750 0 729Z" fill="#bad9e8"/>
+      <path d="M0 0L372 322Q530 306 688 322L1060 0" fill="none" stroke="rgba(255,255,255,.75)" stroke-width="5"/>
+      <path d="M372 322L6 744M688 322L1054 744" fill="none" stroke="rgba(90,120,140,.28)" stroke-width="2"/>
+      <path d="M0 0L372 322" fill="none" stroke="rgba(90,120,140,.18)" stroke-width="2" transform="translate(0 5)"/>
+    </svg>
+  </div>
+  </section>
 
-    <!-- Main Invitation (Hidden Initially) -->
-    <div id="main-invitation" class="hidden min-h-screen bg-[#f8f5f0] text-stone-800 font-sans max-w-md mx-auto shadow-2xl relative overflow-x-hidden pb-10">
-        
-        <!-- Watercolor Background Texture -->
-        <div class="fixed inset-0 opacity-20 pointer-events-none mix-blend-multiply bg-[url('https://images.unsplash.com/photo-1580137189272-c9379f8864fd?auto=format&fit=crop&q=80')] bg-cover bg-center"></div>
-
-        <!-- Floating Audio Controls -->
-        <button id="music-btn" class="fixed top-4 right-4 z-50 bg-white/50 backdrop-blur-md p-3 rounded-full text-teal-800 shadow-sm border border-teal-100/50">
-            <i data-lucide="music-4" id="music-icon" class="w-5 h-5 opacity-50"></i>
-        </button>
-        
-        <audio id="bg-music" loop src="dolcevita-music.mp3"></audio>
-
-        <!-- Hero Section -->
-        <section class="min-h-[85vh] flex flex-col items-center justify-center text-center p-8 relative z-10 transition-opacity duration-1000">
-            <p class="tracking-[0.3em] uppercase text-xs mb-8 text-teal-800/80">Save the Date</p>
-            <h1 class="font-serif text-6xl text-teal-900 mb-8 leading-tight">
-                Shreya <br/>
-                <span class="text-4xl text-teal-700/60 font-light">&amp;</span><br/> 
-                Sahil
-            </h1>
-            
-            <div class="flex items-center gap-6 text-teal-900 font-serif">
-                <div class="text-center">
-                    <span class="block text-3xl">30</span>
-                    <span class="text-xs uppercase tracking-widest text-teal-700">Jan</span>
-                </div>
-                <div class="w-px h-8 bg-teal-800/30"></div>
-                <div class="text-center">
-                    <span class="block text-3xl">31</span>
-                    <span class="text-xs uppercase tracking-widest text-teal-700">Jan</span>
-                </div>
-            </div>
-            <p class="mt-4 font-serif text-xl text-teal-800">2027</p>
-        </section>
-
-        <!-- Welcome Note -->
-        <section class="px-8 py-16 text-center relative z-10 bg-white/40 backdrop-blur-sm">
-            <h2 class="font-serif text-2xl text-teal-900 mb-6">With Blessings</h2>
-            <p class="text-stone-600 leading-relaxed text-sm">
-                Dear friends and family,<br/><br/>
-                As Shreya and Sahil begin this beautiful new chapter, we can’t imagine celebrating it without the people who mean so much to us. Your love has been a part of our journey, and having you by our side as we begin our forever would make this moment even more special.
-            </p>
-            <p class="mt-6 font-serif text-teal-800 italic">With all our love,<br/>Shreya &amp; Sahil ♡</p>
-        </section>
-
-        <!-- Venue Section -->
-        <section class="px-8 py-16 text-center relative z-10">
-            <i data-lucide="map-pin" class="mx-auto mb-4 text-teal-700 w-7 h-7"></i>
-            <h2 class="font-serif text-2xl text-teal-900 mb-2">The Venue</h2>
-            <p class="text-stone-700 font-medium">Caravela Resort</p>
-            <p class="text-stone-500 text-sm">Varca, Goa</p>
-        </section>
-
-        <!-- Schedule -->
-        <section class="px-8 py-16 relative z-10 bg-teal-900 text-teal-50">
-            <h2 class="font-serif text-3xl text-center mb-10 text-teal-100">Schedule of Events</h2>
-            <div class="space-y-8">
-                <div class="border-b border-teal-800/50 pb-6">
-                    <h3 class="font-serif text-xl mb-1 text-teal-200">Haldi &amp; Cocktail</h3>
-                    <p class="text-sm text-teal-400 mb-4">January 30</p>
-                    <div class="flex justify-between items-center text-sm mb-3 bg-teal-800/20 p-3 rounded">
-                        <span>Haldi</span><span>1:00 PM</span>
-                    </div>
-                    <div class="flex justify-between items-center text-sm bg-teal-800/20 p-3 rounded">
-                        <span>Cocktail</span><span>6:30 PM</span>
-                    </div>
-                </div>
-                <div class="pt-2">
-                    <h3 class="font-serif text-xl mb-1 text-teal-200">Wedding Day</h3>
-                    <p class="text-sm text-teal-400 mb-4">January 31</p>
-                    <div class="space-y-3">
-                        <div class="flex justify-between items-center text-sm bg-teal-800/20 p-3 rounded">
-                            <span>Chooda &amp; Sehrabandi</span><span>10:00 AM</span>
-                        </div>
-                        <div class="flex justify-between items-center text-sm bg-teal-800/20 p-3 rounded">
-                            <span>Baraat</span><span>12:00 PM</span>
-                        </div>
-                        <div class="flex justify-between items-center text-sm bg-teal-800/20 p-3 rounded">
-                            <span>Pheras</span><span>2:00 PM</span>
-                        </div>
-                        <div class="flex justify-between items-center text-sm bg-teal-800/20 p-3 rounded">
-                            <span>Afterparty</span><span>7:00 PM</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Wardrobe Planner -->
-        <section class="px-8 py-16 relative z-10 bg-white/60">
-            <h2 class="font-serif text-3xl text-center mb-2 text-teal-900">Wardrobe Planner</h2>
-            <p class="text-center text-stone-500 text-sm mb-10">Dress to celebrate every moment with us!</p>
-            <div class="grid gap-6">
-                <div class="bg-white/80 p-6 rounded-lg shadow-sm border border-stone-100">
-                    <p class="text-xs text-teal-600 font-bold uppercase tracking-wider mb-1">Haldi</p>
-                    <h4 class="font-serif text-lg text-teal-900 mb-2">Beachside Festive Chic</h4>
-                    <p class="text-sm text-stone-600">Breezy outfits — western, Indian or Indo-western. All silhouettes are welcome!</p>
-                </div>
-                <div class="bg-white/80 p-6 rounded-lg shadow-sm border border-stone-100">
-                    <p class="text-xs text-teal-600 font-bold uppercase tracking-wider mb-1">Cocktail</p>
-                    <h4 class="font-serif text-lg text-teal-900 mb-2">Black Tie Glamour</h4>
-                    <p class="text-sm text-stone-600">Think gowns, dresses or even sarees; tuxedos &amp; formal suits for the men.</p>
-                </div>
-                <div class="bg-white/80 p-6 rounded-lg shadow-sm border border-stone-100">
-                    <p class="text-xs text-teal-600 font-bold uppercase tracking-wider mb-1">Pheras</p>
-                    <h4 class="font-serif text-lg text-teal-900 mb-2">Ivory &amp; Gold</h4>
-                    <p class="text-sm text-stone-600">A palette of ivory and gold. All silhouettes are welcome!</p>
-                </div>
-                <div class="bg-white/80 p-6 rounded-lg shadow-sm border border-stone-100">
-                    <p class="text-xs text-teal-600 font-bold uppercase tracking-wider mb-1">Afterparty</p>
-                    <h4 class="font-serif text-lg text-teal-900 mb-2">Bollywood After-Dark Glam</h4>
-                    <p class="text-sm text-stone-600">Indo-western outfits, mini dresses, statement sets and comfortable shoes.</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- WhatsApp RSVP -->
-        <section class="px-8 py-16 text-center relative z-10 border-t border-teal-900/10">
-            <h2 class="font-serif text-3xl text-teal-900 mb-4">Confirm Your Attendance</h2>
-            <p class="text-stone-600 text-sm mb-8">To help us prepare for a joyful celebration, kindly RSVP via WhatsApp.</p>
-            <form id="rsvp-form" class="space-y-4 max-w-xs mx-auto">
-                <input type="text" id="guest-name" required placeholder="Your Name" class="w-full px-4 py-3 rounded-sm border border-teal-900/20 bg-white/80 focus:outline-none focus:border-teal-700"/>
-                <select id="guest-count" class="w-full px-4 py-3 rounded-sm border border-teal-900/20 bg-white/80 focus:outline-none focus:border-teal-700">
-                    <option value="1">Just me</option>
-                    <option value="2">2 guests</option>
-                    <option value="3">3 guests</option>
-                    <option value="4+">4+ guests</option>
-                </select>
-                <button type="submit" class="w-full bg-teal-800 text-white py-4 rounded-sm uppercase tracking-widest text-sm font-medium hover:bg-teal-900 transition-colors flex items-center justify-center gap-2">
-                    <i data-lucide="mail" class="w-4 h-4"></i> Send RSVP
-                </button>
-            </form>
-        </section>
-        
-        <footer class="py-8 text-center bg-teal-950 text-teal-400 text-xs tracking-widest uppercase">
-            <p>Hope to see you there!</p>
-        </footer>
+<section id="schedule">
+  <h2>Schedule of Events</h2>
+  <div id="tlwrap"><div class="tl" id="tl"></div><div class="cloudlayer" id="cl">
+      <svg preserveAspectRatio="none" aria-hidden="true">
+        <defs>
+          <linearGradient id="cg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#b6d2ea" stop-opacity="0"/><stop offset=".03" stop-color="#b6d2ea" stop-opacity="0"/><stop offset=".085" stop-color="#c3d9ee" stop-opacity="1"/><stop offset=".3" stop-color="#f6e6d9"/><stop offset=".5" stop-color="#cdd8ee"/><stop offset=".7" stop-color="#e0d2e6"/><stop offset=".86" stop-color="#cbdcef"/><stop offset="1" stop-color="#f9ebe0"/></linearGradient>
+          <linearGradient id="cgt" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#b6d2ea" stop-opacity="0"/><stop offset=".35" stop-color="#bcd5ec"/><stop offset=".7" stop-color="#d4e2f1"/><stop offset="1" stop-color="#f6e6d9"/></linearGradient>
+          <linearGradient id="fb" x1="0" y1="0" x2="0" y2="1"><stop offset=".02" stop-color="#8fb1d6" stop-opacity="0"/><stop offset=".12" stop-color="#8fb1d6" stop-opacity=".4"/></linearGradient>
+          <linearGradient id="fw" x1="0" y1="0" x2="0" y2="1"><stop offset=".02" stop-color="#fff" stop-opacity="0"/><stop offset=".12" stop-color="#fff" stop-opacity=".6"/></linearGradient>
+          <filter id="p1" x="0" y="0" width="100%" height="100%"><feTurbulence type="fractalNoise" baseFrequency="0.007 0.011" numOctaves="5" seed="8" result="t"/><feColorMatrix in="t" type="matrix" values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 4.6 0 0 0 -1.5" result="a"/><feComposite in="SourceGraphic" in2="a" operator="in"/><feGaussianBlur stdDeviation="1.2"/></filter>
+          <filter id="p2" x="0" y="0" width="100%" height="100%"><feTurbulence type="fractalNoise" baseFrequency="0.011 0.016" numOctaves="5" seed="21" result="t"/><feColorMatrix in="t" type="matrix" values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 3.4 0 0 0 -1.3" result="a"/><feComposite in="SourceGraphic" in2="a" operator="in"/><feGaussianBlur stdDeviation="1.2"/></filter>
+          <filter id="p3" x="0" y="0" width="100%" height="100%"><feTurbulence type="fractalNoise" baseFrequency="0.016 0.022" numOctaves="5" seed="5" result="t"/><feColorMatrix in="t" type="matrix" values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 3.0 0 0 0 -1.25" result="a"/><feComposite in="SourceGraphic" in2="a" operator="in"/><feGaussianBlur stdDeviation="1.2"/></filter>
+        </defs>
+        <rect width="100%" height="100%" fill="url(#cg)"/>
+        <rect y="0" width="100%" height="18%" fill="url(#cgt)" filter="url(#p1)"/>
+        <rect width="100%" height="100%" fill="url(#fb)" filter="url(#p2)"/>
+        <rect width="100%" height="100%" fill="url(#fw)" filter="url(#p3)"/>
+      </svg>
     </div>
+    <div class="wisps">
+      <svg preserveAspectRatio="none" aria-hidden="true">
+        <defs>
+          <radialGradient id="wl" cx="0" cy=".5" r=".3"><stop offset="0" stop-color="#86b0d3" stop-opacity=".95"/><stop offset="1" stop-color="#86b0d3" stop-opacity="0"/></radialGradient>
+          <radialGradient id="wr" cx="1" cy=".5" r=".3"><stop offset="0" stop-color="#86b0d3" stop-opacity=".95"/><stop offset="1" stop-color="#86b0d3" stop-opacity="0"/></radialGradient>
+        </defs>
+        <rect y="48%" width="100%" height="30%" fill="url(#wl)" filter="url(#p2)"/>
+        <rect y="20%" width="100%" height="22%" fill="url(#wr)" filter="url(#p3)"/>
+      </svg>
+    </div></div>
+</section>
 
-    <script src="app.js"></script>
+<section id="venue">
+  <h2>Wedding Venue</h2>
+  <div class="venue">
+    <svg viewBox="0 0 52 70" aria-hidden="true"><path d="M26 0C12 0 0 11 0 25c0 18 26 45 26 45s26-27 26-45C52 11 40 0 26 0z" fill="#64a0bd"/><path d="M26 36C16 29 14 22 19 19c3-2 6 0 7 2 1-2 4-4 7-2 5 3 3 10-7 17z" fill="#fff"/></svg>
+    <div><b id="vname"></b><span id="vaddr"></span></div>
+  </div>
+  <img class="photo" id="vimg" alt="The wedding venue">
+</section>
+
+<section id="dress">
+  <h2>Dress Code</h2>
+  <div id="dtext"></div>
+</section>
+
+<button id="play" aria-label="Play music"><svg viewBox="0 0 24 24"><path d="M7 4l13 8-13 8z"/></svg></button>
+<audio id="music" loop></audio>
+
+<script>
+/* ===== EDIT YOUR DETAILS HERE ===== */
+const C = {
+  names: "Shreya & Sahil",
+  full: "Shreya Maini & Sahil Suneja",
+  date: { day: "30", month: "January", year: "2027" },
+  letter: [
+    "As Shreya and Sahil begin this beautiful new chapter, we can’t imagine celebrating it without the people who mean so much to us.",
+    "Your love has been a part of our journey, and having you by our side as we begin our forever would make this moment even more special.",
+    "With all our love,",
+    "Shreya & Sahil ♡"
+  ],
+  days: [
+    { title: "Day 1", sub: "30th January 2027", items: [
+      ["1 PM", "Haldi", "Coconut Grove"],
+      ["6:30 PM", "Cocktail", "Varca Ballroom"] ]},
+    { title: "Day 2", sub: "31st January 2027", items: [
+      ["10 AM", "Chooda Ceremony", "The lawns"],
+      ["11 AM", "Sehrabandi", "Same venue as Chooda"],
+      ["12 PM", "Baraat", ""],
+      ["2 PM", "Pheras", "Beach venue"],
+      ["7 PM", "Afterparty", "Varca Ballroom"] ]}
+  ],
+  venue: { name: "Caravela Resort", address: "Goa", image: "images/venue.jpg" },
+  dress: [
+    ["Haldi", "Beachside Festive Chic", "All silhouettes are welcome. Think breezy outfits: western, Indian or Indo-western."],
+    ["Cocktail", "Black Tie Glamour", "Gowns, dresses or even sarees for women. Tuxedos and formal suits for men."],
+    ["Pheras", "A palette of Ivory and Gold", "All silhouettes are welcome."],
+    ["Afterparty", "Bollywood After-Dark Glam", "Indo-western outfits, mini dresses, statement sets and comfortable shoes."]
+  ],
+  cloudImage: "", // optional: your own cloud picture, e.g. "images/clouds.jpg"
+  music: "" // e.g. "audio/song.mp3"
+};
+/* ================================== */
+const $ = id => document.getElementById(id);
+document.title = C.full + " are getting married";
+$("names").textContent = C.names;
+$("lt").innerHTML = C.letter.map((t,i)=>`<p class="${i>1?"sign":""}">${t}</p>`).join("");
+$("vname").textContent = C.venue.name; $("vaddr").textContent = "Address: " + C.venue.address;
+$("vimg").onerror = e => { const d = document.createElement("div"); d.className = "photo"; e.target.replaceWith(d); };
+$("vimg").src = C.venue.image;
+$("tl").innerHTML = C.days.map(d =>
+  `<div class="dayh"><h3>${d.title}</h3><small>${d.sub}</small></div>` +
+  d.items.map(([t, n, p], i) =>
+    `<div class="ev ${i % 2 ? "l" : "r"}"><b>${t}</b><span>${n}</span>${p ? `<em>${p}</em>` : ""}</div>`).join("")
+).join("");
+$("dtext").innerHTML = C.dress.map(([e, code, note]) =>
+  `<div class="dc"><small>${e}</small><b>${code}</b><span>${note}</span></div>`).join("");
+
+/* date cards */
+[["cd", C.date.day], ["cm", C.date.month], ["cy", C.date.year]].forEach(([id, v]) => $(id).textContent = v);
+
+/* letter slides up out of the envelope as you scroll */
+const env = document.querySelector(".env"), letter = document.querySelector(".letter");
+const still = matchMedia("(prefers-reduced-motion: reduce)").matches;
+let ticking = false;
+function slide() {
+  ticking = false;
+  const r = env.getBoundingClientRect(), h = letter.offsetHeight;
+  // leave room above the envelope for the letter once it has risen
+  env.style.marginTop = Math.max(0, h - r.height * .78 + 24) + "px";
+  const p = still ? 1 : Math.min(1, Math.max(0, (innerHeight * .7 - r.top) / (r.height * 1.1)));
+  const e = p * p * (3 - 2 * p);                          // smoothstep
+  letter.style.transform = `translateY(${(1 - e) * (h - r.height * .08)}px)`;
+}
+addEventListener("scroll", () => { if (!ticking) { ticking = true; requestAnimationFrame(slide); } }, { passive: true });
+addEventListener("resize", slide); addEventListener("load", slide); slide();
+
+/* clouds slide away down the page as you scroll, revealing the timeline */
+const wrap = $("tlwrap"), cl = $("cl");
+if (C.cloudImage) { cl.style.backgroundImage = `url("${C.cloudImage}")`; cl.querySelector("svg").style.display = "none"; }
+function clouds() {
+  const r = wrap.getBoundingClientRect();
+  const p = still ? 1 : Math.min(1, Math.max(0, (innerHeight * .7 - r.top) / (r.height * .85)));
+  const e = p * p * (3 - 2 * p);
+  cl.style.transform = `translateY(${e * (cl.offsetHeight + 60)}px)`;
+  wrap.classList.toggle("clear", p > .9);
+}
+addEventListener("scroll", () => requestAnimationFrame(clouds), { passive: true });
+addEventListener("resize", clouds); addEventListener("load", clouds); clouds();
+
+/* music */
+const au = $("music");
+if (C.music) au.src = C.music; else $("play").hidden = true;
+$("play").onclick = () => { au.paused ? au.play() : au.pause(); };
+</script>
 </body>
 </html>
