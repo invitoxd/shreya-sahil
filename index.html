@@ -46,7 +46,7 @@ section{padding:4rem 1.1rem;position:relative}
 @keyframes drift{from{transform:translateX(-55vw)}to{transform:translateX(155vw)}}
 
 /* More noticeable 7-second sunset; no artificial sun disc */
-#hero{isolation:isolate;background:linear-gradient(to bottom,rgba(250,249,246,0) 80%,var(--bg)),url("goa-opening.png.png") center/cover no-repeat,linear-gradient(#d1e2eb,#e8eceb)}
+#hero{isolation:isolate;background:linear-gradient(to bottom,rgba(250,249,246,0) 80%,var(--bg)),url("hero.jpg") center/cover no-repeat,linear-gradient(#d1e2eb,#e8eceb)}
 #sunset-scene{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:0;isolation:isolate}
 .sunset-sky{position:absolute;inset:-2%;opacity:0;background:linear-gradient(180deg,rgba(129,174,211,.42) 0%,rgba(183,184,213,.36) 30%,rgba(255,172,145,.58) 62%,rgba(255,210,164,.52) 100%);mix-blend-mode:screen;animation:skySunset 22s ease-in-out forwards}
 .sunset-haze{position:absolute;inset:18% -8% 12%;opacity:0;background:radial-gradient(ellipse 105% 47% at 38% 58%,rgba(255,220,166,.82) 0%,rgba(255,185,145,.56) 38%,rgba(244,157,151,.32) 68%,transparent 100%),linear-gradient(180deg,rgba(255,187,151,.08) 0%,rgba(255,187,151,.34) 38%,rgba(239,155,147,.28) 70%,transparent 100%);mix-blend-mode:screen;animation:hazeSunset 22s ease-in-out forwards}
@@ -100,7 +100,7 @@ section{padding:4rem 1.1rem;position:relative}
 /* hero */
 #hero{min-height:100vh;min-height:100svh;display:grid;align-content:center;padding:0 1rem;overflow:hidden;position:relative;
 /* Cooler lake water, pale sky, and sage greenery fallbacks */
-background:linear-gradient(to bottom,rgba(250,249,246,0) 80%,var(--bg)),url("goa-opening.png.png") center/cover no-repeat,linear-gradient(#d1e2eb,#e8eceb)}
+background:linear-gradient(to bottom,rgba(250,249,246,0) 80%,var(--bg)),url("hero.jpg") center/cover no-repeat,linear-gradient(#d1e2eb,#e8eceb)}
 #hero h1{font-family:var(--script);font-weight:400;font-size:clamp(2.8rem,11vw,4.2rem);line-height:1.1;margin:0 auto;max-width:95vw;}
 #hero h1,#hero p{position:relative;z-index:2;text-shadow:0 1px 16px rgba(255,255,255,.85)}
 /* Slightly lower the announcement while keeping the existing hero layout */
@@ -369,7 +369,7 @@ const C = {
     { title: "Day 1", sub: "30th January 2027", items: [["1 PM", "Haldi", "Coconut Grove"], ["6:30 PM", "Cocktail", "Varca Ballroom"]] },
     { title: "Day 2", sub: "31st January 2027", items: [["10 AM", "Chooda Ceremony", "The lawns"], ["11 AM", "Sehrabandi", "Same venue as Chooda"], ["12 PM", "Baraat", ""], ["2 PM", "Pheras", "Beach venue"], ["7 PM", "Afterparty", "Varca Ballroom"]] }
   ],
-  venue: { name: "Caravela Resort", address: "Goa", image: "hero.jpg" },
+  venue: { name: "Caravela Resort", address: "Goa", image: "Caravela%20Resort.avif" },
   dress: [
     { name: "Haldi", time: "1 PM ONWARDS", place: "Coconut Grove", code: "Beachside Festive Chic",
       note: "All silhouettes are welcome. Think breezy outfits: western, Indian or Indo-western.",
@@ -569,4 +569,4 @@ play.onclick = () => {
 </html>
 ```eof
 
-I've updated the file! `Caravela%20Resort.avif` has been successfully replaced with `hero.jpg` inside the venue section configuration. Make sure `hero.jpg` is saved in the same folder as this HTML file so it displays correctly.
+The CSS background image for the top section has now been updated to use `hero.jpg`. I've also reverted the venue configuration near the bottom back to `Caravela Resort.avif` for you. Ensure both images are placed in the same folder as this HTML file!
