@@ -1,4 +1,156 @@
-/* schedule timeline */
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>We're getting married</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;1,6..96,400&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Pinyon+Script&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg: #faf9f6; /* Ivory */
+  --card: #ffffff;
+  --text: #333333; /* Charcoal-grey */
+  --blue: #8ba9c1; /* Powder-blue */
+  --blue-line: #b3cddf;
+  --blue-soft: #a1b8c7;
+  --heart: #8ba9c1;
+  --script: "Pinyon Script", cursive;
+  --body: "Cormorant Garamond", serif;
+  --head: "Bodoni Moda", serif;
+  --ease: cubic-bezier(.2,.8,.2,1);
+}
+*{box-sizing:border-box;margin:0;-webkit-tap-highlight-color:transparent}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+body{background:var(--bg);color:var(--text);font-family:var(--body);text-align:center;overflow-x:hidden;
+padding-left:env(safe-area-inset-left,0);padding-right:env(safe-area-inset-right,0)}
+h2{font-family:var(--script);font-weight:400;font-size:clamp(2.6rem,12vw,4rem);line-height:1.1}
+section{padding:4rem 1.1rem;position:relative}
+:focus-visible{outline:2px solid var(--blue);outline-offset:3px}
+
+/* scroll progress bar */
+#bar{position:fixed;top:0;left:0;right:0;height:3px;background:var(--blue);transform:scaleX(0);transform-origin:left;z-index:20}
+
+/* scroll reveal */
+.rv{opacity:0;transform:translateY(28px);transition:opacity .9s var(--ease),transform .9s var(--ease);transition-delay:var(--d,0s)}
+.rv.in{opacity:1;transform:none}
+.ev.r.rv{transform:translateX(40px)}.ev.l.rv{transform:translateX(-40px)}.ev.rv.in{transform:none}
+
+/* drifting clouds (schedule section) */
+.sky{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:0}
+.sky~*{position:relative;z-index:1}
+.cw{position:absolute;left:0;will-change:transform}
+.cloud{display:block;filter:blur(2.5px);animation:drift linear infinite;will-change:transform}
+.cloud svg{display:block;width:100%;height:auto}
+@keyframes drift{from{transform:translateX(-55vw)}to{transform:translateX(155vw)}}
+
+/* More noticeable 7-second sunset; no artificial sun disc */
+#hero{isolation:isolate;background:linear-gradient(to bottom,rgba(250,249,246,0) 80%,var(--bg)),url("goa-opening.png.png") center/cover no-repeat,linear-gradient(#d1e2eb,#e8eceb)}
+#sunset-scene{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:0;isolation:isolate}
+.sunset-sky{position:absolute;inset:-2%;opacity:0;background:linear-gradient(180deg,rgba(129,174,211,.42) 0%,rgba(183,184,213,.36) 30%,rgba(255,172,145,.58) 62%,rgba(255,210,164,.52) 100%);mix-blend-mode:screen;animation:skySunset 22s ease-in-out forwards}
+.sunset-haze{position:absolute;inset:18% -8% 12%;opacity:0;background:radial-gradient(ellipse 105% 47% at 38% 58%,rgba(255,220,166,.82) 0%,rgba(255,185,145,.56) 38%,rgba(244,157,151,.32) 68%,transparent 100%),linear-gradient(180deg,rgba(255,187,151,.08) 0%,rgba(255,187,151,.34) 38%,rgba(239,155,147,.28) 70%,transparent 100%);mix-blend-mode:screen;animation:hazeSunset 22s ease-in-out forwards}
+.sunset-sun{display:none!important}
+/* Independent, continuous lake shimmer */
+#sunset-scene:after{content:"";position:absolute;left:8%;right:8%;bottom:15%;height:22%;pointer-events:none;opacity:.25;background:repeating-linear-gradient(180deg,transparent 0 7px,rgba(230,244,250,.38) 8px,transparent 10px 17px);background-size:100% 51px;mask-image:linear-gradient(90deg,transparent,black 18%,black 72%,transparent);animation:lakeRipples 4.2s linear infinite;mix-blend-mode:screen}
+@keyframes lakeRipples{from{background-position:0 0;transform:translateX(-1%)}to{background-position:0 51px;transform:translateX(1%)}}
+.sunset-reflection{position:absolute;left:35%;top:57%;width:clamp(85px,22vw,190px);height:31%;opacity:0;transform:translateX(-50%);background:linear-gradient(180deg,rgba(255,245,209,.92),rgba(255,220,163,.7) 22%,rgba(255,194,151,.42) 58%,transparent);filter:blur(3px);clip-path:polygon(43% 0,57% 0,100% 100%,0 100%);mix-blend-mode:screen;animation:reflectionGlow 22s ease-in-out forwards}
+.sunset-water{position:absolute;left:9%;right:10%;bottom:16%;height:20%;opacity:0;background:repeating-linear-gradient(180deg,transparent 0 4px,rgba(255,244,214,.65) 5px,transparent 7px 12px);background-size:100% 34px;animation:waterGlow 22s ease-in-out forwards,waterRipple 2.8s linear infinite;mask-image:linear-gradient(90deg,transparent,black 18%,black 58%,transparent);filter:blur(.5px);mix-blend-mode:screen;animation:waterGlow 22s ease-in-out forwards}
+@keyframes skySunset{
+  0%,8%{opacity:.04;filter:hue-rotate(0deg) saturate(.8)}
+  28%{opacity:.66;filter:hue-rotate(5deg) saturate(1.08)}
+  48%{opacity:1;filter:hue-rotate(0deg) saturate(1.25)}
+  62%{opacity:.94;filter:hue-rotate(0deg) saturate(1.18)}
+  82%{opacity:.32;filter:hue-rotate(-12deg) saturate(.9)}
+  100%{opacity:.08;filter:hue-rotate(-18deg) saturate(.8)}
+}
+@keyframes hazeSunset{
+  0%,12%{opacity:0}
+  35%{opacity:.55}
+  50%,60%{opacity:1}
+  82%{opacity:.32}
+  100%{opacity:0}
+}
+@keyframes reflectionGlow{
+  0%,12%{opacity:0}
+  38%{opacity:.5}
+  52%,60%{opacity:1}
+  82%{opacity:.28}
+  100%{opacity:.05}
+}
+@keyframes waterRipple{from{background-position:0 0}to{background-position:0 34px}}
+@keyframes waterGlow{
+  0%,12%{opacity:0}
+  38%{opacity:.2}
+  52%,60%{opacity:.72}
+  82%{opacity:.2}
+  100%{opacity:.02}
+}
+#hero h1{letter-spacing:.015em;text-wrap:balance}
+#hero h1 .w{filter:drop-shadow(0 2px 18px rgba(255,255,255,.72))}
+#hero h1 .w:first-child{margin-right:.08em}
+@media(prefers-reduced-motion:reduce){
+ .sunset-sky{animation:none;opacity:.08}.sunset-haze{animation:none;opacity:0}.sunset-reflection{animation:none;opacity:.05}.sunset-water{animation:none;opacity:.02}
+ .sunset-sun{display:none!important}
+/* Independent, continuous lake shimmer */
+#sunset-scene:after{content:"";position:absolute;left:8%;right:8%;bottom:15%;height:22%;pointer-events:none;opacity:.25;background:repeating-linear-gradient(180deg,transparent 0 7px,rgba(230,244,250,.38) 8px,transparent 10px 17px);background-size:100% 51px;mask-image:linear-gradient(90deg,transparent,black 18%,black 72%,transparent);animation:lakeRipples 4.2s linear infinite;mix-blend-mode:screen}
+@keyframes lakeRipples{from{background-position:0 0;transform:translateX(-1%)}to{background-position:0 51px;transform:translateX(1%)}}
+}
+
+/* hero */
+#hero{min-height:100vh;min-height:100svh;display:grid;align-content:center;padding:0 1rem;overflow:hidden;position:relative;
+/* Cooler lake water, pale sky, and sage greenery fallbacks */
+background:linear-gradient(to bottom,rgba(250,249,246,0) 80%,var(--bg)),url("goa-opening.png.png") center/cover no-repeat,linear-gradient(#d1e2eb,#e8eceb)}
+#hero h1{font-family:var(--script);font-weight:400;font-size:clamp(2.8rem,11vw,4.2rem);line-height:1.1;margin:0 auto;max-width:95vw;}
+#hero h1,#hero p{position:relative;z-index:2;text-shadow:0 1px 16px rgba(255,255,255,.85)}
+/* Slightly lower the announcement while keeping the existing hero layout */
+#hero h1, #hero p{top:clamp(18px,4vh,42px)}
+.w{display:inline-block;opacity:0;transform:translateY(22px);filter:blur(8px);animation:wi 1.2s var(--ease) forwards;animation-delay:calc(var(--i)*.28s + .2s)}
+@keyframes wi{to{opacity:1;transform:none;filter:none}}
+#hero p{font-family:var(--body);font-size:clamp(1.4rem,6vw,1.8rem);margin-top:.2rem;opacity:0;animation:fade 1.2s ease forwards 1.3s}
+@keyframes fade{to{opacity:1}}
+.scrollcue{position:absolute!important;left:50%;bottom:calc(1.6rem + env(safe-area-inset-bottom,0px));width:22px;height:34px;margin-left:-11px;border:2px solid var(--blue);border-radius:14px;opacity:0;animation:fade 1s ease forwards 2.2s;z-index:2}
+.scrollcue:after{content:"";position:absolute;left:50%;top:6px;width:4px;height:7px;margin-left:-2px;border-radius:3px;background:var(--blue);animation:wheel 1.6s ease-in-out infinite}
+@keyframes wheel{0%{transform:translateY(0);opacity:1}70%{transform:translateY(12px);opacity:0}100%{opacity:0}}
+
+/* hero effects: birds + petals */
+.fx{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:1}
+.bird{position:absolute;left:0;width:var(--s,34px);color:#6a5448;opacity:.8;animation:fly var(--t,24s) linear infinite;animation-delay:var(--dl,0s);will-change:transform}
+.bird svg{display:block;width:100%;height:auto;overflow:visible}
+.wing{transform-origin:20px 12px;animation:flap .45s ease-in-out infinite alternate}
+@keyframes flap{from{transform:scaleY(1)}to{transform:scaleY(-.55)}}
+@keyframes fly{0%{transform:translate(-15vw,0)}50%{transform:translate(55vw,var(--dy,-6vh))}100%{transform:translate(120vw,var(--dy2,4vh))}}
+.petal{position:absolute;top:0;width:var(--w,12px);height:calc(var(--w,12px)*1.28);border-radius:78% 12% 78% 12%;opacity:0;background:linear-gradient(145deg,rgba(255,255,255,.99),rgba(247,249,250,.88) 62%,rgba(222,231,238,.72));border:1px solid rgba(255,255,255,.82);box-shadow:inset -1px -1px 2px rgba(140,155,170,.18),0 2px 9px rgba(255,255,255,.3);filter:blur(.05px);animation:fall var(--t,17s) ease-in-out infinite;animation-delay:var(--dl,0s);will-change:transform}
+@keyframes fall{0%{transform:translate3d(14vw,-7vh,0) rotate(0) scale(.82);opacity:0}8%{opacity:.94}28%{transform:translate3d(-4vw,27vh,0) rotate(95deg) scale(1)}55%{transform:translate3d(-13vw,57vh,0) rotate(205deg) scale(.95);opacity:.86}78%{transform:translate3d(-23vw,82vh,0) rotate(300deg) scale(.88);opacity:.78}100%{transform:translate3d(-34vw,108vh,0) rotate(390deg) scale(.76);opacity:0}}
+
+/* the date & countdown */
+#date .hint{color:var(--blue-soft);font-size:clamp(1.3rem,6vw,2rem);margin:1.2rem 0 1.5rem;font-family:var(--body);font-style:italic}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:.7rem;max-width:500px;margin:auto;perspective:900px}
+.cell span{display:block;font-size:.72rem;letter-spacing:.3em;color:var(--blue-soft);margin-top:.9rem;padding-left:.3em;font-family:var(--body);}
+.card{position:relative;aspect-ratio:7/8;background:var(--card);border-radius:22px;box-shadow:0 8px 28px rgba(150,120,100,.08);display:grid;place-items:center;
+font-family:var(--body);font-size:clamp(1.2rem,6vw,2.2rem);overflow:hidden;transform:rotateX(-85deg);transform-origin:top;transition:transform 1.1s var(--ease) calc(var(--d,0s) + .1s)}
+.cell.in .card{transform:none}
+.count{display:flex;justify-content:center;gap:clamp(.8rem,4vw,1.6rem);margin-top:1.8rem;font-family:var(--body);}
+.count div{min-width:58px}
+.count b{display:block;font-weight:600;font-size:clamp(1.6rem,7vw,2.3rem);color:var(--blue)}
+.count small{font-size:.7rem;letter-spacing:.25em;color:var(--blue-soft);text-transform:uppercase;padding-left:.25em}
+#invited{font-family:var(--script);font-size:clamp(2.4rem,11vw,3.6rem);margin:2.5rem 0 2rem}
+
+/* envelope letter */
+.env{position:relative;max-width:540px;aspect-ratio:1060/1275;margin:0 auto;clip-path:inset(-300% -5% 0 -5%)}
+.env svg.back,.env svg.front{position:absolute;left:0;width:100%;display:block}
+.env svg.back{top:0;height:100%;z-index:0;filter:drop-shadow(0 10px 18px rgba(80,120,150,.18))}
+.env svg.front{bottom:-1px;height:calc(58.8% + 1px);z-index:2;filter:drop-shadow(0 -3px 6px rgba(80,120,150,.12))}
+.seal{transform-box:fill-box;transform-origin:center;animation:pulse 3s ease-in-out infinite}
+@keyframes pulse{50%{transform:scale(1.07)}}
+.letter{position:absolute;z-index:1;left:7%;right:7%;bottom:22%;will-change:transform;background:#fff;padding:1.6rem 1rem 3.6rem;box-shadow:0 6px 24px rgba(80,120,150,.10)}
+.letter h3{font-family:var(--script);font-weight:400;font-size:clamp(1.6rem,6.5vw,2.3rem);line-height:1.15;margin-bottom:.9rem;color:var(--text)}
+.letter p{font-size:clamp(.85rem,3.5vw,1.1rem);line-height:1.5;margin-bottom:.9rem;font-family:var(--body)}
+.letter .sign{margin-bottom:.2rem}.letter .sign+.sign{font-family:var(--script);font-size:clamp(1.6rem,7vw,2.2rem)}
+.hearts{display:block;margin:0 auto 1.5rem;width:80px;padding:8px;cursor:pointer;animation:bob 3.2s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(-8px) rotate(-3deg)}}
+
+/* schedule timeline: centred line, events alternate left / right */
 #schedule{overflow:hidden}
 #schedule h2{margin-bottom:2.6rem}
 .tl{position:relative;max-width:520px;margin:auto;--p:0}
@@ -30,13 +182,12 @@
 .photo{width:100%;max-width:640px;aspect-ratio:4/3;object-fit:cover;border-radius:0 0 40px 0;background:linear-gradient(#cfe0ea,#e8efe4);clip-path:inset(0 0 100% 0);transform:scale(1.08);transition:clip-path 1.4s var(--ease),transform 1.8s var(--ease)}
 .photo.in{clip-path:inset(0);transform:none}
 
-/* sparkles on content pages; wardrobe planner excluded */
+/* Tiny, elegant sparkle accents on content pages; wardrobe planner intentionally excluded */
 .sparkle-layer{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:0}
 .sparkle{position:absolute;width:5px;height:5px;border-radius:50%;background:rgba(221,190,137,.82);box-shadow:0 0 7px 2px rgba(235,205,157,.32);opacity:0;animation:twinkle 4.8s ease-in-out infinite}
 .sparkle:after{content:"";position:absolute;left:2px;top:-3px;width:1px;height:11px;background:rgba(221,190,137,.62);transform:rotate(35deg)}
 @keyframes twinkle{0%,100%{opacity:0;transform:scale(.55)}45%,58%{opacity:.78;transform:scale(1)}}
 section:not(#dress)>*:not(.sparkle-layer){position:relative;z-index:1}
-
 /* wardrobe planner */
 #dress{overflow:hidden}
 #dress .sub{font-size:.8rem;letter-spacing:.32em;color:var(--blue-soft);margin-top:.9rem;padding-left:.32em;font-family:var(--body)}
@@ -76,18 +227,18 @@ transform-origin:50% 0;animation:sway 5.5s ease-in-out infinite}
  .wr.rt .art{order:2}.art{width:100%}
 }
 
-/* RSVP */
-#rsvp{padding-bottom:2rem}
-#rsvp h2{margin-bottom:1rem}
-.rv-text{font-family:var(--body);font-size:1.2rem;margin-bottom:2rem;color:var(--text)}
-.btn-rsvp{display:inline-block;background:var(--blue);color:#fff;text-decoration:none;padding:12px 36px;border-radius:30px;font-family:var(--body);font-size:1.3rem;letter-spacing:.05em;transition:transform .3s var(--ease),background .3s;margin-top:.5rem;box-shadow:0 4px 14px rgba(139,169,193,.4)}
-.btn-rsvp:hover{transform:scale(1.04);background:var(--blue-soft)}
+/* RSVP Section */
+#rsvp { padding-bottom: 2rem; }
+#rsvp h2 { margin-bottom: 1rem; }
+.rv-text { font-family: var(--body); font-size: 1.2rem; margin-bottom: 2rem; color: var(--text); }
+.btn-rsvp { display: inline-block; background: var(--blue); color: #fff; text-decoration: none; padding: 12px 36px; border-radius: 30px; font-family: var(--body); font-size: 1.3rem; letter-spacing: .05em; transition: transform 0.3s var(--ease), background 0.3s; margin-top: 0.5rem; box-shadow:0 4px 14px rgba(139, 169, 193, 0.4)}
+.btn-rsvp:hover { transform: scale(1.04); background: var(--blue-soft); }
 
-/* Closing section */
-#closing{padding:3rem 1.1rem 6rem}
-#closing h2{margin-bottom:.8rem}
-.closing-names{font-family:var(--body);font-size:1.7rem;margin-bottom:.8rem;color:var(--text)}
-.closing-heart{font-size:1.4rem;color:var(--heart)}
+/* Closing Section */
+#closing { padding: 3rem 1.1rem 6rem; }
+#closing h2 { margin-bottom: 0.8rem; }
+.closing-names { font-family: var(--body); font-size: 1.7rem; margin-bottom: 0.8rem; color: var(--text); }
+.closing-heart { font-size: 1.4rem; color: var(--heart); }
 
 /* music button */
 #play{position:fixed;right:calc(1rem + env(safe-area-inset-right,0px));bottom:calc(1rem + env(safe-area-inset-bottom,0px));width:56px;height:56px;border-radius:50%;border:0;background:var(--blue);display:grid;place-items:center;box-shadow:0 6px 18px rgba(0,0,0,.15);cursor:pointer;z-index:10}
@@ -95,6 +246,7 @@ transform-origin:50% 0;animation:sway 5.5s ease-in-out infinite}
 #play:before{content:"";position:absolute;inset:0;border-radius:50%;border:2px solid var(--blue);animation:ring 2.4s ease-out infinite}
 @keyframes ring{from{transform:scale(1);opacity:.8}to{transform:scale(1.6);opacity:0}}
 #play svg{width:24px;fill:#fff}
+
 @media(prefers-reduced-motion:reduce){
  *,*:before,*:after{transition:none!important;animation:none!important}
  .rv,.w,#hero p,.scrollcue{opacity:1;transform:none;filter:none}
@@ -135,7 +287,6 @@ transform-origin:50% 0;animation:sway 5.5s ease-in-out infinite}
     <path d="M30 62C10 46 6 28 18 18c7-5 13-1 14 6 2-9 11-14 17-7 8 10-3 28-19 45z"/>
     <path d="M64 70C54 62 52 54 58 50c4-2 6 0 7 3 1-4 6-6 9-2 4 5-1 13-10 19z"/>
   </svg>
-
   <div class="env">
     <svg class="back" viewBox="0 0 1060 1275" aria-hidden="true">
       <defs>
@@ -247,14 +398,8 @@ let ticking = false;
 document.title = C.full + " are getting married";
 $("names").innerHTML = C.names.split(" ").map((w, i) => `<span class="w" style="--i:${i}">${w}</span>`).join(" ");
 $("lt").innerHTML = C.letter.map((t, i) => `<p class="${i > 1 ? "sign" : ""}">${t}</p>`).join("");
-$("vname").textContent = C.venue.name;
-$("vaddr").textContent = "Address: " + C.venue.address;
-$("vimg").onerror = e => {
-  const d = document.createElement("div");
-  d.className = e.target.className;
-  e.target.replaceWith(d);
-  io.observe(d);
-};
+$("vname").textContent = C.venue.name; $("vaddr").textContent = "Address: " + C.venue.address;
+$("vimg").onerror = e => { const d = document.createElement("div"); d.className = e.target.className; e.target.replaceWith(d); io.observe(d); };
 $("vimg").src = C.venue.image;
 [["cd", C.date.day], ["cm", C.date.month], ["cy", C.date.year]].forEach(([id, v]) => $(id).textContent = v);
 
@@ -263,26 +408,18 @@ $("tl").innerHTML = C.days.map(d =>
   d.items.map(([t, n, p], i) => `<div class="ev rv ${i % 2 ? "l" : "r"}"><b>${t}</b><span>${n}</span>${p ? `<em>${p}</em>` : ""}</div>`).join("")
 ).join("");
 
-/* ---------- countdown timer ---------- */
+/* ---------- countdown timer restored ---------- */
 const target = new Date(`${C.date.month} ${C.date.day}, ${C.date.year} ${C.time || "00:00:00"}`);
 function tick() {
   const ms = target - Date.now();
   if (isNaN(ms)) { $("count").hidden = true; return; }
-  if (ms <= 0) {
-    $("count").innerHTML = `<div style="min-width:0"><b>Today's the day ♡</b></div>`;
-    return;
-  }
+  if (ms <= 0) { $("count").innerHTML = `<div style="min-width:0"><b>Today's the day ♡</b></div>`; return; }
   const s = Math.floor(ms / 1000);
-  const parts = [
-    ["Days", Math.floor(s / 86400)],
-    ["Hours", Math.floor(s % 86400 / 3600)],
-    ["Mins", Math.floor(s % 3600 / 60)],
-    ["Secs", s % 60]
-  ];
+  const parts = [["Days", Math.floor(s / 86400)], ["Hours", Math.floor(s % 86400 / 3600)],
+                 ["Mins", Math.floor(s % 3600 / 60)], ["Secs", s % 60]];
   $("count").innerHTML = parts.map(([l, v]) => `<div><b>${String(v).padStart(2, "0")}</b><small>${l}</small></div>`).join("");
 }
-tick();
-setInterval(tick, 1000);
+tick(); setInterval(tick, 1000);
 
 /* ---------- wardrobe planner ---------- */
 const IC = {
@@ -302,32 +439,15 @@ $("wp").innerHTML = C.dress.map((e, i) => `
       <div class="sw" aria-label="Suggested palette">${e.pal.map((c, k) => `<i style="background:${c};--k:${k}"></i>`).join("")}</div>
     </div>
   </article>`).join("");
-
 document.querySelectorAll(".art").forEach(a => {
-  const go = (x, y) => {
-    a.classList.remove("wig");
-    void a.offsetWidth;
-    a.classList.add("wig");
-    burst(x, y);
-  };
+  const go = (x, y) => { a.classList.remove("wig"); void a.offsetWidth; a.classList.add("wig"); burst(x, y); };
   a.addEventListener("click", e => go(e.clientX, e.clientY));
-  a.addEventListener("keydown", e => {
-    if (e.key === "Enter" || e.key === " ") {
-      e.preventDefault();
-      const r = a.getBoundingClientRect();
-      go(r.left + r.width / 2, r.top + r.height / 2);
-    }
-  });
+  a.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); const r = a.getBoundingClientRect(); go(r.left + r.width / 2, r.top + r.height / 2); } });
 });
 
 /* ---------- reveal on scroll ---------- */
 const io = "IntersectionObserver" in window
-  ? new IntersectionObserver(es => es.forEach(e => {
-      if (e.isIntersecting) {
-        e.target.classList.add("in");
-        io.unobserve(e.target);
-      }
-    }), { threshold: .12, rootMargin: "0px 0px -4% 0px" })
+  ? new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }), { threshold: .12, rootMargin: "0px 0px -4% 0px" })
   : { observe: el => el.classList.add("in"), unobserve() {} };
 document.querySelectorAll(".rv, .photo").forEach(el => io.observe(el));
 
@@ -336,30 +456,28 @@ document.querySelectorAll(".rv, .photo").forEach(el => io.observe(el));
   const fx = $("fx");
   const bird = '<svg viewBox="0 0 40 20"><path class="wing" d="M20 12Q10 0 0 6Q10 6 20 12Q30 6 40 6Q30 0 20 12Z" fill="currentColor"/></svg>';
   for (let i = 0; i < 6; i++) {
-    const b = document.createElement("div");
-    b.className = "bird";
-    b.innerHTML = bird;
+    const b = document.createElement("div"); b.className = "bird"; b.innerHTML = bird;
     b.style.cssText = `top:${rnd(8, 42)}%;--s:${rnd(22, 44)}px;--t:${rnd(18, 32)}s;--dl:-${rnd(0, 30)}s;--dy:${rnd(-9, 3)}vh;--dy2:${rnd(-4, 8)}vh`;
     b.firstChild.firstChild.style.animationDuration = rnd(.35, .6) + "s";
     fx.appendChild(b);
   }
-
   const cols = ["#ffffff", "#fbfdff", "#f3f7fa", "#ffffff", "#f7f9fc"];
+  /* More visible, soft petals drifting like the reference, without becoming a heavy shower. */
   for (let i = 0; i < (small ? 14 : 23); i++) {
-    const p = document.createElement("i");
-    p.className = "petal";
+    const p = document.createElement("i"); p.className = "petal";
     p.style.cssText = `left:${rnd(12, 112)}%;--w:${rnd(13, 23)}px;--t:${rnd(13, 20)}s;--dl:-${rnd(0, 20)}s;--x1:${rnd(-8, 8)}px;--x2:${rnd(-16, 8)}px;--x3:${rnd(-25, 5)}px;--x4:${rnd(-36, -8)}px;background:${cols[i % cols.length]}`;
     fx.appendChild(p);
   }
 })();
 
-/* ---------- subtle page sparkles (wardrobe planner excluded) ---------- */
+
+
+/* ---------- subtle page sparkles (never added to the wardrobe planner) ---------- */
 (function(){
-  document.querySelectorAll("section:not(#dress)").forEach(section => {
+  document.querySelectorAll("section:not(#dress)").forEach((section, si) => {
     const layer = document.createElement("div");
     layer.className = "sparkle-layer";
     layer.setAttribute("aria-hidden", "true");
-
     for (let i = 0; i < 7; i++) {
       const star = document.createElement("i");
       star.className = "sparkle";
@@ -375,14 +493,12 @@ document.querySelectorAll(".rv, .photo").forEach(el => io.observe(el));
     section.prepend(layer);
   });
 })();
-
 /* ---------- soft clouds (schedule section) ---------- */
 function sky(el, n, color, opacity) {
   const shape = `<svg viewBox="0 0 220 90" aria-hidden="true"><g fill="${color}"><ellipse cx="60" cy="58" rx="52" ry="22"/><ellipse cx="112" cy="42" rx="46" ry="32"/><ellipse cx="160" cy="58" rx="46" ry="22"/></g></svg>`;
   for (let i = 0; i < n; i++) {
     const w = rnd(150, 330), dur = rnd(28, 48);
-    const cw = document.createElement("div");
-    cw.className = "cw";
+    const cw = document.createElement("div"); cw.className = "cw";
     cw.style.top = (4 + i * (88 / n) + Math.random() * 8) + "%";
     cw.dataset.s = rnd(.04, .14).toFixed(3);
     cw.innerHTML = `<span class="cloud" style="width:${w}px;opacity:${opacity * rnd(.6, 1)};animation-duration:${dur}s;animation-delay:-${rnd(0, dur)}s">${shape}</span>`;
@@ -396,35 +512,25 @@ const clouds = [...document.querySelectorAll(".cw")];
 function burst(x, y) {
   if (still) return;
   for (let i = 0; i < 14; i++) {
-    const s = document.createElement("span");
-    const a = Math.PI * 2 * i / 14 + Math.random() * .4;
-    const d = rnd(50, 120);
+    const s = document.createElement("span"), a = Math.PI * 2 * i / 14 + Math.random() * .4, d = rnd(50, 120);
     s.textContent = "♥";
     s.style.cssText = `position:fixed;left:${x}px;top:${y}px;color:var(--heart);font-size:${rnd(12, 26)}px;pointer-events:none;z-index:30`;
     document.body.appendChild(s);
-    s.animate([
-      { transform: "translate(-50%,-50%) scale(.3)", opacity: 1 },
-      { transform: `translate(calc(-50% + ${Math.cos(a) * d}px),calc(-50% + ${Math.sin(a) * d - 30}px)) scale(1)`, opacity: 0 }
-    ], { duration: rnd(900, 1500), easing: "cubic-bezier(.2,.8,.2,1)" }).onfinish = () => s.remove();
+    s.animate([{ transform: "translate(-50%,-50%) scale(.3)", opacity: 1 },
+      { transform: `translate(calc(-50% + ${Math.cos(a) * d}px),calc(-50% + ${Math.sin(a) * d - 30}px)) scale(1)`, opacity: 0 }],
+      { duration: rnd(900, 1500), easing: "cubic-bezier(.2,.8,.2,1)" }).onfinish = () => s.remove();
   }
 }
-$("hearts").addEventListener("click", e => {
-  const r = e.currentTarget.getBoundingClientRect();
-  burst(r.left + r.width / 2, r.top + r.height / 2);
-});
+$("hearts").addEventListener("click", e => { const r = e.currentTarget.getBoundingClientRect(); burst(r.left + r.width / 2, r.top + r.height / 2); });
 
 /* ---------- scroll-driven effects ---------- */
-const env = document.querySelector(".env");
-const letter = document.querySelector(".letter");
-const tl = $("tl");
-const bar = $("bar");
-
+const env = document.querySelector(".env"), letter = document.querySelector(".letter"), tl = $("tl"), bar = $("bar");
 function frame() {
   ticking = false;
   const y = scrollY, H = innerHeight;
   bar.style.transform = `scaleX(${clamp01(y / (document.documentElement.scrollHeight - H))})`;
 
-  // Letter slides up out of the envelope
+  // letter slides up out of the envelope
   const r = env.getBoundingClientRect(), h = letter.offsetHeight, eh = env.clientHeight;
   const p2 = letter.querySelector("#lt p:nth-child(2)") || letter.querySelector("#lt p");
   const textBottom = eh - (letter.offsetTop + p2.offsetTop + p2.offsetHeight);
@@ -434,41 +540,29 @@ function frame() {
   const e = p * p * (3 - 2 * p);
   letter.style.transform = `translateY(${(1 - e) * (h - r.height * .08) - e * lift}px)`;
 
-  // Timeline line draws itself
+  // timeline line draws itself
   const t = tl.getBoundingClientRect();
   tl.style.setProperty("--p", still ? 1 : clamp01((H * .75 - t.top) / t.height));
 
-  // Cloud parallax
+  // cloud parallax
   if (!still) clouds.forEach(c => {
     const host = c.parentElement.getBoundingClientRect();
     c.style.transform = `translateY(${(host.top + host.height / 2 - H / 2) * -c.dataset.s}px)`;
   });
 }
-const queue = () => {
-  if (!ticking) {
-    ticking = true;
-    requestAnimationFrame(frame);
-  }
-};
+const queue = () => { if (!ticking) { ticking = true; requestAnimationFrame(frame); } };
 addEventListener("scroll", queue, { passive: true });
-addEventListener("resize", queue);
-addEventListener("load", queue);
-frame();
+addEventListener("resize", queue); addEventListener("load", queue); frame();
 
 /* ---------- music ---------- */
 const au = $("music"), play = $("play");
-const ICON_PLAY = '<path d="M7 4l13 8-13 8z">';
-const ICON_PAUSE = '<path d="M6 4h4v16H6zM14 4h4v16h-4z">';
-if (C.music) {
-  au.src = C.music;
-  play.hidden = false;
-}
+const ICON_PLAY = '<path d="M7 4l13 8-13 8z"/>', ICON_PAUSE = '<path d="M6 4h4v16H6zM14 4h4v16h-4z"/>';
+if (C.music) { au.src = C.music; play.hidden = false; }
 play.onclick = () => {
   au.paused ? au.play() : au.pause();
   play.querySelector("svg").innerHTML = au.paused ? ICON_PLAY : ICON_PAUSE;
   play.setAttribute("aria-label", au.paused ? "Play music" : "Pause music");
-  const r = play.getBoundingClientRect();
-  burst(r.left + r.width / 2, r.top + r.height / 2);
+  const r = play.getBoundingClientRect(); burst(r.left + r.width / 2, r.top + r.height / 2);
 };
 </script>
 </body>
