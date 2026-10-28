@@ -945,11 +945,11 @@ let ticking = false;
 
 document.title = C.full + " are getting married";
 $("names").innerHTML = C.names.split(" ").map((w,i) =>
-  `<span class="w" style="--i:i">{w}</span>`
+  `<span class="w" style="--i:${i}">${w}</span>`
 ).join(" ");
 
 $("lt").innerHTML = C.letter.map((t,i) =>
-  `<p class="i>1?"sign":""">{t}</p>`
+  `<p class="${i > 1 ? "sign" : ""}">${t}</p>`
 ).join("");
 
 $("vname").textContent = C.venue.name;
@@ -968,10 +968,10 @@ $("vimg").src = C.venue.image;
 
 /* Build event timeline */
 $("tl").innerHTML = C.days.map(d =>
-  `<div class="dayh rv"><h3>d.title</h3><small>{d.sub}</small></div>` +
+  `<div class="dayh rv"><h3>${d.title}</h3><small>${d.sub}</small></div>` +
   d.items.map(([t,n,p],i) =>
     `<div class="ev rv ${i % 2 ? "l" : "r"}">
-      <b>t</b><span>{n}</span>${p ? `<em>${p}</em>` : ""}
+      <b>${t}</b><span>${n}</span>${p ? `<em>${p}</em>` : ""}
     </div>`
   ).join("")
 ).join("");
@@ -1001,7 +1001,7 @@ function tick() {
   ];
 
   $("count").innerHTML = parts.map(([l,v]) =>
-    `<div><b>String(v).padStart(2,"0")</b><small>{l}</small></div>`
+    `<div><b>${String(v).padStart(2,"0")}</b><small>${l}</small></div>`
   ).join("");
 }
 
@@ -1016,7 +1016,7 @@ const IC = {
 };
 
 const ln = (i,inner) =>
-  `<div class="ln"><svg viewBox="0 0 24 24" aria-hidden="true">IC[i]</svg><div>{inner}</div></div>`;
+  `<div class="ln"><svg viewBox="0 0 24 24" aria-hidden="true">${IC[i]}</svg><div>${inner}</div></div>`;
 
 $("wp").innerHTML = C.dress.map((e,i) => `
   <article class="wr rv ${i%2 ? "rt" : "lt"}">
@@ -1076,7 +1076,7 @@ document.querySelectorAll(".rv,.photo").forEach(el => io.observe(el));
     const b = document.createElement("div");
     b.className = "bird";
     b.innerHTML = bird;
-    b.style.cssText = `top:rnd(8,42)%;--s:{rnd(22,44)}px;--t:rnd(18,32)s;--dl:-{rnd(0,30)}s;--dy:rnd(-9,3)vh;--dy2:{rnd(-4,8)}vh`;
+    b.style.cssText = `top:${rnd(8,42)}%;--s:${rnd(22,44)}px;--t:${rnd(18,32)}s;--dl:-${rnd(0,30)}s;--dy:${rnd(-9,3)}vh;--dy2:${rnd(-4,8)}vh`;
     b.firstChild.firstChild.style.animationDuration = rnd(.35,.6)+"s";
     fx.appendChild(b);
   }
@@ -1086,7 +1086,7 @@ document.querySelectorAll(".rv,.photo").forEach(el => io.observe(el));
   for (let i=0;i<(small?14:24);i++) {
     const p = document.createElement("i");
     p.className = "petal";
-    p.style.cssText = `left:rnd(0,100)%;--w:{rnd(9,17)}px;--t:rnd(9,17)s;--dl:-{rnd(0,17)}s;--x1:rnd(-40,40)px;--x2:{rnd(-60,60)}px;--x3:rnd(-80,80)px;background:{cols[i%cols.length]}`;
+    p.style.cssText = `left:${rnd(0,100)}%;--w:${rnd(9,17)}px;--t:${rnd(9,17)}s;--dl:-${rnd(0,17)}s;--x1:${rnd(-40,40)}px;--x2:${rnd(-60,60)}px;--x3:${rnd(-80,80)}px;background:${cols[i%cols.length]}`;
     fx.appendChild(p);
   }
 })();
@@ -1102,7 +1102,7 @@ function sky(el,n,color,opacity) {
     cw.className = "cw";
     cw.style.top = (4+i*(88/n)+Math.random()*8)+"%";
     cw.dataset.s = rnd(.04,.14).toFixed(3);
-    cw.innerHTML = `<span class="cloud" style="width:wpx;opacity:{opacity*rnd(.6,1)};animation-duration:durs;animation-delay:-{rnd(0,dur)}s">${shape}</span>`;
+    cw.innerHTML = `<span class="cloud" style="width:${w}px;opacity:${opacity*rnd(.6,1)};animation-duration:${dur}s;animation-delay:-${rnd(0,dur)}s">${shape}</span>`;
     el.appendChild(cw);
   }
 }
@@ -1119,7 +1119,7 @@ function burst(x,y) {
     const a = Math.PI*2*i/14+Math.random()*.4;
     const d = rnd(50,120);
     s.textContent = "♥";
-    s.style.cssText = `position:fixed;left:xpx;top:{y}px;color:var(--heart);font-size:${rnd(12,26)}px;pointer-events:none;z-index:30`;
+    s.style.cssText = `position:fixed;left:${x}px;top:${y}px;color:var(--heart);font-size:${rnd(12,26)}px;pointer-events:none;z-index:30`;
     document.body.appendChild(s);
 
     s.animate([
@@ -1215,4 +1215,3 @@ play.onclick = async () => {
 </script>
 </body>
 </html>
-
