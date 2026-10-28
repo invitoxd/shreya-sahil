@@ -1,213 +1,163 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#dceaf5">
-  <title>Shreya Maini & Sahil Suneja | Goa</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=DM+Sans:wght@400;500&family=Great+Vibes&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shreya & Sahil - Wedding Invitation</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="style.css">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
 </head>
-<body>
-  <div class="progress" id="progress"></div>
+<body class="bg-stone-100 antialiased selection:bg-teal-200">
 
-  <main>
-    <section class="opening" id="opening">
-      <div class="paper-texture"></div>
-      <div class="starfish starfish-one">✳</div>
-      <div class="starfish starfish-two">✳</div>
-      <div class="opening-art">
-        <span class="opening-caption">A little sea, a little sunshine, a lot of love</span>
-        <div class="envelope" id="envelope">
-          <div class="envelope-back"></div>
-          <div class="letter">
-            <span class="eyebrow">TO OUR FAVOURITE PEOPLE</span>
-            <h1>Shreya <span>&</span><br>Sahil</h1>
-            <p>are getting married</p>
-            <div class="letter-rule">✦</div>
-            <p class="letter-date">30 — 31 January 2027</p>
-            <p class="letter-place">GOA, INDIA</p>
-          </div>
-          <div class="envelope-left"></div>
-          <div class="envelope-right"></div>
-          <div class="envelope-flap"></div>
-          <button class="seal" id="openInvite" aria-label="Open wedding invitation">S · S</button>
-        </div>
-        <p class="tap-note" id="tapNote">TAP THE SEAL TO OPEN YOUR INVITATION</p>
-      </div>
-      <button class="skip" id="skipIntro">Skip intro ↓</button>
-    </section>
-
-    <section class="hero scene" id="hero">
-      <div class="hero-sky"></div>
-      <div class="sun"></div>
-      <div class="cloud cloud-one"></div>
-      <div class="cloud cloud-two"></div>
-      <div class="bird bird-one">⌁</div>
-      <div class="bird bird-two">⌁</div>
-      <div class="hero-copy reveal">
-        <p class="eyebrow light">PACK YOUR SUNSHINE</p>
-        <h2>Two hearts.<br>One <em>coastline.</em></h2>
-        <p class="hero-names">Shreya Maini <span>&</span> Sahil Suneja</p>
-        <p>30–31 January 2027 · Goa</p>
-        <a class="text-link" href="#celebrations">Come celebrate with us ↓</a>
-      </div>
-      <div class="coastline">
-        <div class="distant-hills"></div>
-        <div class="sea sea-back"></div>
-        <div class="sea sea-front"></div>
-        <div class="wave wave-one"></div>
-        <div class="wave wave-two"></div>
-        <div class="sand"></div>
-        <div class="palm palm-left"><i></i></div>
-        <div class="palm palm-right"><i></i></div>
-      </div>
-      <div class="scene-label">A GOAN LOVE STORY <span>✦</span> JANUARY 2027</div>
-    </section>
-
-    <section class="story section-pad">
-      <div class="story-art">
-        <div class="arch"></div>
-        <div class="bougainvillea">✿ ✿ ✿<br>✿ ✿<br>✿ ✿ ✿</div>
-        <div class="story-sun"></div>
-        <div class="story-sea"></div>
-        <div class="story-sand"></div>
-        <div class="story-caption">Somewhere between<br>the sea and forever.</div>
-      </div>
-      <div class="story-copy reveal">
-        <p class="eyebrow">A NOTE FROM US</p>
-        <h2>Meet us where<br>the <em>sea meets the sky.</em></h2>
-        <p>We’re bringing our favourite people together for sunshine, happy tears, music, and two days we’ll remember forever.</p>
-        <p>All that’s missing is you.</p>
-        <a href="#venue" class="text-link dark-link">Find your way to Goa ↗</a>
-      </div>
-    </section>
-
-    <section class="events scene" id="celebrations">
-      <div class="event-backdrop"></div>
-      <div class="event-intro reveal">
-        <p class="eyebrow light">THE FESTIVITIES</p>
-        <h2>Follow the <em>celebration.</em></h2>
-        <p>Tap a little scene to discover what’s happening.</p>
-      </div>
-
-      <div class="event-world">
-        <button class="event-point point-haldi" data-event="haldi">
-          <span class="event-illustration">☀</span>
-          <span class="point-name">Haldi</span>
-          <span class="point-date">30 JAN</span>
+    <!-- Envelope Screen -->
+    <div id="envelope-screen" class="min-h-screen flex items-center justify-center p-4">
+        <button id="open-btn" class="bg-teal-700/90 text-white px-8 py-4 rounded-sm tracking-widest uppercase text-sm shadow-xl transition-all hover:scale-105">
+            Open Invitation
         </button>
-        <button class="event-point point-cocktail" data-event="cocktail">
-          <span class="event-illustration">✦</span>
-          <span class="point-name">Cocktail</span>
-          <span class="point-date">30 JAN</span>
-        </button>
-        <button class="event-point point-chooda" data-event="chooda">
-          <span class="event-illustration">❀</span>
-          <span class="point-name">Chooda</span>
-          <span class="point-date">31 JAN</span>
-        </button>
-        <button class="event-point point-sehra" data-event="sehra">
-          <span class="event-illustration">✧</span>
-          <span class="point-name">Sehrabandi</span>
-          <span class="point-date">31 JAN</span>
-        </button>
-        <button class="event-point point-baraat" data-event="baraat">
-          <span class="event-illustration">♧</span>
-          <span class="point-name">Baraat</span>
-          <span class="point-date">31 JAN</span>
-        </button>
-        <button class="event-point point-wedding" data-event="wedding">
-          <span class="event-illustration">♡</span>
-          <span class="point-name">The Wedding</span>
-          <span class="point-date">31 JAN</span>
-        </button>
-        <button class="event-point point-after" data-event="after">
-          <span class="event-illustration">☾</span>
-          <span class="point-name">Afterparty</span>
-          <span class="point-date">31 JAN</span>
-        </button>
-      </div>
+    </div>
 
-      <div class="event-overlay" id="eventOverlay" aria-hidden="true">
-        <button class="close-overlay" id="closeEvent" aria-label="Close event">×</button>
-        <p class="eyebrow" id="eventDate"></p>
-        <h3 id="eventTitle"></h3>
-        <p class="event-time" id="eventTime"></p>
-        <p id="eventLocation"></p>
-        <p class="event-dress" id="eventDress"></p>
-      </div>
-    </section>
+    <!-- Main Invitation (Hidden Initially) -->
+    <div id="main-invitation" class="hidden min-h-screen bg-[#f8f5f0] text-stone-800 font-sans max-w-md mx-auto shadow-2xl relative overflow-x-hidden pb-10">
+        
+        <!-- Watercolor Background Texture -->
+        <div class="fixed inset-0 opacity-20 pointer-events-none mix-blend-multiply bg-[url('https://images.unsplash.com/photo-1580137189272-c9379f8864fd?auto=format&fit=crop&q=80')] bg-cover bg-center"></div>
 
-    <section class="venue" id="venue">
-      <div class="venue-photo">
-        <div class="venue-sky"></div>
-        <div class="venue-arch"></div>
-        <div class="venue-palms">♣</div>
-        <div class="venue-sea"></div>
-        <div class="venue-photo-note">SUN, SEA & SOMETHING BEAUTIFUL</div>
-      </div>
-      <div class="venue-copy reveal">
-        <p class="eyebrow">OUR LITTLE CORNER OF GOA</p>
-        <h2>Meet us at<br><em>Caravela.</em></h2>
-        <p class="venue-name">Caravela Beach Resort</p>
-        <p>Varca Beach, Goa, India</p>
-        <p class="venue-note">Your destination: salty air, golden sunsets, and a celebration by the sea.</p>
-        <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Caravela+Beach+Resort+Goa" target="_blank" rel="noopener">OPEN IN GOOGLE MAPS ↗</a>
-      </div>
-    </section>
+        <!-- Floating Audio Controls -->
+        <button id="music-btn" class="fixed top-4 right-4 z-50 bg-white/50 backdrop-blur-md p-3 rounded-full text-teal-800 shadow-sm border border-teal-100/50">
+            <i data-lucide="music-4" id="music-icon" class="w-5 h-5 opacity-50"></i>
+        </button>
+        
+        <audio id="bg-music" loop src="dolcevita-music.mp3"></audio>
 
-    <section class="dress section-pad">
-      <div class="dress-heading reveal">
-        <p class="eyebrow">A LITTLE STYLE NOTE</p>
-        <h2>Dress for the <em>moment.</em></h2>
-        <p>Choose a celebration to see what to wear.</p>
-      </div>
-      <div class="dress-experience">
-        <div class="fabric-art" id="fabricArt">
-          <span class="fabric-sun"></span>
-          <span class="fabric-flower">✿</span>
-          <span class="fabric-ribbon"></span>
-          <span class="fabric-label" id="fabricLabel">BEACHSIDE FESTIVE CHIC</span>
-        </div>
-        <div class="dress-options">
-          <button class="dress-option active" data-dress="haldi">01 <span>Haldi</span><small>Bright & breezy</small></button>
-          <button class="dress-option" data-dress="cocktail">02 <span>Cocktail</span><small>Black tie glam</small></button>
-          <button class="dress-option" data-dress="wedding">03 <span>Wedding</span><small>Ivory & gold</small></button>
-          <button class="dress-option" data-dress="after">04 <span>Afterparty</span><small>Bollywood after-dark</small></button>
-        </div>
-      </div>
-    </section>
+        <!-- Hero Section -->
+        <section class="min-h-[85vh] flex flex-col items-center justify-center text-center p-8 relative z-10 transition-opacity duration-1000">
+            <p class="tracking-[0.3em] uppercase text-xs mb-8 text-teal-800/80">Save the Date</p>
+            <h1 class="font-serif text-6xl text-teal-900 mb-8 leading-tight">
+                Shreya <br/>
+                <span class="text-4xl text-teal-700/60 font-light">&amp;</span><br/> 
+                Sahil
+            </h1>
+            
+            <div class="flex items-center gap-6 text-teal-900 font-serif">
+                <div class="text-center">
+                    <span class="block text-3xl">30</span>
+                    <span class="text-xs uppercase tracking-widest text-teal-700">Jan</span>
+                </div>
+                <div class="w-px h-8 bg-teal-800/30"></div>
+                <div class="text-center">
+                    <span class="block text-3xl">31</span>
+                    <span class="text-xs uppercase tracking-widest text-teal-700">Jan</span>
+                </div>
+            </div>
+            <p class="mt-4 font-serif text-xl text-teal-800">2027</p>
+        </section>
 
-    <section class="finale scene" id="rsvp">
-      <div class="final-sun"></div>
-      <div class="final-sky"></div>
-      <div class="final-sea">
-        <div class="final-wave"></div>
-        <div class="final-wave wave-late"></div>
-      </div>
-      <div class="final-palms">♣</div>
-      <div class="final-copy reveal">
-        <p class="eyebrow light">UNTIL THE SUN SETS ON OUR BIG DAY</p>
-        <h2>Counting down<br>to <em>forever.</em></h2>
-        <div class="countdown" id="countdown">
-          <div><strong id="days">000</strong><span>DAYS</span></div>
-          <div><strong id="hours">00</strong><span>HOURS</span></div>
-          <div><strong id="minutes">00</strong><span>MINUTES</span></div>
-          <div><strong id="seconds">00</strong><span>SECONDS</span></div>
-        </div>
-        <p class="final-message">We can’t wait to celebrate with you.</p>
-        <a class="rsvp-button" id="rsvpLink" href="#" target="_blank" rel="noopener">COUNT US IN? RSVP ↗</a>
-        <p class="final-names">Shreya Maini <span>&</span> Sahil Suneja</p>
-        <p class="final-date">30 — 31 JANUARY 2027 · GOA</p>
-      </div>
-    </section>
-  </main>
+        <!-- Welcome Note -->
+        <section class="px-8 py-16 text-center relative z-10 bg-white/40 backdrop-blur-sm">
+            <h2 class="font-serif text-2xl text-teal-900 mb-6">With Blessings</h2>
+            <p class="text-stone-600 leading-relaxed text-sm">
+                Dear friends and family,<br/><br/>
+                As Shreya and Sahil begin this beautiful new chapter, we can’t imagine celebrating it without the people who mean so much to us. Your love has been a part of our journey, and having you by our side as we begin our forever would make this moment even more special.
+            </p>
+            <p class="mt-6 font-serif text-teal-800 italic">With all our love,<br/>Shreya &amp; Sahil ♡</p>
+        </section>
 
-  <button class="music-toggle" id="musicToggle" aria-label="Toggle music">♫ <span>Music</span></button>
-  <audio id="music" loop preload="none"></audio>
-  <script src="app.js"></script>
+        <!-- Venue Section -->
+        <section class="px-8 py-16 text-center relative z-10">
+            <i data-lucide="map-pin" class="mx-auto mb-4 text-teal-700 w-7 h-7"></i>
+            <h2 class="font-serif text-2xl text-teal-900 mb-2">The Venue</h2>
+            <p class="text-stone-700 font-medium">Caravela Resort</p>
+            <p class="text-stone-500 text-sm">Varca, Goa</p>
+        </section>
+
+        <!-- Schedule -->
+        <section class="px-8 py-16 relative z-10 bg-teal-900 text-teal-50">
+            <h2 class="font-serif text-3xl text-center mb-10 text-teal-100">Schedule of Events</h2>
+            <div class="space-y-8">
+                <div class="border-b border-teal-800/50 pb-6">
+                    <h3 class="font-serif text-xl mb-1 text-teal-200">Haldi &amp; Cocktail</h3>
+                    <p class="text-sm text-teal-400 mb-4">January 30</p>
+                    <div class="flex justify-between items-center text-sm mb-3 bg-teal-800/20 p-3 rounded">
+                        <span>Haldi</span><span>1:00 PM</span>
+                    </div>
+                    <div class="flex justify-between items-center text-sm bg-teal-800/20 p-3 rounded">
+                        <span>Cocktail</span><span>6:30 PM</span>
+                    </div>
+                </div>
+                <div class="pt-2">
+                    <h3 class="font-serif text-xl mb-1 text-teal-200">Wedding Day</h3>
+                    <p class="text-sm text-teal-400 mb-4">January 31</p>
+                    <div class="space-y-3">
+                        <div class="flex justify-between items-center text-sm bg-teal-800/20 p-3 rounded">
+                            <span>Chooda &amp; Sehrabandi</span><span>10:00 AM</span>
+                        </div>
+                        <div class="flex justify-between items-center text-sm bg-teal-800/20 p-3 rounded">
+                            <span>Baraat</span><span>12:00 PM</span>
+                        </div>
+                        <div class="flex justify-between items-center text-sm bg-teal-800/20 p-3 rounded">
+                            <span>Pheras</span><span>2:00 PM</span>
+                        </div>
+                        <div class="flex justify-between items-center text-sm bg-teal-800/20 p-3 rounded">
+                            <span>Afterparty</span><span>7:00 PM</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Wardrobe Planner -->
+        <section class="px-8 py-16 relative z-10 bg-white/60">
+            <h2 class="font-serif text-3xl text-center mb-2 text-teal-900">Wardrobe Planner</h2>
+            <p class="text-center text-stone-500 text-sm mb-10">Dress to celebrate every moment with us!</p>
+            <div class="grid gap-6">
+                <div class="bg-white/80 p-6 rounded-lg shadow-sm border border-stone-100">
+                    <p class="text-xs text-teal-600 font-bold uppercase tracking-wider mb-1">Haldi</p>
+                    <h4 class="font-serif text-lg text-teal-900 mb-2">Beachside Festive Chic</h4>
+                    <p class="text-sm text-stone-600">Breezy outfits — western, Indian or Indo-western. All silhouettes are welcome!</p>
+                </div>
+                <div class="bg-white/80 p-6 rounded-lg shadow-sm border border-stone-100">
+                    <p class="text-xs text-teal-600 font-bold uppercase tracking-wider mb-1">Cocktail</p>
+                    <h4 class="font-serif text-lg text-teal-900 mb-2">Black Tie Glamour</h4>
+                    <p class="text-sm text-stone-600">Think gowns, dresses or even sarees; tuxedos &amp; formal suits for the men.</p>
+                </div>
+                <div class="bg-white/80 p-6 rounded-lg shadow-sm border border-stone-100">
+                    <p class="text-xs text-teal-600 font-bold uppercase tracking-wider mb-1">Pheras</p>
+                    <h4 class="font-serif text-lg text-teal-900 mb-2">Ivory &amp; Gold</h4>
+                    <p class="text-sm text-stone-600">A palette of ivory and gold. All silhouettes are welcome!</p>
+                </div>
+                <div class="bg-white/80 p-6 rounded-lg shadow-sm border border-stone-100">
+                    <p class="text-xs text-teal-600 font-bold uppercase tracking-wider mb-1">Afterparty</p>
+                    <h4 class="font-serif text-lg text-teal-900 mb-2">Bollywood After-Dark Glam</h4>
+                    <p class="text-sm text-stone-600">Indo-western outfits, mini dresses, statement sets and comfortable shoes.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- WhatsApp RSVP -->
+        <section class="px-8 py-16 text-center relative z-10 border-t border-teal-900/10">
+            <h2 class="font-serif text-3xl text-teal-900 mb-4">Confirm Your Attendance</h2>
+            <p class="text-stone-600 text-sm mb-8">To help us prepare for a joyful celebration, kindly RSVP via WhatsApp.</p>
+            <form id="rsvp-form" class="space-y-4 max-w-xs mx-auto">
+                <input type="text" id="guest-name" required placeholder="Your Name" class="w-full px-4 py-3 rounded-sm border border-teal-900/20 bg-white/80 focus:outline-none focus:border-teal-700"/>
+                <select id="guest-count" class="w-full px-4 py-3 rounded-sm border border-teal-900/20 bg-white/80 focus:outline-none focus:border-teal-700">
+                    <option value="1">Just me</option>
+                    <option value="2">2 guests</option>
+                    <option value="3">3 guests</option>
+                    <option value="4+">4+ guests</option>
+                </select>
+                <button type="submit" class="w-full bg-teal-800 text-white py-4 rounded-sm uppercase tracking-widest text-sm font-medium hover:bg-teal-900 transition-colors flex items-center justify-center gap-2">
+                    <i data-lucide="mail" class="w-4 h-4"></i> Send RSVP
+                </button>
+            </form>
+        </section>
+        
+        <footer class="py-8 text-center bg-teal-950 text-teal-400 text-xs tracking-widest uppercase">
+            <p>Hope to see you there!</p>
+        </footer>
+    </div>
+
+    <script src="app.js"></script>
 </body>
 </html>
