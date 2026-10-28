@@ -28,7 +28,7 @@ section{padding:5rem 1.1rem;position:relative}
 .cloud svg{display:block;width:100%;height:auto}
 @keyframes drift{from{transform:translateX(-40vw)}to{transform:translateX(140vw)}}
 #hero{min-height:100vh;min-height:100svh;display:grid;align-content:center;padding:0 1rem;overflow:hidden;
-background:linear-gradient(to bottom,rgba(255,253,251,0) 70%,var(--bg)),url("images/hero.jpg") center/cover,linear-gradient(#dfe9f0,#f7efe4)}
+background:linear-gradient(to bottom,rgba(255,253,251,0) 70%,var(--bg)),url("goa-opening.png.png") center/cover,linear-gradient(#dfe9f0,#f7efe4)}
 #hero h1{font-family:var(--script);font-weight:400;font-size:clamp(3.2rem,15vw,6rem);line-height:1.1}
 .w{display:inline-block;opacity:0;transform:translateY(22px);filter:blur(8px);animation:wi 1.2s var(--ease) forwards;animation-delay:calc(var(--i)*.28s + .2s)}
 @keyframes wi{to{opacity:1;transform:none;filter:none}}
@@ -43,10 +43,6 @@ background:linear-gradient(to bottom,rgba(255,253,251,0) 70%,var(--bg)),url("ima
 .card{position:relative;aspect-ratio:7/8;background:var(--card);border-radius:22px;box-shadow:0 8px 28px rgba(150,120,100,.12);display:grid;place-items:center;
 font-family:var(--num);font-size:clamp(1.05rem,5.4vw,2rem);overflow:hidden;transform:rotateX(-85deg);transform-origin:top;transition:transform 1.1s var(--ease) calc(var(--d,0s) + .1s)}
 .cell.in .card{transform:none}
-.count{display:flex;justify-content:center;gap:clamp(.5rem,3.5vw,1.6rem);margin-top:2rem}
-.count div{min-width:clamp(52px,16vw,64px)}
-.count b{display:block;font-family:var(--num);font-weight:400;font-size:clamp(1.5rem,7vw,2.3rem);color:var(--blue)}
-.count small{font-size:.62rem;letter-spacing:.22em;color:var(--blue-soft);text-transform:uppercase;padding-left:.2em}
 #invited{font-family:var(--hand);font-size:clamp(2.4rem,11vw,3.6rem);margin:3rem 0 2.4rem}
 .env{position:relative;max-width:540px;aspect-ratio:1060/1275;margin:0 auto;clip-path:inset(-300% -5% 0 -5%)}
 .env svg.back,.env svg.front{position:absolute;left:0;width:100%;display:block}
@@ -61,7 +57,7 @@ font-family:var(--num);font-size:clamp(1.05rem,5.4vw,2rem);overflow:hidden;trans
 .hearts{display:block;margin:0 auto 2.4rem;width:90px;padding:8px;cursor:pointer;animation:bob 3.2s ease-in-out infinite}
 @keyframes bob{50%{transform:translateY(-8px) rotate(-3deg)}}
 
-/* timeline */
+/* timeline (centred line, events alternate left / right) */
 #schedule{overflow:hidden}#schedule h2{margin-bottom:2.6rem}
 .tl{position:relative;max-width:520px;margin:auto;--p:0}
 .tl:before{content:"";position:absolute;left:50%;top:10px;bottom:10px;width:3px;background:var(--blue-line);transform:translateX(-50%) scaleY(var(--p));transform-origin:top}
@@ -77,13 +73,11 @@ font-family:var(--num);font-size:clamp(1.05rem,5.4vw,2rem);overflow:hidden;trans
 .ev.r{margin-left:50%}.ev.r:after{left:0}
 .ev.l{margin-right:50%}.ev.l:after{right:0;left:auto;transform:translateX(50%) rotate(45deg) scale(0)}
 .ev.l.in:after{transform:translateX(50%) rotate(45deg) scale(1)}
-@media(max-width:560px){ /* single-rail timeline on phones */
- .tl:before{left:11px;transform:scaleY(var(--p))}
- .ev,.ev.r,.ev.l{width:100%;margin-left:0;margin-right:0;padding:0 0 0 2.6rem;text-align:left}
- .ev.r:after,.ev.l:after{left:11px;right:auto;transform:translateX(-50%) rotate(45deg) scale(0)}
- .ev.in:after,.ev.l.in:after{transform:translateX(-50%) rotate(45deg) scale(1)}
- .ev.r.rv,.ev.l.rv{transform:translateY(24px)}.ev.rv.in{transform:none}
- .dayh{text-align:left;padding-left:2.6rem}
+@media(max-width:560px){
+ .ev{padding:0 .8rem;margin-bottom:2rem}
+ .ev b{font-size:clamp(1.7rem,8vw,2.4rem)}
+ .ev span{font-size:1.1rem}
+ .ev em{font-size:.88rem;line-height:1.3}
 }
 
 /* venue */
@@ -162,7 +156,6 @@ transform-origin:50% 0;animation:sway 5.5s ease-in-out infinite}
     <div class="cell rv" style="--d:.2s"><div class="card" id="cm"></div><span>MONTH</span></div>
     <div class="cell rv" style="--d:.4s"><div class="card" id="cy"></div><span>YEAR</span></div>
   </div>
-  <div class="count rv" id="count"></div>
   <p id="invited" class="rv">You’re invited!</p>
   <svg class="hearts" id="hearts" viewBox="0 0 90 80" fill="none" stroke="#79b3d3" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="Tap for hearts">
     <path d="M30 62C10 46 6 28 18 18c7-5 13-1 14 6 2-9 11-14 17-7 8 10-3 28-19 45z"/>
@@ -227,7 +220,6 @@ const C = {
   names: "Shreya & Sahil",
   full: "Shreya Maini & Sahil Suneja",
   date: { day: "30", month: "January", year: "2027" },
-  time: "13:00:00",
   letter: [
     "As Shreya and Sahil begin this beautiful new chapter, we can’t imagine celebrating it without the people who mean so much to us.",
     "Your love has been a part of our journey, and having you by our side as we begin our forever would make this moment even more special.",
@@ -238,7 +230,7 @@ const C = {
     { title: "Day 1", sub: "30th January 2027", items: [["1 PM", "Haldi", "Coconut Grove"], ["6:30 PM", "Cocktail", "Varca Ballroom"]] },
     { title: "Day 2", sub: "31st January 2027", items: [["10 AM", "Chooda Ceremony", "The lawns"], ["11 AM", "Sehrabandi", "Same venue as Chooda"], ["12 PM", "Baraat", ""], ["2 PM", "Pheras", "Beach venue"], ["7 PM", "Afterparty", "Varca Ballroom"]] }
   ],
-  venue: { name: "Caravela Resort", address: "Goa", image: "images/venue.jpg" },
+  venue: { name: "Caravela Resort", address: "Goa", image: "Caravela%20Resort.avif" },
   dress: [
     { name: "Haldi", time: "1 PM ONWARDS", place: "Coconut Grove", code: "Beachside Festive Chic",
       note: "All silhouettes are welcome. Think breezy outfits: western, Indian or Indo-western.",
@@ -316,17 +308,6 @@ const small = innerWidth < 600;
 sky($("sky1"), small ? 4 : 6, "#ffffff", .85);
 sky($("sky2"), small ? 3 : 4, "#cfe2f0", .55);
 const clouds = [...document.querySelectorAll(".cw")];
-
-const target = new Date(`${C.date.month} ${C.date.day}, ${C.date.year} ${C.time || "00:00:00"}`);
-function tick() {
-  const ms = target - Date.now(), box = $("count");
-  if (isNaN(ms)) { box.hidden = true; return; }
-  if (ms <= 0) { box.innerHTML = `<div style="min-width:0"><b>Today’s the day ♡</b></div>`; return; }
-  const s = Math.floor(ms / 1000);
-  box.innerHTML = [["Days", Math.floor(s / 86400)], ["Hours", Math.floor(s % 86400 / 3600)], ["Mins", Math.floor(s % 3600 / 60)], ["Secs", s % 60]]
-    .map(([l, v]) => `<div><b>${String(v).padStart(2, "0")}</b><small>${l}</small></div>`).join("");
-}
-tick(); setInterval(tick, 1000);
 
 function burst(x, y) {
   if (still) return;
