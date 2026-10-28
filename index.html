@@ -875,7 +875,13 @@ section {
     </svg>
     <div><b id="vname"></b><span id="vaddr"></span></div>
   </div>
-  <img class="photo" id="vimg" alt="The wedding venue">
+ <img
+  class="photo"
+  id="vimg"
+  src="images/Caravela-resort.png"
+  alt="Caravela Resort, Goa"
+  style="display:block; width:100%; max-width:650px; height:auto; margin:30px auto; object-fit:contain;"
+>
 </section>
 
 <section id="dress">
@@ -1033,8 +1039,7 @@ $("vimg").onerror = e => {
   e.target.replaceWith(d);
   io.observe(d);
 };
-$("vimg").src = C.venue.image;
-
+image: "images/Caravela-resort.png"
 [["cd",C.date.day],["cm",C.date.month],["cy",C.date.year]]
   .forEach(([id,v]) => $(id).textContent = v);
 
