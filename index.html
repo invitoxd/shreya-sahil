@@ -9,6 +9,9 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://www.youtube.com">
+<link rel="preconnect" href="https://i.ytimg.com">
+<script src="https://www.youtube.com/iframe_api" async></script>
 <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;1,6..96,400&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Pinyon+Script&display=swap" rel="stylesheet">
 
 <style>
@@ -2628,7 +2631,8 @@ const Music = (function () {
     box.innerHTML = '<div id="ytplayer"></div>';
     document.body.appendChild(box);
 
-    window.onYouTubeIframeAPIReady = function () {
+    function initPlayer() {
+      if (player) return;
       const vars = {
         autoplay: 0, controls: 0, disablekb: 1, fs: 0, rel: 0,
         playsinline: 1, loop: 1, playlist: C.youtube, modestbranding: 1
@@ -2656,10 +2660,8 @@ const Music = (function () {
       });
     };
 
-    const tag = document.createElement("script");
-    tag.src = "https://www.youtube.com/iframe_api";
-    tag.async = true;
-    document.head.appendChild(tag);
+    window.onYouTubeIframeAPIReady = initPlayer;
+    if (window.YT && YT.Player) initPlayer();
   } else if (C.music) {
     audio.src = C.music;
     audio.addEventListener("play", function () { ui(true); });
@@ -2723,6 +2725,10 @@ play.addEventListener("click", function () {
     root.classList.remove("pre", "lock");
     window.scrollTo(0, 0);
   }
+
+  op.addEventListener("pointerdown", function () {
+    try { if (typeof Music !== "undefined" && Music.available) Music.start(); } catch (e) {}
+  }, { once: true });
 
   op.addEventListener("click", function () {
     if (opened) return;
