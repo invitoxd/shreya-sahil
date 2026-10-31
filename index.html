@@ -200,6 +200,13 @@ section {
   position: absolute;
 }
 
+/* pause looping animations in any block that is scrolled out of view */
+.zz *,
+.zz *::before,
+.zz *::after {
+  animation-play-state: paused !important;
+}
+
 /* pause everything while the hero is scrolled out of view */
 #sunset-scene.off *,
 #sunset-scene.off *::before,
@@ -719,7 +726,6 @@ html.lock #opener { display: block; }
   box-shadow:
     inset -1px -1px 2px rgba(140,155,170,.18),
     0 2px 9px rgba(255,255,255,.3);
-  filter: blur(.05px);
   animation: fall var(--t, 17s) ease-in-out infinite;
   animation-delay: var(--dl, 0s);
   will-change: transform;
@@ -1653,7 +1659,7 @@ section#schedule > #cloudbank {
   -webkit-mask-composite: source-in;
   mask-composite: intersect;
 }
-#families.in .fam-card { animation: famCard 1.2s var(--ease) forwards; }
+#families.in .fam-card { animation: famCard .7s var(--ease) forwards; }
 @keyframes famCard { to { opacity: 1; transform: none; } }
 
 .fam-card > * { position: absolute; }
@@ -1696,7 +1702,7 @@ section#schedule > #cloudbank {
 /* sea sparkle + drifting petals + gold dust */
 .fam-fx { inset: 0; z-index: 2; overflow: hidden; pointer-events: none; }
 .fam-fx > * { position: absolute; }
-.glit { height: .22cqw; width: var(--w); border-radius: 2px; background: linear-gradient(90deg, transparent, rgba(255,250,228,.95), transparent); mix-blend-mode: screen; opacity: 0; animation: famGlit var(--t) ease-in-out infinite; animation-delay: var(--dl); }
+.glit { height: .22cqw; width: var(--w); border-radius: 2px; background: linear-gradient(90deg, transparent, rgba(255,250,228,.95), transparent); opacity: 0; animation: famGlit var(--t) ease-in-out infinite; animation-delay: var(--dl); }
 @keyframes famGlit { 0%, 100% { opacity: 0; transform: translateX(-1.6cqw); } 50% { opacity: .85; transform: translateX(1.6cqw); } }
 
 .fpet { top: 0; width: var(--w); height: calc(var(--w) * 1.3); border-radius: 78% 12% 78% 12%; opacity: 0;
@@ -1722,7 +1728,7 @@ section#schedule > #cloudbank {
 
 /* twinkles on the arch stars */
 .glint { z-index: 3; width: 7cqw; height: 7cqw; translate: -50% -50%; pointer-events: none; opacity: 0;
-  animation: famGlint 4.2s ease-in-out infinite; animation-delay: var(--dl); mix-blend-mode: screen; }
+  animation: famGlint 4.2s ease-in-out infinite; animation-delay: var(--dl); }
 .glint::before { content: ""; position: absolute; inset: 0;
   background: radial-gradient(circle, rgba(255,244,205,.95) 0, rgba(255,228,160,.5) 22%, transparent 60%); }
 .glint::after { content: ""; position: absolute; inset: 0;
@@ -1737,11 +1743,11 @@ section#schedule > #cloudbank {
 
 /* ornaments and gold rules */
 .fam-gan { z-index: 3; left: 45.117%; top: 10.417%; width: 10.156%; height: 7.943%; opacity: 0; transform-origin: 50% 85%; }
-#families.in .fam-gan {
+#families .fam-gan.go {
   animation: famPop 1.1s var(--ease) .3s both, famGlow 4.5s ease-in-out 1.5s infinite;
 }
 .fam-orn { z-index: 3; left: 46.289%; top: 52.109%; width: 7.617%; height: 3.385%; opacity: 0; }
-#families.in .fam-orn { animation: famPopO 1.1s var(--ease) 3.5s both, famFloat 4s ease-in-out 4.6s infinite; }
+#families .fam-orn.go { animation: famPopO .7s var(--ease) .15s both, famFloat 4s ease-in-out 1s infinite; }
 @keyframes famPop { from { opacity: 0; transform: scale(.55) translateY(1.4cqw); } to { opacity: 1; transform: none; } }
 @keyframes famPopO { from { opacity: 0; transform: scale(.3) rotate(-30deg); } to { opacity: 1; transform: none; } }
 @keyframes famGlow {
@@ -1753,12 +1759,12 @@ section#schedule > #cloudbank {
 .fam-line { z-index: 3; height: .2cqw; min-height: 1px; background: var(--gold); transform: scaleX(0); }
 .fam-line.l { transform-origin: 100% 50%; }
 .fam-line.r { transform-origin: 0 50%; }
-#families.in .fam-line { animation: famGrow 1.2s var(--ease) var(--d) both; }
+#families .fam-line.go { animation: famGrow .7s var(--ease) calc(var(--d) * .1) both; }
 @keyframes famGrow { from { transform: scaleX(0); } to { transform: scaleX(1); } }
 .fam-dot { z-index: 3; width: .75cqw; height: .75cqw; background: var(--gold); rotate: 45deg; translate: -50% -50%; scale: 0; }
-#families.in .fam-dot { animation: famPopS .6s var(--ease) var(--d) both; }
+#families .fam-dot.go { animation: famPopS .4s var(--ease) calc(var(--d) * .1) both; }
 .fam-star { z-index: 3; left: 50%; top: 85.2%; width: 2.8cqw; height: 2.8cqw; translate: -50% -50%; scale: 0; }
-#families.in .fam-star { animation: famPopS .8s var(--ease) 5.3s both; }
+#families .fam-star.go { animation: famPopS .5s var(--ease) .15s both; }
 @keyframes famPopS { from { scale: 0; } to { scale: 1; } }
 
 .fam-sheen { z-index: 6; inset: 0; pointer-events: none;
@@ -1780,8 +1786,8 @@ section#schedule > #cloudbank {
 
 .wd, .famlt { display: inline-block; opacity: 0; transform: translateY(.9cqw); filter: blur(.45cqw); }
 .famlt { transform: translateY(.6cqw) scale(.85); }
-#families.in .wd { animation: famWord .95s var(--ease) both; animation-delay: calc(var(--d, 0s) + var(--i) * .075s); }
-#families.in .famlt { animation: famLet 1s var(--ease) both; animation-delay: calc(var(--d, 0s) + var(--i) * .03s); }
+#families .go .wd { animation: famWord .5s var(--ease) both; animation-delay: calc(var(--d, 0s) * .1 + var(--i) * .035s); }
+#families .go .famlt { animation: famLet .5s var(--ease) both; animation-delay: calc(var(--d, 0s) * .1 + var(--i) * .02s); }
 @keyframes famWord { to { opacity: 1; transform: none; filter: none; } }
 @keyframes famLet  { to { opacity: 1; transform: none; filter: none; } }
 
@@ -1793,13 +1799,27 @@ section#schedule > #cloudbank {
   -webkit-mask-position: 100% 0; mask-position: 100% 0;
   -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat;
 }
-.in .fa-wipe { animation: famWipe var(--wd, 1.6s) cubic-bezier(.5,.1,.3,1) var(--d, 0s) both; }
+#regards.in .fa-wipe { animation: famWipe .9s cubic-bezier(.5,.1,.3,1) .15s both; }
+.fa-wipe.go { animation: famWipe calc(var(--wd, 1.6s) * .5) cubic-bezier(.5,.1,.3,1) calc(var(--d, 0s) * .1) both; }
 @keyframes famWipe {
   from { -webkit-mask-position: 100% 0; mask-position: 100% 0; }
   to   { -webkit-mask-position: 0 0;    mask-position: 0 0; }
 }
 
 .fam-card.off *, .fam-card.off *::before, .fam-card.off *::after { animation-play-state: paused !important; }
+
+/* phones: cheaper rendering for the families card and the closing page */
+@media (max-width: 700px) {
+  .fam-card {
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 10%, #000 90%, transparent 100%);
+    mask-image: linear-gradient(to bottom, transparent 0, #000 10%, #000 90%, transparent 100%);
+    -webkit-mask-composite: initial;
+    mask-composite: initial;
+  }
+  .fam-sheen { display: none; }
+  .wd, .famlt, #regards .wd { filter: none; }
+  .fpet { box-shadow: none; }
+}
 
 /* ==================================================
    ENDING: WITH BEST COMPLIMENTS
@@ -1811,13 +1831,13 @@ section#schedule > #cloudbank {
 .rg-orn i:first-child { transform-origin: 100% 50%; }
 .rg-orn i:last-child { transform-origin: 0 50%; }
 .rg-orn b { width: 8px; height: 8px; background: var(--gold); rotate: 45deg; scale: 0; }
-#regards.in .rg-orn i { animation: famGrow 1.2s var(--ease) .1s both; }
-#regards.in .rg-orn b { animation: famPopS .7s var(--ease) .5s both; }
+#regards.in .rg-orn i { animation: famGrow .7s var(--ease) .05s both; }
+#regards.in .rg-orn b { animation: famPopS .5s var(--ease) .25s both; }
 .rg-lead { font-family: var(--body); font-style: italic; font-weight: 500; font-size: clamp(1.2rem, 5.2vw, 1.5rem); letter-spacing: .03em; color: var(--gold-ink); }
 .rg-name { font-family: var(--script); font-weight: 400; font-size: clamp(3.1rem, 15vw, 4.8rem); line-height: 1.25; color: var(--blue); padding: 0 .2em; margin: .1rem auto .3rem; width: fit-content; }
 .rg-fam { font-family: var(--body); font-weight: 500; font-size: clamp(1.1rem, 4.6vw, 1.4rem); line-height: 1.5; color: var(--text); max-width: 22rem; margin: 0 auto; }
 #regards .wd { display: inline-block; opacity: 0; transform: translateY(14px); filter: blur(6px); }
-#regards.in .wd { animation: famWordPx .95s var(--ease) both; animation-delay: calc(var(--d, 0s) + var(--i) * .08s); }
+#regards.in .wd { animation: famWordPx .5s var(--ease) both; animation-delay: calc(var(--d, 0s) * .3 + var(--i) * .035s); }
 @keyframes famWordPx { to { opacity: 1; transform: none; filter: none; } }
 #regards .fa-wipe { --d: .9s; --wd: 1.7s; }
 
@@ -2167,6 +2187,7 @@ $("vimg").onerror = event => {
   event.target.style.display = "none";
 };
 
+$("vimg").decoding = "async";
 $("vimg").src = C.venue.image;
 
 /* Date cards */
@@ -2226,7 +2247,7 @@ $("wp").innerHTML = C.dress.map((event, i) =>
           role="img"
           aria-label="${event.name} outfit rack"
           tabindex="0">
-       <img src="${event.img}" alt="" loading="lazy">
+       <img src="${event.img}" alt="" loading="lazy" decoding="async">
      </div>
 
      <div class="info">
@@ -2373,6 +2394,17 @@ document.querySelectorAll(".rv, .photo").forEach(element => {
    ================================================== */
 
 (function () {
+  /* pause all looping animations in any block that is scrolled out of view */
+  if ("IntersectionObserver" in window) {
+    const zz = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        entry.target.classList.toggle("zz", !entry.isIntersecting);
+      });
+    }, { rootMargin: "250px 0px 250px 0px" });
+
+    document.querySelectorAll("#hero, section").forEach(block => zz.observe(block));
+  }
+
   document.querySelectorAll("section:not(#dress)").forEach(section => {
     const layer = document.createElement("div");
 
@@ -2459,13 +2491,15 @@ function burst(x, y) {
 
     const distance = rnd(50, 120);
 
-    heart.textContent = "♥";
+    heart.textContent = "\u2665\uFE0E"; /* FE0E forces text (non-emoji) glyph */
 
     heart.style.cssText =
       `position:fixed;` +
       `left:${x}px;` +
       `top:${y}px;` +
-      `color:var(--heart);` +
+      `color:#fff;` +
+      `font-family:Arial,Helvetica,sans-serif;` +
+      `text-shadow:0 0 4px rgba(120,150,175,.55);` +
       `font-size:${rnd(12, 26)}px;` +
       `pointer-events:none;` +
       `z-index:120`;
@@ -2517,13 +2551,10 @@ function frame() {
   const y = window.scrollY;
   const height = window.innerHeight;
 
+  /* ---- 1. READ everything first (no writes in between = no forced reflow) ---- */
   const scrollableHeight =
     document.documentElement.scrollHeight - height;
 
-  bar.style.transform =
-    `scaleX(${scrollableHeight > 0 ? clamp01(y / scrollableHeight) : 0})`;
-
-  /* Letter slides out of the envelope */
   const rect = env.getBoundingClientRect();
   const letterHeight = letter.offsetHeight;
   const envelopeHeight = env.clientHeight;
@@ -2536,10 +2567,23 @@ function frame() {
     envelopeHeight -
     (letter.offsetTop + secondParagraph.offsetTop + secondParagraph.offsetHeight);
 
+  const timelineRect = tl.getBoundingClientRect();
+
+  const hostRects = still
+    ? null
+    : clouds.map(cloud => cloud.parentElement.getBoundingClientRect());
+
+  /* ---- 2. then WRITE ---- */
+  bar.style.transform =
+    `scaleX(${scrollableHeight > 0 ? clamp01(y / scrollableHeight) : 0})`;
+
+  /* Letter slides out of the envelope */
   const lift = Math.max(0, envelopeHeight * .6 - textBottom) + 14;
 
-  env.style.marginTop =
+  const marginTop =
     Math.max(0, letterHeight + lift - rect.height * .78 + 24) + "px";
+
+  if (env.style.marginTop !== marginTop) env.style.marginTop = marginTop;
 
   const progress = still
     ? 1
@@ -2551,8 +2595,6 @@ function frame() {
     `translateY(${(1 - eased) * (letterHeight - rect.height * .08) - eased * lift}px)`;
 
   /* Timeline line draws as the visitor scrolls */
-  const timelineRect = tl.getBoundingClientRect();
-
   tl.style.setProperty(
     "--p",
     still
@@ -2560,10 +2602,12 @@ function frame() {
       : clamp01((height * .75 - timelineRect.top) / timelineRect.height)
   );
 
-  /* Cloud parallax */
-  if (!still) {
-    clouds.forEach(cloud => {
-      const host = cloud.parentElement.getBoundingClientRect();
+  /* Cloud parallax (skip clouds whose sky is far off-screen) */
+  if (hostRects) {
+    clouds.forEach((cloud, i) => {
+      const host = hostRects[i];
+
+      if (host.bottom < -height || host.top > height * 2) return;
 
       cloud.style.transform =
         `translateY(${(host.top + host.height / 2 - height / 2) * -cloud.dataset.s}px)`;
@@ -2872,21 +2916,21 @@ play.addEventListener("click", function () {
     var fx = document.getElementById("famFx");
     var small = window.innerWidth < 600;
     var i, el;
-    for (i = 0; i < (small ? 8 : 12); i++) {
+    for (i = 0; i < (small ? 5 : 12); i++) {
       el = document.createElement("i");
       el.className = "fpet" + (i % 3 === 0 ? " b" : "");
       el.style.cssText = "left:" + r(4, 96).toFixed(1) + "%;--w:" + r(2.2, 3.7).toFixed(2) + "cqw;--t:" + r(12, 19).toFixed(1) +
         "s;--dl:-" + r(0, 18).toFixed(1) + "s;--dx:" + r(-24, 16).toFixed(1) + "cqw;--r:" + Math.round(r(240, 520)) + "deg";
       fx.appendChild(el);
     }
-    for (i = 0; i < (small ? 10 : 16); i++) {
+    for (i = 0; i < (small ? 6 : 16); i++) {
       el = document.createElement("i");
       el.className = "mote";
       el.style.cssText = "left:" + r(8, 92).toFixed(1) + "%;top:" + r(30, 96).toFixed(1) + "%;--s:" + r(.9, 2).toFixed(2) + "cqw;--t:" +
         r(6, 11).toFixed(1) + "s;--dl:-" + r(0, 10).toFixed(1) + "s;--dx:" + r(-4, 4).toFixed(1) + "cqw";
       fx.appendChild(el);
     }
-    for (i = 0; i < 7; i++) {
+    for (i = 0; i < (small ? 3 : 7); i++) {
       el = document.createElement("i");
       el.className = "glit";
       el.style.cssText = "left:" + r(42, 70).toFixed(1) + "%;top:" + r(91.6, 96).toFixed(1) + "%;--w:" + r(5, 11).toFixed(1) +
@@ -2904,6 +2948,16 @@ play.addEventListener("click", function () {
     }, { threshold: el === fam ? 0.22 : 0.4 });
     o.observe(el);
   }
+  /* each line / ornament plays as it scrolls into view, so the pace follows the visitor's scrolling */
+  (function () {
+    var parts = document.querySelectorAll("#famCard .t, #famCard .fam-line, #famCard .fam-dot, #famCard .fam-star, #famCard .fam-gan, #famCard .fam-orn");
+    if (!("IntersectionObserver" in window)) { parts.forEach(function (el) { el.classList.add("go"); }); return; }
+    var po = new IntersectionObserver(function (es) {
+      es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add("go"); po.unobserve(e.target); } });
+    }, { threshold: 0.2, rootMargin: "0px 0px -8% 0px" });
+    parts.forEach(function (el) { po.observe(el); });
+  })();
+
   reveal(fam);
   reveal(regards);
 
