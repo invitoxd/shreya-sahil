@@ -468,7 +468,7 @@ html.pre #hero *::after {
   animation-play-state: paused !important;
 }
 
-#hero { transition: transform 2.8s var(--ease); }
+#hero { transition: transform 2s var(--ease); }
 html.pre #hero { transform: scale(1.07); }
 
 /* nothing but the envelope may show (or be readable) until it is tapped */
@@ -496,7 +496,7 @@ html.lock #opener { display: block; }
   position: absolute;
   inset: 0;
   filter: drop-shadow(0 4px 10px rgba(70,80,90,.22));
-  transition: transform 1.8s cubic-bezier(.7,0,.2,1);
+  transition: transform 1.4s cubic-bezier(.6,0,.2,1);
   will-change: transform;
 }
 
@@ -516,7 +516,7 @@ html.lock #opener { display: block; }
 
 /* top and bottom flaps read as one sheet of paper until the envelope opens */
 #opener .t,
-#opener .b { filter: none; transition: transform 1.8s cubic-bezier(.7,0,.2,1), filter .6s ease; }
+#opener .b { filter: none; transition: transform 1.4s cubic-bezier(.6,0,.2,1), filter .6s ease; }
 #opener.part .t,
 #opener.part .b { filter: drop-shadow(0 4px 10px rgba(70,80,90,.22)); }
 
@@ -526,9 +526,9 @@ html.lock #opener { display: block; }
 #opener .r { filter: drop-shadow(-2px 3px 6px rgba(70,80,90,.2)); }
 
 #opener.part .t { transform: translate3d(0,-70%,0); }
-#opener.part .b { transform: translate3d(0,70%,0);  transition-delay: .08s; }
-#opener.part .l { transform: translate3d(-38%,0,0); transition-delay: .16s; }
-#opener.part .r { transform: translate3d(38%,0,0);  transition-delay: .16s; }
+#opener.part .b { transform: translate3d(0,70%,0);  transition-delay: .06s; }
+#opener.part .l { transform: translate3d(-38%,0,0); transition-delay: .12s; }
+#opener.part .r { transform: translate3d(38%,0,0);  transition-delay: .12s; }
 
 /* the wax seal */
 #opener .sb {
@@ -1551,7 +1551,7 @@ section:not(#dress) > *:not(.sparkle-layer) {
   width: max(100vw, calc(100dvh * 720 / 1380));
   height: max(100dvh, calc(100vw * 1380 / 720));
   filter: none;
-  transition: transform 1.8s cubic-bezier(.7,0,.2,1), filter .6s ease;
+  transition: transform 1.4s cubic-bezier(.6,0,.2,1), filter .6s ease;
 }
 
 #opener .fp { background: var(--paper) center / 100% 100% no-repeat, #f4f4f4; }
@@ -1562,6 +1562,11 @@ section:not(#dress) > *:not(.sparkle-layer) {
 #opener .k { filter: none !important; transition: none; }
 #opener .k .fp { clip-path: none; }
 #opener.part .k { opacity: 0; }
+
+/* phones: no full-screen shadow filters while the flaps slide (they make the opening stutter) */
+@media (max-width: 700px) {
+  #opener .fl, #opener.part .fl, #opener.part .t, #opener.part .b, #opener .l, #opener .r { filter: none; transition-property: transform; }
+}
 
 /* Venue picture: full width, merged into the page at the top */
 .vscene {
@@ -2782,9 +2787,9 @@ play.addEventListener("click", function () {
     setTimeout(function () {
       op.classList.add("part");      /* flaps slide away */
       root.classList.remove("pre");  /* names, sun and clouds begin */
-    }, quick ? 0 : 450);
+    }, quick ? 0 : 280);
 
-    setTimeout(finish, quick ? 80 : 2500);
+    setTimeout(finish, quick ? 80 : 1950);
   });
 })();
 </script>
