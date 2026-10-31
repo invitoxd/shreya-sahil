@@ -467,6 +467,9 @@ html.pre #hero *::after {
 #hero { transition: transform 2.8s var(--ease); }
 html.pre #hero { transform: scale(1.07); }
 
+/* nothing but the envelope may show (or be readable) until it is tapped */
+html.pre body > *:not(#opener):not(script):not(style) { visibility: hidden; }
+
 html.lock,
 html.lock body { overflow: hidden; }
 
@@ -2945,21 +2948,34 @@ play.addEventListener("click", function () {
     if (!("IntersectionObserver" in window)) { el.classList.add("in"); return; }
     var o = new IntersectionObserver(function (es) {
       es.forEach(function (e) { if (e.isIntersecting) { el.classList.add("in"); o.disconnect(); } });
-    }, { threshold: 0, rootMargin: "0px 0px 60% 0px" });   /* start before it scrolls into view */
+    }, { threshold: 0, rootMargin: "0px 0px -25% 0px" });   /* start only once the page is actually on screen */
     o.observe(el);
   }
   /* each line / ornament plays as it scrolls into view, so the pace follows the visitor's scrolling */
-  (function () {
+  function startParts() {
     var parts = document.querySelectorAll("#famCard .t, #famCard .fam-line, #famCard .fam-dot, #famCard .fam-star, #famCard .fam-gan, #famCard .fam-orn");
     if (!("IntersectionObserver" in window)) { parts.forEach(function (el) { el.classList.add("go"); }); return; }
     var po = new IntersectionObserver(function (es) {
       es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add("go"); po.unobserve(e.target); } });
-    }, { threshold: 0, rootMargin: "0px 0px 70% 0px" });     /* lines are already written when you get there */
+    }, { threshold: 0, rootMargin: "0px 0px -12% 0px" });    /* each line plays only when it is on screen */
     parts.forEach(function (el) { po.observe(el); });
-  })();
+  }
 
-  reveal(fam);
-  reveal(regards);
+  /* nothing behind the envelope should play until the invitation has been opened */
+  function afterOpen(fn) {
+    var root = document.documentElement;
+    if (!root.classList.contains("lock")) { fn(); return; }
+    var mo = new MutationObserver(function () {
+      if (!root.classList.contains("lock")) { mo.disconnect(); fn(); }
+    });
+    mo.observe(root, { attributes: true, attributeFilter: ["class"] });
+  }
+
+  afterOpen(function () {
+    reveal(fam);
+    reveal(regards);
+    startParts();
+  });
 
   if (card && "IntersectionObserver" in window) {
     new IntersectionObserver(function (es) {
