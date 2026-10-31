@@ -9,9 +9,6 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preconnect" href="https://www.youtube.com">
-<link rel="preconnect" href="https://i.ytimg.com">
-<script src="https://www.youtube.com/iframe_api" async></script>
 <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;1,6..96,400&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Pinyon+Script&display=swap" rel="stylesheet">
 
 <style>
@@ -2048,7 +2045,7 @@ section#schedule > #cloudbank {
   </svg>
 </button>
 
-<audio id="music" loop></audio>
+<audio id="music" loop preload="auto"></audio>
 
 <script>
 /* ==================================================
@@ -2141,9 +2138,9 @@ const C = {
     }
   ],
 
-  music: "",
-  // Song: YouTube video id from https://youtu.be/w_eEnbApH0A
-  youtube: "w_eEnbApH0A"
+  // Song file, placed next to this page (same place as index.html) (no ads, unlike YouTube)
+  music: "song.mp3",
+  youtube: ""
 };
 
 /* ==================================================
